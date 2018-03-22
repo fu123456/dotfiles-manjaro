@@ -85,7 +85,8 @@ today=`date +%Y-%m-%d-%H-%M`
 if [ ! -d $HOME/.emacs.d ];then
     mkdir -p $HOME/.emacs.d
 else
-    mv $HOME/.emacs.d $HOME/.emacs.d.$today 
+    cd ~
+    mv .emacs.d .emacs.d-${today} 
     mkdir -p $HOME/.emacs.d
 fi
 echo "clone spacemacs"
