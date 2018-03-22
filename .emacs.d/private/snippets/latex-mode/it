@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : it
+#key : it
+#contributor : Fu Gang
+# --
+whu${1:text}
+string${1:string}
+wuhan${1:strings}
+women$0

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : mathpre
+#key : mathpre
+#contributor : Fu Gang
+# --
+\documentclass{jarticle}
+\usepackage{amsmath}
+\begin{document}
+$0
+\end{document}

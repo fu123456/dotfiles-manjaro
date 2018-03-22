@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:par
+# key:par
+# --
+\paragraph{$1}
+\label{par:$2}
+
+$0

@@ -1,0 +1,41 @@
+# -*- mode: snippet -*-
+#name : orgbeamer
+#key : orgbeamer
+#contributor : Fu Gang
+# --
+#+TITLE: ${1:title}
+#+AUTHOR: Fu Gang
+#+EMAIL: xyzgfu@gmail.com
+#+BEAMER_HEADER: \date{${2:data}}
+#+BEAMER_HEADER: \title{${3:title}}
+#+BEAMER_HEADER: \institute[WHU]{WuHan University}
+#+OPTIONS: H:2 num:t toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+BEAMER_FRAME_LEVEL: 2
+#+LaTeX_HEADER: \usetheme{CambridgeUS}
+#+LaTeX_HEADER: \AtBeginSection{\begin{frame}{Outline}   \tableofcontents[currentsection] \end{frame} }
+#+LaTeX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LaTeX_HEADER: \renewcommand\maketitle{\frame[plain]{\titlepage}}
+#+LaTeX_HEADER: \usepackage{fontspec}
+#+LaTeX_HEADER: \usepackage{xeCJK}
+#+LaTeX_HEADER: \setmainfont{Times New Roman}
+#+LaTeX_HEADER: \setsansfont{Arial}
+#+LaTeX_HEADER: \setmonofont{Courier Std}
+#+LaTeX_HEADER: \setCJKmainfont[BoldFont={ },ItalicFont={ }]{WenQuanYi Micro Hei}
+#+LaTeX_HEADER: \setCJKsansfont{WenQuanYi Micro Hei}
+#+LaTeX_HEADER: \setCJKmonofont{WenQuanYi Micro Hei Mono}
+#+LaTeX_HEADER: \graphicspath{{pic/}}
+#+BEAMER_HEADER: %\logo{\includegraphics[height=5mm]{logo.png}}
+#+LaTeX_HEADER: \usepackage[backend = biber, natbib=true, style = science, sorting = none]{biblatex}
+#+LaTeX_HEADER: %\addbibresource{Pharmaron.bib}
+#+LaTeX_HEADER: \AtBeginBibliography{\footnotesize}
+#+LaTeX_HEADER: \setbeamertemplate{bibliography item}[text]
+#+LaTeX_HEADER: \usepackage[none]{hyphenat}
+#+LaTeX_HEADER: \usepackage[abs]{overpic}

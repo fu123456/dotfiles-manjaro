@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex
+# key: latex
+# --
+#+BEGIN_SRC latex :exports results :results raw :file preview.png
+$0
+#+END_SRC

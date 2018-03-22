@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : cha
+#key : cha
+#contributor : Fu Gang
+# --
+\chapter{$1}
+\label{ch:$2}
+
+$0

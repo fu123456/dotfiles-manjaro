@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : mytest
+#key : mytest
+#contributor : Fu Gang
+# --
+mytest${1:test} test$0

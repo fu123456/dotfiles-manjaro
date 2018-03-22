@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : head
+#key : head
+#contributor : Fu Gang
+# --
+---
+layout: post
+title: ${1:title}
+tags:
+- ${2:tag}
+categories: ${3:categories}
+description: ${4:description}
+---$0

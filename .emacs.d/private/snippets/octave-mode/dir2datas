@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+#name : depth 2, read all images
+#key : dir2datas
+#contributor : Fu Gang
+# --
+DATA_DIR='data';
+if ~exist('results')
+mkdir('results')
+end
+% all subdirs of DATA_DIR
+names{1}='${1:images}';
+% names{2}='';
+% names{3}='';
+
+for i=1:numel(names)
+dataDIR=fullfile(DATA_DIR,names{i});
+dataFiles=dir(fullfile(dataDIR,'*.png'));
+for j=1:numel(dataFiles)
+[~,name,~]=fileparts(fullfile(dataDIR,dataFiles(j).name));
+if ~exist(fullfile('results',names{i}))
+mkdir(fullfile('results',names{i}));
+end
+img=imread(fullfile(dataDIR,dataFiles(j).name));
+$0
+end
+end

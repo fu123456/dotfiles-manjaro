@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: whu
+# key: whu
+# --
+whu${1:test}
+whu$1
+$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: src
+# key: src
+# --
+\`\`\` ${1:type}
+$2
+\`\`\` $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : gitimg
+#key : gitimg
+#contributor : Fu Gang
+# --
+![${1:img}](https://github.com/fu123456/fu123456.github.io/raw/master/images/${2:yourimg})$0

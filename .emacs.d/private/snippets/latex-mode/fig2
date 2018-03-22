@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : fig2
+#key : fig2
+#contributor : Fu Gang
+# --
+\begin{figure}[!htbp]
+  \centering
+  \subfigure[]{\label{${1:a}}\includegraphics[width=.45\textwidth]{${2:img}}}\hspace{5mm}
+  \subfigure[]{\label{${3:b}}\includegraphics[width=.45\textwidth]{${4:img}}}
+  \caption{$5}
+  \label{$6}
+\end{figure}
+$0

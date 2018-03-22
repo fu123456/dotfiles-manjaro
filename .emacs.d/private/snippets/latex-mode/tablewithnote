@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+#name : tablewithnote
+#key : tablewithnote
+#contributor : Fu Gang
+# --
+\begin{table}[!htpb]
+\centering
+\caption{$1}
+\label{tab:$2}
+\begin{threeparttable} % \usepackage{threeparttable}% table footnote
+\begin{tabular}{$3}
+$4
+\end{tabular}
+\begin{tablenotes} % use \tnote{} command
+\footnotesize
+\item[a] $5
+
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+$0

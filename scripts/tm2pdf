@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# This is a Makefile script file to convert tm file writen by Texmacs to tex file that can be
+# compiled by Latex to obtain final PDF file.
+if [ ! -n "$1" ];
+then
+    echo "Shell script for compiling your Texmacs file"
+    echo "Usage: sh ./tm2pdf.sh [filename]"
+    exit
+else
+    fullfilename=$1;
+    filename="${fullfilename%.*}";
+    echo "Texmacs file convert to tex file ..."
+    texmacs -c $filename.tm $filename.tex -q # -q: quit Texmacs
+    echo "Modify tex file ..."
+    sed -i  -e 's/\\documentclass\[\([^]]*\)\]{\([^}]*\)}/\\documentclass[english,aps,pra,showpacs,superscriptaddress,reprint,twocolumns]{\2}/' \
+        -e '/\\begin{thebibliography}/,/\\end{thebibliography}/{/\\end{thebibliography}/ s/.*/\\bibliographystyle{apsrev4-1}\n\\bibliography{main}/; t; d}' \
+        -e '/{\\figure\*{\\begin{figure}\[h\]/,/\\end{figure}}}/{s/{\\figure\*{\\begin{figure}\[h\]/\\begin{figure\*}/; s/\\end{figure}}}/\\end{figure\*}/}' \
+        -e 's/\\resizebox{[[:digit:]]\+px}{!}{\\includegraphics{\([^}]*\)}}/\\includegraphics[width=0.5\\textwidth]{\1}/' \
+        -e 's/``\([^\x27]*\)\x27\x27/"\1"/' \
+        -e '/%%%%%%%%%% Start TeXmacs macros/,/%%%%%%%%%% End TeXmacs macros/d' \
+        -e 's/\\tmmathbf/\\mathbf/g' \
+        -e 's/\\mathcal{\\mathcal{/{\\mathcal{/g' \
+        -e 's/\\tmop/\\text/' \
+        -e 's/\\tmcolor/\\color/g' \
+        -e 's/^\\geometry.*//' \
+        -e '/^\\tmsession/ d' \
+        -e '/^\\$/ d' \
+        -e '/\\begin{tabular}{l|l}/,/\\end{tabular}/{/\\end{tabular}/ s/.*/\\begin{widetext}/; t; d}' \
+        -e '/\\begin{tabular}{ll}/,/\\end{tabular}/{/\\end{tabular}/ s/.*/\\end{widetext}/; t; d}' \
+        -e 's/\\usepackage{\([^}]*\)}/% \\usepackage[T1]{fontenc}\n% \\usepackage[latin9]{inputenc}\n\\usepackage{euler,amsmath,amssymb,graphicx,mathrsfs,xcolor,babel,textcomp,esint,color}\n\\usepackage[unicode=true,pdfusetitle,bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=true]{hyperref}\n\\makeatletter\n\\makeatother/' $filename.tex
+    # compile tex file
+    echo "Compile latex file ..."
+    pdflatex $filename.tex
+    bibtex $filename.aux
+    pdflatex $filename.tex
+    pdflatex $filename.tex
+    # rm some unuseful files
+    echo "Remove unuseful files ..."
+    rm -rf $filename.log
+    rm -rf $filename.aux
+    rm -rf $filename.out
+    rm -rf $filename.blg
+    rm -rf $filename.bbl
+fi

@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+#name : 3line
+#key : 3line
+#contributor : Fu Gang
+# --
+\begin{table}[!htpb]
+\centering
+\caption{$1}
+\label{tab:$2}
+\begin{tabular}{$3}
+\toprule
+$4
+\midrule
+$5
+\bottomrule
+\end{tabular}
+\end{table}
+$0

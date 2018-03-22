@@ -1,0 +1,279 @@
+(require 'magic-latex-buffer)
+(add-hook 'lattex-mode-hook 'magic-latex-buffer)
+;; add hook, magic-latex-buffer wakatime mode to latex-mode
+(require 'tex)
+(add-hook 'LaTeX-mode-hook (lambda ()
+                             (magic-latex-buffer t)
+                             (setq font-lock-maximum-decoration 2)
+                             (rainbow-delimiters-mode 1)
+                             (smartparens-mode 1)
+                             ))
+;; You can disable some features independently, if they’re too fancy.
+(setq magic-latex-enable-block-highlight nil
+      magic-latex-enable-suscript        t
+      magic-latex-enable-pretty-symbols  t
+      magic-latex-enable-block-align     nil
+      magic-latex-enable-inline-image    nil
+      magic-latex-enable-minibuffer-echo nil)
+;; known issues about magic-latex-buffer
+;; Not perfectly compatible with multiple-cursors (but still usable)
+;; latex-mode
+; (add-to-list 'ac-modes 'latex-mode)
+(defun ac-latex-mode-setup()
+  (setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
+(add-hook 'latex-mode-hook 'ac-latex-mode-setup)
+
+;; 设定打开PDF文件的软件
+(cond
+ ((string-equal system-type "darwin")
+  (progn (setq TeX-view-program-selection '((output-pdf "xdg-open")))))
+ ((string-equal system-type "gnu/linux")
+  (progn (setq TeX-view-program-selection '((output-pdf "xdg-open"))))))
+
+;; ;; 在tex文件和对应的pdf文件跳转
+;; ;; |f6 |tex文档到pdf的跳转, pdf到tex的快捷键C-mouse
+(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-start-server t)
+(setq TeX-source-correlate-method 'synctex)
+;; (setq TeX-view-program-list
+;;       '(("Evince" "evince --unique %o#src:%n%b")
+;;         ("Skim" "displayline -b -g %n %o %b")))
+(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+(setq TeX-view-program-selection
+      (quote
+       ((output-pdf "xdg-open")
+        (output-dvi "xdg-open")
+        (output-html "xdg-open"))))
+
+;; revert the pdf buffer after tex compilation has finished
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+;; (add-hook 'LaTeX-mode-hook
+          ;; (lambda () (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view))
+          ;; (lambda () (local-set-key (kbd "<f5>") #'TeX-view))
+          ;; )
+
+;; auctex setting
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex) ; with Emacs latex mode
+;; Activate nice interface between RefTeX and AUCTeX
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+;;;auctex other;;;
+(setq preview-default-preamble (quote ("\\RequirePackage[" ("," . preview-default-option-list) "]{preview}[2004/11/05]" "\\PreviewEnvironment{center}" "\\PreviewEnvironment{enumerate}")))
+
+;; TeX-fold-mode in AUCTEX and "auto-folding"
+;; please read this site  http://www.flannaghan.com/2013/01/11/tex-fold-mode
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (TeX-fold-mode 1)
+            (fci-mode 1)
+            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+            (add-hook 'after-change-functions
+                      (lambda (start end oldlen)
+                        (when (= (- end start) 1)
+                          (let ((char-point
+                                 (buffer-substring-no-properties
+                                  start end)))
+                            (when (or (string= char-point "}")
+                                      (string= char-point "$"))
+                              (TeX-fold-paragraph)))))
+                      t t)))
+
+;;cdlatex setting
+(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
+(define-key cdlatex-mode-map ";" 'cdlatex-tab)
+
+
+(add-hook 'LaTeX-mode-hook 'turn-on-flyspell) ; with flyspell Latex(latex) mode
+(add-hook 'plain-TeX-mode-hook 'LaTeX-mode) ; plainlatex automatically convert to Latex mode
+
+;; Syncing with Auctex
+;; jump to PDF location from source	C-c C-g
+;; jump source location from PDF	C-mouse-1
+;; page: https://github.com/politza/pdf-tools#some-keybindings
+;; shoule compile wiht "--synctex=1"
+;; xelatex --synctex=1 your.tex
+;; pdflatex --synctex=1 your.tex
+
+;; make most command that you usually used in latex bindings that stick around
+(defhydra hydra-latex (:color pink
+                              :hint nil)
+  "
+^Latex Preview^          ^Org-ref Bib^           ^reftex^                ^cdlatex^             ^Compile^
+^^^^^^^^----------------------------------------------------------------------------------------------------
+_p_: preview-region      _v_: bibtex-validate   _f_: Referencing Labels  _e_: environment   _R_: English
+_l_: preview-clearout    _b_: format bibtex     _c_: reftex-citation     _`_: symbol        _T_: Chinese
+_m_: math-preview        _s_: sort bibtex       ^ ^                      _h_: help          _P_: pdflatex
+_q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
+  "
+  ;; latex preview
+  ("m" latex-math-preview-expression)
+  ("p" preview-region)
+  ("q" latex-math-preview-delete-buffer)
+  ("l" preview-clearout)
+  ;; org-ref, bibtex, need org-ref package
+  ("v" bibtex-validate)
+  ("b" org-ref-clean-bibtex-entry)
+  ("s" bibtex-sort-buffer)
+  ;; reftex setting
+  ("f" reftex-reference)
+  ("c" reftex-citation)
+  ;; cdlatex
+  ("e" cdlatex-environment)
+  ("`" cdlatex-math-symbol)
+  ("h" cdlatex-command-help)
+  ;; Compile
+  ("R" fg/compile-latex-file)
+  ("T" fg/compile-chinese-latex-file)
+  ("P" fg/pdflatex-file)
+  ("C" fg/clean-latex-file)
+  ;; quit
+  ("q" nil "cancel")
+  ;; ("q" quit-window "quit" :color blue)
+  )
+(evil-leader/set-key (kbd "l") 'hydra-latex/body)
+;; (define-key latex-mode-map (kbd "<SPC>l") 'hydra-latex/body) ;; does not work well
+
+;; fast to run and clean latex current buffer
+;; run latex buffer
+(defun fg/compile-latex-file ()
+  "run a command on the current file and revert the buffer"
+  (interactive)
+  (save-buffer) ;; save a current file
+  (shell-command
+   (format "/home/fg/MEGA/sync/Shellscripttools/compile-latex compile %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t)
+  )
+(defun fg/compile-chinese-latex-file ()
+  (interactive)
+  (save-buffer)
+  (shell-command
+   (format "/home/fg/MEGA/sync/Shellscripttools/compile-chinese-latex compile %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))
+;; clean latex stuff
+(defun fg/clean-latex-file ()
+  (interactive)
+  (shell-command
+   (format "~/MEGA/sync/Shellscripttools/compile-latex.sh clean %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))
+(defun fg/pdflatex-file ()
+  (interactive)
+  (save-buffer)
+  (shell-command
+   (format "pdflatex %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))
+(evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
+(evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
+(evil-leader/set-key (kbd "oc") 'fg/clean-latex-file)
+
+;; latex-prview-pane settting, 默认是不打开preview-pane-mode模式，注释掉下面的代码就可以开启这种模式了。
+;; (add-hook 'LaTeX-mode-hook 'latex-preview-pane-mode)
+
+;; using your latex command, pdflatex, xelatex, compile command line
+;; compile command line
+;; 默认的编译命令是 pdflatex, 如果要使用自己的命令，请使用下面的命令，注释掉下面的代码
+;; (custom-set-variables
+ ;; '(pdf-latex-command (quote (".*") . "/home/fg/MEGA/sync/Shellscripttools/compile-latex.sh compile")))
+
+
+;; org export Chinese PDF file
+;; setting start
+      (require 'ox-publish)
+      (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
+                                        [NO-DEFAULT-PACKAGES]
+                                        \\usepackage[utf8]{inputenc}
+                                        \\usepackage[T1]{fontenc}
+                                        \\usepackage{fixltx2e}
+                                        \\usepackage{graphicx}
+                                        \\usepackage{longtable}
+                                        \\usepackage{float}
+                                        \\usepackage{wrapfig}
+                                        \\usepackage{rotating}
+                                        \\usepackage[normalem]{ulem}
+                                        \\usepackage{amsmath}
+                                        \\usepackage{textcomp}
+                                        \\usepackage{marvosym}
+                                        \\usepackage{wasysym}
+                                        \\usepackage{amssymb}
+                                        \\usepackage{booktabs}
+                                        \\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
+                                        \\tolerance=1000
+                                        \\usepackage{listings}
+                                        \\usepackage{xcolor}
+                                        \\lstset{
+                                        %行号
+                                        numbers=left,
+                                        %背景框
+                                        framexleftmargin=10mm,
+                                        frame=none,
+                                        %背景色
+                                        %backgroundcolor=\\color[rgb]{1,1,0.76},
+                                        backgroundcolor=\\color[RGB]{245,245,244},
+                                        %样式
+                                        keywordstyle=\\bf\\color{blue},
+                                        identifierstyle=\\bf,
+                                        numberstyle=\\color[RGB]{0,192,192},
+                                        commentstyle=\\it\\color[RGB]{0,96,96},
+                                        stringstyle=\\rmfamily\\slshape\\color[RGB]{128,0,0},
+                                        %显示空格
+                                        showstringspaces=false
+                                        }
+                                        "
+                                        ("\\section{%s}" . "\\section*{%s}")
+                                        ("\\subsection{%s}" . "\\subsection*{%s}")
+                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+      ;; {{ export org-mode in Chinese into PDF
+      ;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
+      ;; and you need install texlive-xetex on different platforms
+      ;; To install texlive-xetex:
+      ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
+      ;; }}
+      (setq org-latex-default-class "ctexart")
+      (setq org-latex-pdf-process
+            '(
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "rm -fr %b.out %b.log %b.tex auto"))
+
+      (setq org-latex-listings t)
+
+;;disable auto-fill-mode when editing equations
+(defvar my-LaTeX-no-autofill-environments
+  '("equation" "equation*" "align" "align*" "split" "split*" "eqnarray" "eqnarray*" "figure" "figure*" "table" "table*")
+  "A list of LaTeX environment names in which `auto-fill-mode' should be inhibited.")
+
+(defun my-LaTeX-auto-fill-function ()
+  "This function checks whether point is currently inside one of
+the LaTeX environments listed in
+`my-LaTeX-no-autofill-environments'. If so, it inhibits automatic
+filling of the current paragraph."
+  (let ((do-auto-fill t)
+        (current-environment "")
+        (level 0))
+    (while (and do-auto-fill (not (string= current-environment "document")))
+      (setq level (1+ level)
+            current-environment (LaTeX-current-environment level)
+            do-auto-fill (not (member current-environment my-LaTeX-no-autofill-environments))))
+    (when do-auto-fill
+      (do-auto-fill))))
+
+(defun my-LaTeX-setup-auto-fill ()
+  "This function turns on auto-fill-mode and sets the function
+used to fill a paragraph to `my-LaTeX-auto-fill-function'."
+  (auto-fill-mode)
+  (setq auto-fill-function 'my-LaTeX-auto-fill-function))
+
+(add-hook 'LaTeX-mode-hook 'my-LaTeX-setup-auto-fill)

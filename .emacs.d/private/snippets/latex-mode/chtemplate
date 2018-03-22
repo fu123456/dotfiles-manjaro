@@ -1,0 +1,35 @@
+# -*- mode: snippet -*-
+#name : chtemplate
+#key : chtemplate
+#contributor : Fu Gang
+# --
+\documentclass[11pt]{ctexart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{diagbox}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[colorlinks,linkcolor=green,anchorcolor=blue,citecolor=red]{hyperref}
+\tolerance=1000
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=2cm}
+\begin{document}
+$0
+% bibliography
+\clearpage
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}

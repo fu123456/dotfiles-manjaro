@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : src
+#key : src
+#contributor : Fu Gang
+# --
+#+BEGIN_SRC ${1:code type}
+$2
+#+END_SRC
+$0

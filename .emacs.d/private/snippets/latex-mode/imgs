@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: is
+# key: is
+# --
+is${2:text} is lsetting is

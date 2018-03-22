@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : head
+#key : head
+#contributor : Fu Gang
+# --
+#+Title: $1
+#+Author: 付刚
+#+Date: $2
+
+$0
