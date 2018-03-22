@@ -97,7 +97,7 @@ done
 for i in $HOME/.spacemacs $HOME/.emacs.d/init.el $HOME/.emacs.d/private; do [ -L $i ] && unlink $i ; done
 ln -sfn ${dir}/.emacs.d/init.el ${HOME}/.emacs.d/init.el
 ln -sfn ${dir}/.spacemacs ${HOME}/.spacemacs
-ln -sfn ${dir}/.emacs.d/private ${HOME}.emacs.d/private
+ln -sfn ${dir}/.emacs.d/private ${HOME}/.emacs.d/private
 echo "Please start your emacs to install spacemacs plugins ..."
 
 ###########################################################
