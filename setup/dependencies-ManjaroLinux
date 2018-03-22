@@ -54,7 +54,7 @@ cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
 
 echo "Install oh-my-zsh"
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-sudo chsh -s /bin/zsh # replace bash to zsh
+chsh -s /bin/zsh # replace bash to zsh
 if [ ! -d "/usr/share/fonts/OTF" ]; then
     sudo mkdir -p /usr/share/fonts/OTF
 fi
