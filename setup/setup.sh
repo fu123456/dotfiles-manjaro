@@ -71,26 +71,6 @@ ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim
 ask "Install symlink for .percol.d/?" Y && ln -sfn ${dir}/.percol.d ${HOME}/.percol.d
 ask "Install symlink for scripts/?" Y && ln -sfn ${dir}/scripts ${HOME}/scripts
 
-#####################################################################
-# Install oh-my-zsh
-#####################################################################
-
-wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-# replace bash to zsh
-chsh -s /bin/zsh
-# link .zshrc file
-# lnif "$CURRENT_DIR/.zshrc" "$HOME/.zshrc" #如果建立软连接，oh my zsh终端显示会失败，在安装默认的.zshrc文件中进行修改，而不要进行软连接
-#install pipeline fonts, if not, the theme is messy
-if [ ! -d "/usr/share/fonts/OTF" ]; then
-    sudo mkdir -p /usr/share/fonts/OTF
-fi
-wget https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf
-wget https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf
-sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/
-sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
-sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/
-
-#######################################################################
 
 # After .vim has been symlinked!
 echo "Install/upgrade vundle"
@@ -110,14 +90,6 @@ echo "Finish installing vim"
 ##########################################################
 
 # Install spacemacs
-# Install auctex
-cd ~
-wget -c http://ftp.gnu.org/pub/gnu/auctex/auctex-12.1.tar.gz
-tar -xzvf auctex-12.1.tar.gz
-cd auctex-12.1
-./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
-make &&
-sudo make install
 today=`date +%Y-%m-%d-%H-%M`
 if [ ! -d $HOME/.emacs.d ];then
     mkdir -p $HOME/.emacs.d
