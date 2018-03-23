@@ -45,17 +45,6 @@ sudo pacman --noconfirm -S \
   lantern \
   fcitx
 
-echo "Installing auctex..."
-cd ~
-wget -c http://ftp.gnu.org/pub/gnu/auctex/auctex-12.1.tar.gz
-tar -xzvf auctex-12.1.tar.gz
-cd auctex-12.1
-# ./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
-./configure
-make &&
-sudo make install
-cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
-
 echo "Install oh-my-zsh"
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 chsh -s /bin/zsh # replace bash to zsh

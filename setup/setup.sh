@@ -50,10 +50,10 @@ ask "Install packages?" Y && bash ./dependencies-${distro}
 # Backup you dotfiles
 echo "Backing up current vim config"
 today=`date +%Y-%m-%d-%H-%M`
-for i in $HOME/.vim $HOME/.emacs.d $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.spacemacs $HOME/.bashrc $HOME/.zshrc $HOME/.xinitrc $HOME/.Xresources $HOME/.xprofile $HOME/.tmux.conf $HOME/.i3 $HOME/.percol.d $HOME/scripts $HOME/.gitconfig $HOME/.gitignore;
+for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.bashrc $HOME/.zshrc $HOME/.xinitrc $HOME/.Xresources $HOME/.xprofile $HOME/.tmux.conf $HOME/.i3 $HOME/.percol.d $HOME/scripts $HOME/.gitconfig $HOME/.gitignore;
 do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today;
 done
-for i in $HOME/.vim $HOME/.emacs.d $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.spacemacs $HOME/.bashrc $HOME/.zshrc $HOME/.xinitrc $HOME/.Xresources $HOME/.xprofile $HOME/.tmux.conf $HOME/.i3 $HOME/.percol.d $HOME/scripts $HOME/.gitconfig $HOME/.gitignore;
+for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.bashrc $HOME/.zshrc $HOME/.xinitrc $HOME/.Xresources $HOME/.xprofile $HOME/.tmux.conf $HOME/.i3 $HOME/.percol.d $HOME/scripts $HOME/.gitconfig $HOME/.gitignore;
 do [ -L $i ] && unlink $i;
 done
 
@@ -84,28 +84,3 @@ export SHELL="/bin/sh"
 vim -N -u  $HOME/.vimrc.bundles +BundleInstall! +BundleClean +qall
 export SHELL=$system_shell
 echo "Finish installing vim"
-
-##########################################################
-###################spacemacs##############################
-##########################################################
-# Install spacemacs
-today=`date +%Y-%m-%d-%H-%M`
-if [ ! -d $HOME/.emacs.d ];then
-    mkdir -p $HOME/.emacs.d
-else
-    cd ~
-    mv .emacs.d .emacs.d-${today}
-    mkdir -p $HOME/.emacs.d
-fi
-echo "clone spacemacs"
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-echo "Backing up current emacs config"
-for i in $HOME/.spacemacs $HOME/.emacs.d/init.el $HOME/.emacs.d/private;
-do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today;
-done
-for i in $HOME/.spacemacs $HOME/.emacs.d/init.el $HOME/.emacs.d/private; do [ -L $i ] && unlink $i ; done
-ln -sfn ${dir}/.emacs.d/init.el ${HOME}/.emacs.d/init.el
-ln -sfn ${dir}/.spacemacs ${HOME}/.spacemacs
-ln -sfn ${dir}/.emacs.d/private ${HOME}/.emacs.d/private
-echo "Please start your emacs to install spacemacs plugins ..."
-###########################################################
