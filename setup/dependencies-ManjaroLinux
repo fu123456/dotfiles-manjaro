@@ -3,15 +3,15 @@
 echo "Installing prerequisites for pacaur..."
 sudo pacman --noconfirm -S git git-core
 
-echo "Installing pacaur..."
-if ! command -v "pacaur" >/dev/null 2>&1; then
-    mkdir /tmp/tmp-pacaur
-    cd /tmp/tmp-pacaur
-    wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
-    makepkg
-    sudo pacman --noconfirm -U *.tar.xz
-    cd -
-fi
+# echo "Installing pacaur..."
+# if ! command -v "pacaur" >/dev/null 2>&1; then
+    # mkdir /tmp/tmp-pacaur
+    # cd /tmp/tmp-pacaur
+    # wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
+    # makepkg
+    # sudo pacman --noconfirm -U *.tar.xz
+    # cd -
+# fi
 
 echo "Installing base packages..."
 sudo pacman --noconfirm -S \
@@ -44,6 +44,17 @@ sudo pacman --noconfirm -S \
   percol \
   lantern \
   fcitx
+
+echo "Installing auctex..."
+cd ~
+wget -c http://ftp.gnu.org/pub/gnu/auctex/auctex-12.1.tar.gz
+tar -xzvf auctex-12.1.tar.gz
+cd auctex-12.1
+#./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
+./configure
+make &&
+sudo make install
+cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
 
 echo "Install oh-my-zsh"
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
