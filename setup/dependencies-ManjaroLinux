@@ -40,7 +40,10 @@ sudo pacman --noconfirm -S \
   tmux \
   shadowsocks-qt5 \
   google-chrome \
-  imagemagick
+  imagemagick \
+  percol \
+  lantern \
+  fcitx
 
 echo "Installing auctex..."
 cd ~
@@ -63,7 +66,3 @@ wget https://raw.githubusercontent.com/powerline/powerline/develop/font/Powerlin
 sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/
 sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/
-
-
-
-

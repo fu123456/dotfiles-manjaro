@@ -88,7 +88,6 @@ echo "Finish installing vim"
 ##########################################################
 ###################spacemacs##############################
 ##########################################################
-
 # Install spacemacs
 today=`date +%Y-%m-%d-%H-%M`
 if [ ! -d $HOME/.emacs.d ];then
@@ -109,5 +108,4 @@ ln -sfn ${dir}/.emacs.d/init.el ${HOME}/.emacs.d/init.el
 ln -sfn ${dir}/.spacemacs ${HOME}/.spacemacs
 ln -sfn ${dir}/.emacs.d/private ${HOME}/.emacs.d/private
 echo "Please start your emacs to install spacemacs plugins ..."
-
 ###########################################################
