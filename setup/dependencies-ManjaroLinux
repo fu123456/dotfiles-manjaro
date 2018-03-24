@@ -43,7 +43,7 @@ sudo pacman --noconfirm -S \
   imagemagick \
   percol \
   lantern \
-  fcitx
+  electronic-wechat 
 
 echo "Installing auctex..."
 cd ~

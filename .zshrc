@@ -244,6 +244,8 @@ alias wicds="sudo /etc/init.d/wicd restart"
 alias mykey="ctp && cc && ckey"
 alias myall="cc && ctp && ckey && ed && ec"
 
+# alias for Manjaro Linux system
+alias manjaroUpdate="sudo pacman -Syyu"
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
