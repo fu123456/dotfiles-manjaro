@@ -44,6 +44,10 @@ bindsym $mod+z exec --no-startup-id morc_menu
 
 exec --no-startup-id volumeicon
 bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+
+# fugang add
+bindsym $mod+Ctrl+F3 exec amixer set Master 5%+
+bindsym $mod+Ctrl+F2 exec amixer set Master 5%-
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
@@ -290,7 +294,7 @@ assign [class="MATLAB.*"] $wsterm
 for_window [class="MATLAB.*"] #layout tabbed
 # my workspace setting end
 exec --no-startup-id fcitx
-exec ~/MEGA/Shellscripttools/changekey.sh & # Notebook-specific hotkeys # cc ctp ckey
+exec /home/fg/MEGA/dotfiles-manjaro/scripts/changekey.sh &
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus

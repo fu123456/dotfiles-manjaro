@@ -245,7 +245,7 @@ alias mykey="ctp && cc && ckey"
 alias myall="cc && ctp && ckey && ed && ec"
 
 # alias for Manjaro Linux system
-alias manjaroUpdate="sudo pacman -Syyu"
+alias manjaroUpdate="sudo pacman -Syyu" # update 
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -504,5 +504,5 @@ export PATH="/home/fg/anaconda3/bin:$PATH"
 # term color setting
 export TERM=xterm-256color
 
-# export my bash shell
-export PATH=/home/fg/MEGA/Shellscripttools:$PATH
+# export my scripts
+export PATH=/home/fg/scripts:$PATH

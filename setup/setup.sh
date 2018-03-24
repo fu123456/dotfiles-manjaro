@@ -58,6 +58,7 @@ do [ -L $i ] && unlink $i;
 done
 
 ask "Install symlink for .gitconfig?" Y && ln -sfn ${dir}/.gitconfig ${HOME}/.gitconfig
+ask "Install symlink for .gitignore?" Y && ln -sfn ${dir}/.gitignore ${HOME}/.gitignore
 ask "Install symlink for .bashrc?" Y && ln -sfn ${dir}/.bashrc ${HOME}/.bashrc
 ask "Install symlink for .vimrc?" Y && ln -sfn ${dir}/.vimrc ${HOME}/.vimrc
 ask "Install symlink for .vimrc.bundles?" Y && ln -sfn ${dir}/.vimrc.bundles ${HOME}/.vimrc.bundles
