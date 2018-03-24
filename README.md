@@ -1,5 +1,5 @@
-# FGdotfiles for Manjaro
-The dotfiles mainly use for 
-vim, emacs, tmux, oh-my-zsh, percol, and linux system (Manjaro) config files.
-this is my dotfiles, if you any questions, please contact me.
-my email: xyzgfu@gmail.com.
+# Dotfiles for Manjaro
+This is my dotfiles, mainly for these tools,
+vim, emacs, oh-my-zsh, tmux, percol.
+If you any question ,please contact me.
+My email: xyzgfu@gmail.com
