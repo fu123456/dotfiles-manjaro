@@ -25,9 +25,10 @@ then
         rm -rf *.out*
         rm -rf *.nlo
         rm -rf *.nls
-        rm -rf $filename.pdf
-        rm -rf $filename.ps
-        rm -rf $filename.dvi
+        rm -rf ${filename}.pdf
+        rm -rf ${filename}.ps
+        rm -rf ${filename}.dvi
+        rm -rf ${filename}.synctex.gz
         rm -rf *#*
         echo "Cleaning complete!"
         exit
@@ -66,9 +67,10 @@ if [ $1 = $clean ]; then
     rm -rf *.rpi
     rm -rf *.tgz
     rm -rf *.thm
-    rm -rf $filename.pdf
-    rm -rf $filename.ps
-    rm -rf $filename.dvi
+    rm -rf ${filename}.pdf
+    rm -rf ${filename}.ps
+    rm -rf ${filename}.dvi
+    rm -rf ${filename}.synctex.gz
     rm -rf *#*
     echo "Cleaning complete!"
     exit
