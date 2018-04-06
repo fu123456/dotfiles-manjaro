@@ -17,6 +17,7 @@
   (defvar org-agenda-dir "" "gtd org files location")
   (setq-default org-agenda-dir "~/MEGA/org")
   (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
+  (setq org-agenda-file-code (expand-file-name "codes.org" org-agenda-dir))
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
   (setq org-agenda-file-gym (expand-file-name "gym.org" org-agenda-dir))
@@ -36,9 +37,12 @@
         '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
            "* TODO [#A] %?\n  %i\n"
            :empty-lines 1)
-          ;; ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
-          ;; "* %?\n  %i\n %U"
-          ;; :empty-lines 1)
+          ("B" "Bookmars" entry (file+headline org-agenda-file-note "Bookmarks")
+           "*  %?\n %i\n %i\n %U"
+           :empty-lines 1)
+          ("c" "Codes" entry (file+headline org-agenda-file-code "Codes")
+           "*  %?\n  | code name, dir     |       |\n  | description        |       |\n  | code download link |       |\n  | project url        |       |\n\n %U"
+           :empty-lines 1)
           ("p" "Papers Ideas" entry (file+headline org-agenda-file-note "Papers Ideas")
            "* TODO [#B] %?\n  %i\n %U"
            :empty-lines 1)
@@ -51,9 +55,6 @@
           ("s" "Code Snippet" entry
            (file org-agenda-file-code-snippet)
            "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
-          ("B" "Bookmars" entry (file+headline org-agenda-file-note "Bookmarks")
-           "* %?\n %i\n %i\n %U"
-           :empty-lines 1)
           ("n" "Quick notes" entry (file+headline org-agenda-file-note "Quick notes")
            "* TODO [#C] %?\n %i\n %i\n %U"
            :empty-lines 1)
@@ -142,10 +143,10 @@ same directory as the org-buffer and insert a link to this file."
                                         ; take screenshot
   (if (eq system-type 'darwin)
       (progn
-	      (call-process-shell-command "screencapture" nil nil nil nil " -s " (concat
-									                                                          "\"" filename "\"" ))
-	      (call-process-shell-command "convert" nil nil nil nil (concat "\"" filename "\" -resize  \"50%\"" ) (concat "\"" filename "\"" ))
-	      ))
+        (call-process-shell-command "screencapture" nil nil nil nil " -s " (concat
+                                                                            "\"" filename "\"" ))
+        (call-process-shell-command "convert" nil nil nil nil (concat "\"" filename "\" -resize  \"50%\"" ) (concat "\"" filename "\"" ))
+        ))
   (if (eq system-type 'gnu/linux)
       (call-process "import" nil nil nil filename))
                                         ; insert into file if correctly taken
@@ -180,12 +181,12 @@ same directory as the org-buffer and insert a link to this file."
 ;; this usually makes a legitimate filename to store pdfs under.
 
 (setq bibtex-autokey-year-length 4
-	    bibtex-autokey-name-year-separator "-"
-	    bibtex-autokey-year-title-separator "-"
-	    bibtex-autokey-titleword-separator "-"
-	    bibtex-autokey-titlewords 2
-	    bibtex-autokey-titlewords-stretch 1
-	    bibtex-autokey-titleword-length 5)
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
 
 ;; 加密文章
 ;; "http://coldnew.github.io/blog/2013/07/13_5b094.html"

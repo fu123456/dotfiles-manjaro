@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=MATLAB R2017a
+Icon=matlab
+Path=/usr/local/MATLAB
+Exec=/usr/local/MATLAB/R2017a/bin/matlab -desktop -prefersoftwareopengl
+Terminal=false

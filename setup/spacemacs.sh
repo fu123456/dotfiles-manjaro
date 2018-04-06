@@ -1,18 +1,17 @@
 #!/bin/bash
 
-echo "Installing auctex..."
-cd ~
-wget -c http://ftp.gnu.org/pub/gnu/auctex/auctex-12.1.tar.gz
-tar -xzvf auctex-12.1.tar.gz
-cd auctex-12.1
-# ./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
-./configure
-make &&
-sudo make install
-cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
+##########################################################
+###############dir########################################
+##########################################################
+dir=`pwd`
+if [ ! -e "${dir}/$(basename $0)" ]; then
+    echo "Script not called from within repository directory. Aborting."
+    exit 2
+fi
+dir="${dir}/.."
 
 # Backup you dotfiles
-echo "Backing up current vim config"
+echo "Backing up current emacs config"
 today=`date +%Y-%m-%d-%H-%M`
 for i in $HOME/.emacs.d $HOME/.spacemacs;
 do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today;
@@ -20,6 +19,7 @@ done
 for i in $HOME/.emacs.d $HOME/.spacemacs;
 do [ -L $i ] && unlink $i;
 done
+##########################################################
 
 ##########################################################
 ###################spacemacs##############################

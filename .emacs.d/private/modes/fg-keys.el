@@ -142,7 +142,7 @@ _s-f_: file            _a_: ag                _i_: Ibuffer           _c_: cache 
                                 :hint nil)
   "
 ^Hide^              ^Show^          ^Jump^
-^^^^^^^^----------------------------------------------------
+^^^^^^^^-------------j---------------------------------------
 _B_: body           _a_: all        _n_: next
 _e_: entry          _E_: entry      _p_: previous
 _o_: other          _c_: children   _f_: forward
@@ -184,10 +184,10 @@ _U_: sublevels      ^ ^             ^ ^
   (load-file "~/.emacs.d/init.el"))
 (defun open-notes-file()
   (interactive)
-  (find-file "/home/fg/MEGA/sync/org/notes.org"))
+  (find-file "/home/fg/MEGA/org/notes.org"))
 (defun open-refnotes-file()
   (interactive)
-  (find-file "/home/fg/MEGA/sync/org/refnotes.org"))
+  (find-file "/home/fg/MEGA/org/refnotes.org"))
 (defun open-bibtex-file()
   (interactive)
   (find-file "/home/fg/MEGA/bibtex-pdfs/bib/references.bib")
@@ -200,14 +200,18 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (find-file "~/.emacs.d/private/modes/org.el")
   )
+(defun open-code-file ()
+  (interactive)
+  (find-file "~/MEGA/org/codes.org")
+  )
 
 ;; quickl open my files using hydra
 (defhydra hydra-fgfiles (:color pink
                                 :hint nil)
   "
-^Configuration^         ^Org^
-^^^^^^^^-------------------------------
-_i_: init               _n_: notes
+^Configuration^         ^Org^                ^Code^
+^^^^^^^^------------------------------------------------------
+_i_: init               _n_: notes         _c_: codes
 _r_: reload init        _f_: refnotes
 _s_: spacemacs          _b_: bibtex
 _o_: orgconfig          _g_: gtd
@@ -222,6 +226,8 @@ _o_: orgconfig          _g_: gtd
   ("f" open-refnotes-file)
   ("b" open-bibtex-file)
   ("g" open-gtd-file)
+  ;; other
+  ("c" open-code-file)
   ;; quit
   ("q" nil "cancel")
   )

@@ -127,11 +127,11 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 alias q='bye'
 alias szsh='source ~/.zshrc'
-alias Matlab='sudo /usr/local/MATLAB/R2017a/bin/matlab'
+alias Matlab='sudo /usr/local/MATLAB/R2017a/bin/matlab &'
 alias Mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
 alias mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
 alias matrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nodisplay -nosplash -nojvm"
-alias matlab="LD_PRELOAD=/usr/lib64/libstdc++.so.6 /usr/local/MATLAB/R2017a/bin/matlab -desktop &"
+alias mat="LD_PRELOAD=/usr/lib64/libstdc++.so.6 /usr/local/MATLAB/R2017a/bin/matlab"
 alias -g vims='vim --servername vim --remote-silent'
 alias -g jabref='java -jar ~/Install/JabRef-4.1.jar &'
 # download all files of a directory form a website
@@ -257,25 +257,26 @@ alias manjaroUpdate="sudo pacman -Syyu" # update
 
 #export PATH=/usr/local/cuda-8.0/bin:$PATH
 #export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
-export PATH=/usr/local/MATLAB/R2014b/bin:$PATH
-export PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:$PATH
-#export PATH=/usr/local/MATLAB/R2017a/bin:$PATH
-#export PATH=/usr/local/MATLAB/R2017a/bin/glnxa64:$PATH
-#export MATLAB_PREFDIR=/usr/local/MATLAB/R2017a/bin/matlab
 
 prompt_context() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
         prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
     fi
 }
-# TeX Live 2016
-export MANPATH=${MANPATH}:/urs/local/texlive/2016/texmf-dist/doc/man
-export INFOPATH=${INFOPATH}:/usr/local/texlive/2016/texmf-dist/doc/info
-export PATH=${PATH}:/usr/local/texlive/2016/bin/x86_64-linux
+
+# texlive 2017 environment setting
+PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
+
+# Matlab R2017a
+PATH=/usr/local/MATLAB/R2017a/bin:${PATH}
+PATH=/usr/local/MATLAB/R2017a/bin/glnxa64:${PATH}
 
 #perl
 # export PERL5LIB=/home/perl_modules/lib/perl5/:/home/perl_modules/lib/perl5/site_perl:
-export PERL5LIB=/usr/lib/x86_64-linux-gnu/perl:$PERL5LIB
+# export PERL5LIB=/usr/lib/x86_64-linux-gnu/perl:$PERL5LIB
 # emacs
 # export PATH=${PATH}:/home/fg/Install/emacs/src
 
@@ -506,3 +507,6 @@ export TERM=xterm-256color
 
 # export my scripts
 export PATH=/home/fg/scripts:$PATH
+
+# export vim
+export VIMRUNTIME=/usr/share/vim/vim80 

@@ -5,45 +5,56 @@ sudo pacman --noconfirm -S git git-core
 
 # echo "Installing pacaur..."
 # if ! command -v "pacaur" >/dev/null 2>&1; then
-    # mkdir /tmp/tmp-pacaur
-    # cd /tmp/tmp-pacaur
-    # wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
-    # makepkg
-    # sudo pacman --noconfirm -U *.tar.xz
-    # cd -
+# mkdir /tmp/tmp-pacaur
+# cd /tmp/tmp-pacaur
+# wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
+# makepkg
+# sudo pacman --noconfirm -U *.tar.xz
+# cd -
 # fi
 
 echo "Installing base packages..."
 sudo pacman --noconfirm -S \
-  termite-git \
-  bash-completion
+     termite-git \
+     bash-completion
+
+echo "Install sogou Chinese input method..."
+sudo pacman --noconfirm -S \
+     fcitx-im \
+     fcitx-configtool \
+     fcitx-sogoupinyin
 
 echo "Installing tools..."
 sudo pacman --noconfirm -S \
-  mplayer \
-  evince \
-  mupdf \
-  mupdf-tools \
-  gvim \
-  texmacs \
-  anydesk \
-  megasync \
-  gimp \
-  inkscape \
-  shutter \
-  xclip \
-  synaptics \
-  emacs \
-  firefox \
-  htop \
-  eog \
-  tmux \
-  shadowsocks-qt5 \
-  google-chrome \
-  imagemagick \
-  percol \
-  lantern \
-  electronic-wechat 
+     ttf-font-icons \
+     libqalculate \
+     xf86-input-synaptics \
+     unrar \
+     mplayer \
+     evince \
+     mupdf \
+     mupdf-tools \
+     gvim \
+     texmacs \
+     anydesk \
+     megasync \
+     gimp \
+     inkscape \
+     shutter \
+     xclip \
+     synaptics \
+     emacs \
+     firefox \
+     htop \
+     eog \
+     tmux \
+     shadowsocks-qt5 \
+     google-chrome \
+     imagemagick \
+     percol \
+     lantern \
+     electronic-wechat
+
 
 echo "Installing auctex..."
 cd ~
@@ -53,7 +64,7 @@ cd auctex-12.1
 #./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
 ./configure
 make &&
-sudo make install
+    sudo make install
 cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
 
 echo "Install oh-my-zsh"
@@ -67,3 +78,14 @@ wget https://raw.githubusercontent.com/powerline/powerline/develop/font/Powerlin
 sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/
 sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/
+
+echo "Installing auctex..."
+cd ~
+wget -c http://ftp.gnu.org/pub/gnu/auctex/auctex-12.1.tar.gz
+tar -xzvf auctex-12.1.tar.gz
+cd auctex-12.1
+# ./configure --prefix=$HOME/.emacs.d/site-lisp/auctex --with-lispdir=$HOME/.emacs.d/site-lisp/auctex --with-texmf-dir=$HOME/.local/lib/texmf &&
+./configure
+make &&
+    sudo make install
+cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz

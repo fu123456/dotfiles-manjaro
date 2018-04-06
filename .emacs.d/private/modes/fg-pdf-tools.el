@@ -47,6 +47,7 @@
   (yas-minor-mode -1)
   )
 (add-hook 'pdf-view-mode-hook 'fg/pdf-view-mode-hook)
+(add-hook 'pdf-view-mode-hook 'vlf-mode-hook)
 
 (eval-after-load 'org '(require 'org-pdfview))
 (add-to-list 'org-file-apps '("\\.pdf\\'" . org-pdfview-open))
