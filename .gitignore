@@ -7,34 +7,6 @@
 
 .vim/colors/eclm_wombat.vim
 
-!siggraph
-~/MEGA/Magit/2018siggraphAsia/figures/*
-~/MEGA/Magit/2018siggraphAsia/*.aux
-~/MEGA/Magit/2018siggraphAsia/*.bbl
-~/MEGA/Magit/2018siggraphAsia/*.blg
-~/MEGA/Magit/2018siggraphAsia/*.d
-~/MEGA/Magit/2018siggraphAsia/*.fls
-~/MEGA/Magit/2018siggraphAsia/*.ilg
-~/MEGA/Magit/2018siggraphAsia/*.ind
-~/MEGA/Magit/2018siggraphAsia/*.toc
-~/MEGA/Magit/2018siggraphAsia/*.lot
-~/MEGA/Magit/2018siggraphAsia/*.lof
-~/MEGA/Magit/2018siggraphAsia/*.log
-~/MEGA/Magit/2018siggraphAsia/*.idx
-~/MEGA/Magit/2018siggraphAsia/*.out
-~/MEGA/Magit/2018siggraphAsia/*.nlo
-~/MEGA/Magit/2018siggraphAsia/*.nls
-~/MEGA/Magit/2018siggraphAsia/*.cut
-~/MEGA/Magit/2018siggraphAsia/*.hd
-~/MEGA/Magit/2018siggraphAsia/*.rpi
-~/MEGA/Magit/2018siggraphAsia/*.tgz
-~/MEGA/Magit/2018siggraphAsia/*.thm
-~/MEGA/Magit/2018siggraphAsia/*.pdf
-~/MEGA/Magit/2018siggraphAsia/*.ps
-~/MEGA/Magit/2018siggraphAsia/*.dvi
-~/MEGA/Magit/2018siggraphAsia/*.synctex.gz
-~/MEGA/Magit/2018siggraphAsia/*#*
-
 !.config/*
 !.config/dunst
 !.config/gsimplecal
