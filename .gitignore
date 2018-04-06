@@ -7,7 +7,7 @@
 
 .vim/colors/eclm_wombat.vim
 
-.config/*
+!.config/*
 !.config/dunst
 !.config/gsimplecal
 !.config/gtk-2.0
