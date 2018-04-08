@@ -80,7 +80,6 @@ values."
      vlf
      command-log-mode
      search-engine
-     pdf-tools-org
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
