@@ -1,0 +1,3 @@
+[submodule "pdf-tools-org"]
+	path = pdf-tools-org
+	url = /home/fg/.emacs.d/private/pdf-tools-org
