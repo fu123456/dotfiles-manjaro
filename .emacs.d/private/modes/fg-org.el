@@ -23,6 +23,7 @@
   (setq org-agenda-file-gym (expand-file-name "gym.org" org-agenda-dir))
   (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
+  (setq org-agenda-file-internet (expand-file-name "surfInternet.org" org-agenda-dir))
   (setq org-agenda-files (list org-agenda-dir))
 
   (with-eval-after-load 'org-agenda
@@ -46,8 +47,8 @@
           ("p" "Papers Ideas" entry (file+headline org-agenda-file-note "Papers Ideas")
            "* TODO [#B] %?\n  %i\n %U"
            :empty-lines 1)
-          ("P" "Papers" entry (file+headline org-agenda-file-note "Papers")
-           "* TODO [#B] %?\n  %i\n %U"
+          ("i" "surfInternet" entry (file+headline org-agenda-file-internet "surfInternet")
+           "* %?\n  %i\n %U"
            :empty-lines 1)
           ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
            "* TODO [#B] %?\n  %i\n %U"

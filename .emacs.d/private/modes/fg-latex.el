@@ -1,20 +1,21 @@
-(require 'magic-latex-buffer)
-(add-hook 'lattex-mode-hook 'magic-latex-buffer)
-;; add hook, magic-latex-buffer wakatime mode to latex-mode
+;; (require 'magic-latex-buffer)
+;; (add-hook 'lattex-mode-hook 'magic-latex-buffer)
+
 (require 'tex)
 (add-hook 'LaTeX-mode-hook (lambda ()
-                             (magic-latex-buffer t)
                              (setq font-lock-maximum-decoration 2)
                              (rainbow-delimiters-mode 1)
                              (smartparens-mode 1)
                              ))
-;; You can disable some features independently, if they’re too fancy.
-(setq magic-latex-enable-block-highlight nil
-      magic-latex-enable-suscript        t
-      magic-latex-enable-pretty-symbols  t
-      magic-latex-enable-block-align     nil
-      magic-latex-enable-inline-image    nil
-      magic-latex-enable-minibuffer-echo nil)
+
+;; ;; You can disable some features independently, if they’re too fancy.
+;; (setq magic-latex-enable-block-highlight nil
+;;       magic-latex-enable-suscript        t
+;;       magic-latex-enable-pretty-symbols  t
+;;       magic-latex-enable-block-align     nil
+;;       magic-latex-enable-inline-image    nil
+;;       magic-latex-enable-minibuffer-echo nil)
+
 ;; known issues about magic-latex-buffer
 ;; Not perfectly compatible with multiple-cursors (but still usable)
 ;; latex-mode
@@ -146,7 +147,7 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
   (interactive)
   (save-buffer) ;; save a current file
   (shell-command
-   (format "/home/fg/MEGA/sync/Shellscripttools/compile-latex compile %s"
+   (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-latex compile %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t)
   )
@@ -154,14 +155,14 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
   (interactive)
   (save-buffer)
   (shell-command
-   (format "/home/fg/MEGA/sync/Shellscripttools/compile-chinese-latex compile %s"
+   (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-chinese-latex compile %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 ;; clean latex stuff
 (defun fg/clean-latex-file ()
   (interactive)
   (shell-command
-   (format "~/MEGA/sync/Shellscripttools/compile-latex.sh clean %s"
+   (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-latex clean %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 (defun fg/pdflatex-file ()
@@ -175,80 +176,11 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
 (evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
 (evil-leader/set-key (kbd "oc") 'fg/clean-latex-file)
 
-;; latex-prview-pane settting, 默认是不打开preview-pane-mode模式，注释掉下面的代码就可以开启这种模式了。
-;; (add-hook 'LaTeX-mode-hook 'latex-preview-pane-mode)
-
 ;; using your latex command, pdflatex, xelatex, compile command line
 ;; compile command line
 ;; 默认的编译命令是 pdflatex, 如果要使用自己的命令，请使用下面的命令，注释掉下面的代码
 ;; (custom-set-variables
  ;; '(pdf-latex-command (quote (".*") . "/home/fg/MEGA/sync/Shellscripttools/compile-latex.sh compile")))
-
-
-;; org export Chinese PDF file
-;; setting start
-      (require 'ox-publish)
-      (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
-                                        [NO-DEFAULT-PACKAGES]
-                                        \\usepackage[utf8]{inputenc}
-                                        \\usepackage[T1]{fontenc}
-                                        \\usepackage{fixltx2e}
-                                        \\usepackage{graphicx}
-                                        \\usepackage{longtable}
-                                        \\usepackage{float}
-                                        \\usepackage{wrapfig}
-                                        \\usepackage{rotating}
-                                        \\usepackage[normalem]{ulem}
-                                        \\usepackage{amsmath}
-                                        \\usepackage{textcomp}
-                                        \\usepackage{marvosym}
-                                        \\usepackage{wasysym}
-                                        \\usepackage{amssymb}
-                                        \\usepackage{booktabs}
-                                        \\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
-                                        \\tolerance=1000
-                                        \\usepackage{listings}
-                                        \\usepackage{xcolor}
-                                        \\lstset{
-                                        %行号
-                                        numbers=left,
-                                        %背景框
-                                        framexleftmargin=10mm,
-                                        frame=none,
-                                        %背景色
-                                        %backgroundcolor=\\color[rgb]{1,1,0.76},
-                                        backgroundcolor=\\color[RGB]{245,245,244},
-                                        %样式
-                                        keywordstyle=\\bf\\color{blue},
-                                        identifierstyle=\\bf,
-                                        numberstyle=\\color[RGB]{0,192,192},
-                                        commentstyle=\\it\\color[RGB]{0,96,96},
-                                        stringstyle=\\rmfamily\\slshape\\color[RGB]{128,0,0},
-                                        %显示空格
-                                        showstringspaces=false
-                                        }
-                                        "
-                                        ("\\section{%s}" . "\\section*{%s}")
-                                        ("\\subsection{%s}" . "\\subsection*{%s}")
-                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-      ;; {{ export org-mode in Chinese into PDF
-      ;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
-      ;; and you need install texlive-xetex on different platforms
-      ;; To install texlive-xetex:
-      ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
-      ;; }}
-      (setq org-latex-default-class "ctexart")
-      (setq org-latex-pdf-process
-            '(
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "rm -fr %b.out %b.log %b.tex auto"))
-
-      (setq org-latex-listings t)
 
 ;;disable auto-fill-mode when editing equations
 (defvar my-LaTeX-no-autofill-environments

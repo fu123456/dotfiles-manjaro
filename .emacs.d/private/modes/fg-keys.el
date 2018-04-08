@@ -204,6 +204,10 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (find-file "~/MEGA/org/codes.org")
   )
+(defun open-interent-file ()
+  (interactive)
+  (find-file "~/MEGA/org/surfInternet.org")
+  )
 
 ;; quickl open my files using hydra
 (defhydra hydra-fgfiles (:color pink
@@ -212,7 +216,7 @@ _U_: sublevels      ^ ^             ^ ^
 ^Configuration^         ^Org^                ^Code^
 ^^^^^^^^------------------------------------------------------
 _i_: init               _n_: notes         _c_: codes
-_r_: reload init        _f_: refnotes
+_r_: reload init        _f_: refnotes      _I_: surfInternet
 _s_: spacemacs          _b_: bibtex
 _o_: orgconfig          _g_: gtd
   "
@@ -228,6 +232,7 @@ _o_: orgconfig          _g_: gtd
   ("g" open-gtd-file)
   ;; other
   ("c" open-code-file)
+  ("I" open-interent-file)
   ;; quit
   ("q" nil "cancel")
   )

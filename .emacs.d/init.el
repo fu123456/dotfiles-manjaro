@@ -40,9 +40,11 @@
 ;; some useful config
 ;; without it graphviz-dot-mode does not work
 (setq default-tab-width 4)
-;; disable mouse
-(require 'disable-mouse)
-(global-disable-mouse-mode)
+
+;; ;; disable mouse
+;; (require 'disable-mouse)
+;; (global-disable-mouse-mode)
+
 ;; change the title from emacs@host to file name
 (setq-default frame-title-format '("%f [%m]"))
 ;; revert buffer, time interval, save

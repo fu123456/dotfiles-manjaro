@@ -51,7 +51,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract z last-working-dir wd redis-cli sudo wd vi-mode forklift copyfile copydir cp pj copybuffer)
+plugins=(git extract z last-working-dir wd redis-cli sudo wd vim-interaction vi-mode forklift copyfile copydir cp pj copybuffer)
 PROJECT_PATHS=(~/source_codes/intrinsic_image_decomposition_source_code ~/MEGA/sync/shadow-detection)
 source $ZSH/oh-my-zsh.sh
 

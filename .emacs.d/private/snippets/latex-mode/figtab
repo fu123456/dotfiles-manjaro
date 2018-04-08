@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: figures in talbe environment
+# key: figtab
+# --
+\begin{figure}[!htbp]
+\centering
+\begin{tabular}{@{}c@{ }c@{ }c@{ }c@{ }c@{}}
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}
+\\
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}\hspace{-1ex}&
+\includegraphics[width=\textwidth]{}
+\end{tabular}
+\caption{}
+\label{fig:}
+\end{figure}
+$0
