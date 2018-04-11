@@ -246,6 +246,9 @@ alias myall="cc && ctp && ckey && ed && ec"
 
 # alias for Manjaro Linux system
 alias manjaroUpdate="sudo pacman -Syyu" # update 
+
+# multi monitor
+alias dualMonitor="xrandr --output DP2 --auto --output DP2 --auto --right-of eDP1"
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |

@@ -98,3 +98,6 @@
 ;; cua-mode setting
 (setq cua-enable-cua-keys nil) ;; only for rectangles
 (cua-mode t)
+
+;; bind ':ls' command to 'ibuffer instead of 'list-buffers
+(evil-ex-define-cmd "ls" 'ibuffer)

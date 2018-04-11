@@ -186,7 +186,7 @@ bindsym $mod+Shift+2 move container to workspace $wsemacs
 bindsym $mod+Shift+3 move container to workspace $wsfirefox
 bindsym $mod+Shift+4 move container to workspace $wschrome
 bindsym $mod+Shift+5 move container to workspace $wsTexmacs
-bindsym $mod+Shift+6 move container to workspace $wspresentaion
+bindsym $mod+Shift+6 move container to workspace $wsPresentation
 bindsym $mod+Shift+7 move container to workspace $wsOther
 bindsym $mod+Shift+8 move container to workspace $wsmedia
 
@@ -206,7 +206,7 @@ assign [class="^xdg-open$"] → $wsfile
 assign [class="^Google-chrome$"] → $wschrome
 assign [class="^Nautilus$"] → $wsfiles
 assign [class="^Emacs$"] → $wsemacs
-assign [class="^Impressive$"] → $wsPresentaion
+assign [class="^Impressive$"] → $wsPresentation
 assign [class="^Imp$"] → $wsPresentaion
 assign [class="^Evince$"] → $wsPresentation
 assign [class="^Inkscape"] → $wsmedia
@@ -302,6 +302,10 @@ font pango:Inconsolata, Icons 12
 exec --no-startup-id fcitx
 exec /home/fg/MEGA/dotfiles-manjaro/scripts/changekey.sh &
 
+# for multi monitor config
+workspace "$wsPresentation" output DP2
+workspace "6:Presentation" output DP2
+
 # rofi setting
 bindsym $mod+d exec --no-startup-id rofi -show combi
 bindsym $mod+n exec --no-startup-id rofi -show window
@@ -360,7 +364,7 @@ mode "resize" {
 }
 
 # Lock screen
-# bindsym $mod+9 exec --no-startup-id blurlock
+bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -414,6 +418,7 @@ bar {
 	i3bar_command i3bar
 	status_command i3status
 	position bottom
+    tray_output primary # fugang add, for dual monitor config
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary

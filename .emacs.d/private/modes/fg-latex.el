@@ -1,10 +1,11 @@
-;; (require 'magic-latex-buffer)
-;; (add-hook 'lattex-mode-hook 'magic-latex-buffer)
+(require 'magic-latex-buffer)
+(add-hook 'lattex-mode-hook 'magic-latex-buffer)
 
 (require 'tex)
 (add-hook 'LaTeX-mode-hook (lambda ()
                              (setq font-lock-maximum-decoration 2)
                              (rainbow-delimiters-mode 1)
+                             (magic-latex-buffer 1)
                              (smartparens-mode 1)
                              ))
 
@@ -173,6 +174,7 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 (evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
+(evil-leader/set-key (kbd "op") 'fg/pdflatex-file)
 (evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
 (evil-leader/set-key (kbd "oc") 'fg/clean-latex-file)
 

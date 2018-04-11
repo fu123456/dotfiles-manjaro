@@ -56,7 +56,7 @@ sudo pacman --noconfirm -S \
      electronic-wechat \
      youtube-dl \
      aspell-en \
-     i3status-manjaro
+     ruby
 
 
 echo "Installing auctex..."
