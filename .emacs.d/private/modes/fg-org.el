@@ -1,7 +1,11 @@
+;; (require 'org)
+;; (let ((current-prefix-arg 1))
+;;   (call-interactively 'org-reload))
+
 ;;*keys
 ;;** org-mode-map
 (define-key org-mode-map (kbd "C-h") nil)
-
+(global-set-key (kbd"C-c v") 'hydra-org-agenda-view/body)
   ;;;;;;;;;;;;;;;;;;;;;;
 ;;zilongshanren gtd setting
 (defun dotspacemacs/user-config ()
@@ -16,7 +20,7 @@
   ;; define the refile targets
   (defvar org-agenda-dir "" "gtd org files location")
   (setq-default org-agenda-dir "~/MEGA/org")
-  (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
+  (setq org-agenda-file-bookmark (expand-file-name "bookmark.org" org-agenda-dir))
   (setq org-agenda-file-code (expand-file-name "codes.org" org-agenda-dir))
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
@@ -38,34 +42,25 @@
         '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
            "* TODO [#A] %?\n  %i\n"
            :empty-lines 1)
-          ("B" "Bookmars" entry (file+headline org-agenda-file-note "Bookmarks")
-           "*  %?\n %i\n %i\n %U"
+          ("b" "Bookmars" entry (file+headline org-agenda-file-bookmark "Bookmarks")
+           "* %?\n   %i\n %i\n %U"
            :empty-lines 1)
           ("c" "Codes" entry (file+headline org-agenda-file-code "Codes")
            "*  %?\n  | code name, dir     |       |\n  | description        |       |\n  | code download link |       |\n  | project url        |       |\n\n %U"
            :empty-lines 1)
-          ("p" "Papers Ideas" entry (file+headline org-agenda-file-note "Papers Ideas")
-           "* TODO [#B] %?\n  %i\n %U"
-           :empty-lines 1)
           ("i" "surfInternet" entry (file+headline org-agenda-file-internet "surfInternet")
            "* %?\n  %i\n %U"
-           :empty-lines 1)
-          ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
-           "* TODO [#B] %?\n  %i\n %U"
            :empty-lines 1)
           ("s" "Code Snippet" entry
            (file org-agenda-file-code-snippet)
            "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
-          ("n" "Quick notes" entry (file+headline org-agenda-file-note "Quick notes")
-           "* TODO [#C] %?\n %i\n %i\n %U"
+          ("p" "Protocol" entry (file+headline org-agenda-file-bookmark "Bookmarks")
+           "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%? %U"
            :empty-lines 1)
-          ;; my physical exercise
-          ("g" "Physical Exercise" entry (file+headline org-agenda-file-gym "Gym")
-           "* TODO [#B] %?\n %i\n"
+          ("L" "Protocol Link" entry (file+headline org-agenda-file-bookmark "Bookmarks")
+           "* %? [[%:link][%:description]] \nCaptured On: %U"
            :empty-lines 1)
-          ("j" "Journal Entry"
-           entry (file+datetree org-agenda-file-journal)
-           "* %?" :empty-lines 1)))
+          ))
 
   ;;An entry without a cookie is treated just like priority ' B '.
   ;;So when create new task, they are default 重要且紧急
@@ -268,6 +263,9 @@ same directory as the org-buffer and insert a link to this file."
         "xelatex --synctex=1 -interaction nonstopmode -output-directory %o %f"
         "xelatex --synctex=1 -interaction nonstopmode -output-directory %o %f"
         "rm -fr %b.out %b.log auto"))
+;; (setq org-latex-pdf-process
+;;       '(
+;;         "xelatex --synctex=1  -interaction nonstopmode -output-directory %o %f"))
 ;; "rm -fr %b.out %b.log %b.tex auto"));;删除tex文件
 
 (setq org-latex-listings t)
@@ -322,10 +320,10 @@ The full path into relative path and insert it as a local file link in org-mode"
 
 ;; org mode export latex math preview
 (require 'org)
-;; lualatex preview
-(setq org-latex-pdf-process
-      '("lualatex -shell-escape -interaction nonstopmode %f"
-        "lualatex -shell-escape -interaction nonstopmode %f"))
+;; ;; lualatex preview
+;; (setq org-latex-pdf-process
+;;       '("lualatex -shell-escape -interaction nonstopmode %f"
+;;         "lualatex -shell-escape -interaction nonstopmode %f"))
 (setq luamagick '(luamagick :programs ("lualatex" "convert")
                             :description "pdf > png"
                             :message "you need to install lualatex and imagemagick."
@@ -355,3 +353,58 @@ The full path into relative path and insert it as a local file link in org-mode"
      (setq org-map-continue-from
            (outline-previous-heading)))
    "/CANCELLED" 'file))
+
+(defun org-agenda-cts ()
+  (and (eq major-mode 'org-agenda-mode)
+       (let ((args (get-text-property
+                    (min (1- (point-max)) (point))
+                    'org-last-args)))
+         (nth 2 args))))
+(defhydra hydra-org-agenda-view (:hint none)
+  "
+_d_: ?d? day        _g_: time grid=?g?  _a_: arch-trees
+_w_: ?w? week       _[_: inactive       _A_: arch-files
+_t_: ?t? fortnight  _f_: follow=?f?     _r_: clock report=?r?
+_m_: ?m? month      _e_: entry text=?e? _D_: include diary=?D?
+_y_: ?y? year       _q_: quit           _L__l__c_: log = ?l?"
+  ("SPC" org-agenda-reset-view)
+  ("D" org-agenda-day-view (if (eq 'day (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("d" (org-agenda nil "d") (if (eq 'day (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("w" (org-agenda nil "w") (if (eq 'week (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("t" org-agenda-fortnight-view (if (eq 'fortnight (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("m" org-agenda-month-view (if (eq 'month (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("y" org-agenda-year-view (if (eq 'year (org-agenda-cts)) "[x]" "[ ]") :exit t)
+  ("l" org-agenda-log-mode (format "% -3S" org-agenda-show-log))
+  ("L" (org-agenda-log-mode '(4)))
+  ("c" (org-agenda-log-mode 'clockcheck))
+  ("f" org-agenda-follow-mode (format "% -3S" org-agenda-follow-mode))
+  ("a" org-agenda-archives-mode)
+  ("A" (org-agenda-archives-mode 'files))
+  ("r" org-agenda-clockreport-mode (format "% -3S" org-agenda-clockreport-mode))
+  ("e" org-agenda-entry-text-mode (format "% -3S" org-agenda-entry-text-mode))
+  ("g" org-agenda-toggle-time-grid (format "% -3S" org-agenda-use-time-grid))
+  ("D" org-agenda-toggle-diary (format "% -3S" org-agenda-include-diary))
+  ("!" org-agenda-toggle-deadlines)
+  ("[" (let ((org-agenda-include-inactive-timestamps t))
+         (org-agenda-check-type t 'timeline 'agenda)
+         (org-agenda-redo)
+         (message "Display now includes inactive timestamps as well")))
+  ("q" (message "Abort") :exit t)
+  ("x" org-agenda-exit :exit t)
+  ("v" nil))
+
+(require 'orca)
+(setq orca-handler-list
+      '((orca-handler-match-url
+         "https://www.reddit.com/emacs/"
+         "~/MEGA/org/wiki/emacs.org"
+         "Reddit")
+        (orca-handler-match-url
+         "https://emacs.stackexchange.com/"
+         "~/MEGA/org/wiki/emacs.org"
+         "\\* Questions")
+        (orca-handler-current-buffer
+         "\\* Tasks")
+        (orca-handler-file
+         "~/MEGA/org/ent.org"
+         "\\* Articles")))

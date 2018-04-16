@@ -65,7 +65,6 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pdf-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-latex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/ora-company.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-graphviz.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-keys.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hooks.el"))
@@ -77,6 +76,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-search-engine.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gnus.el"))
 ;; global-mode
 (yas-global-mode 1)
 (global-company-mode 1)

@@ -31,9 +31,12 @@ sudo pacman --noconfirm -S \
      xf86-input-synaptics \
      unrar \
      mplayer \
+     smplayer \
      evince \
      mupdf \
      mupdf-tools \
+     zathura \
+     okular \
      gvim \
      texmacs \
      anydesk \
@@ -48,6 +51,8 @@ sudo pacman --noconfirm -S \
      htop \
      eog \
      tmux \
+     xdotool \
+     wmctrl \
      shadowsocks-qt5 \
      google-chrome \
      imagemagick \
@@ -56,8 +61,36 @@ sudo pacman --noconfirm -S \
      electronic-wechat \
      youtube-dl \
      aspell-en \
-     ruby
+     ruby \
+     xsel
 
+echo "Installing python scientific computing environment "
+sudo yaourt --noconfirm -S \
+     python2-pip \
+     python3-pip
+echo "Installing python scientific computing environment: python2"
+sudo pip2 install \
+     numpy \
+     scipy \
+     Cython \
+     matplotlib \
+     scikit-image \
+     pillow \
+     scikit-learn
+echo "Installing python scientific computing environment: python3"
+sudo pip3 install \
+     numpy \
+     scipy \
+     Cython \
+     matplotlib \
+     scikit-image \
+     pillow \
+     scikit-learn
+
+echo "Installing other libaray"
+sudo yaourt --noconfirm -S \
+     ann \
+     boost
 
 echo "Installing auctex..."
 cd ~

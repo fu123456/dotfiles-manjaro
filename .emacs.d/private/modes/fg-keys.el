@@ -4,6 +4,7 @@
 (evil-leader/set-key (kbd "p") 'hydra-projectile/body)
 (evil-leader/set-key (kbd "O") 'hydra-outline/body)
 (evil-leader/set-key (kbd "w") 'hydra-window/body)
+(evil-leader/set-key (kbd "c") 'hydra-rectangle/body)
 (global-set-key (kbd "<f8>") 'fg/sudo-edit)
 (evil-leader/set-key (kbd "a") 'hydra-fgfiles/body)
 (global-set-key [f7] 'indent-whole)
@@ -94,6 +95,7 @@ T - tag prefix
   ("Y" dired-do-relsymlink)
   ("z" diredp-compress-this-file)
   ("Z" dired-do-compress)
+  ("c" dired-copy-filename-as-kill) ;; copy current file name
   ("q" nil)
   ("." nil :color blue))
 
@@ -182,15 +184,19 @@ _U_: sublevels      ^ ^             ^ ^
 (defun reload-init-file()
   (interactive)
   (load-file "~/.emacs.d/init.el"))
-(defun open-notes-file()
+(defun open-bookmark-file()
   (interactive)
-  (find-file "/home/fg/MEGA/org/notes.org"))
+  (find-file "/home/fg/MEGA/org/bookmark.org"))
 (defun open-refnotes-file()
   (interactive)
   (find-file "/home/fg/MEGA/org/refnotes.org"))
 (defun open-bibtex-file()
   (interactive)
   (find-file "/home/fg/MEGA/bibtex-pdfs/bib/references.bib")
+  )
+(defun open-bibtex-org-file ()
+  (interactive)
+  (find-file "/home/fg/MEGA/bibtex-pdfs/bib/references.org")
   )
 (defun open-gtd-file()
   (interactive)
@@ -213,12 +219,12 @@ _U_: sublevels      ^ ^             ^ ^
 (defhydra hydra-fgfiles (:color pink
                                 :hint nil)
   "
-^Configuration^         ^Org^                ^Code^
-^^^^^^^^------------------------------------------------------
-_i_: init               _n_: notes         _c_: codes
-_r_: reload init        _f_: refnotes      _I_: surfInternet
-_s_: spacemacs          _b_: bibtex
-_o_: orgconfig          _g_: gtd
+^Configuration^         ^Org^                ^Code^               ^bibtex^
+^^^^^^^^----------------------------------------------------------------------------------
+_i_: init               _n_: notes         _c_: codes            _B_:bibtexOrg
+_r_: reload init        _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
+_s_: spacemacs          _g_: gtd
+_o_: orgconfig
   "
   ;; config files
   ("i" open-init-file)
@@ -226,10 +232,11 @@ _o_: orgconfig          _g_: gtd
   ("r" reload-init-file)
   ("o" open-orgconfig-file)
   ;; org files
-  ("n" open-notes-file)
+  ("n" open-bookmark-file)
   ("f" open-refnotes-file)
   ("b" open-bibtex-file)
   ("g" open-gtd-file)
+  ("B" open-bibtex-org-file)
   ;; other
   ("c" open-code-file)
   ("I" open-interent-file)
@@ -271,38 +278,101 @@ _o_: orgconfig          _g_: gtd
   (indent-region (point-min) (point-max))
   (message "format successfully"))
 
-(defhydra hydra-window (:color red
-                        :columns nil)
-  "window"
-  ("h" windmove-left nil)
-  ("j" windmove-down nil)
-  ("k" windmove-up nil)
-  ("l" windmove-right nil)
-  ("H" hydra-move-splitter-left nil)
-  ("J" hydra-move-splitter-down nil)
-  ("K" hydra-move-splitter-up nil)
-  ("L" hydra-move-splitter-right nil)
-  ("v" (lambda ()
-         (interactive)
-         (split-window-right)
-         (windmove-right))
-       "vert")
-  ("x" (lambda ()
-         (interactive)
-         (split-window-below)
-         (windmove-down))
-       "horz")
-  ("t" transpose-frame "'" :exit t)
-  ("o" delete-other-windows "one" :exit t)
-  ("a" ace-window "ace")
-  ("s" ace-swap-window "swap")
-  ("d" ace-delete-window "del")
-  ("i" ace-maximize-window "ace-one" :exit t)
-  ("b" ido-switch-buffer "buf")
-  ("m" headlong-bookmark-jump "bmk")
-  ("q" nil "cancel")
-  ("u" (progn (winner-undo) (setq this-command 'winner-undo)) "undo")
-  ("f" nil))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; window move config ;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun hydra-move-splitter-left (arg)
+  "Move window splitter left."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (shrink-window-horizontally arg)
+    (enlarge-window-horizontally arg)))
+
+(defun hydra-move-splitter-right (arg)
+  "Move window splitter right."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (enlarge-window-horizontally arg)
+    (shrink-window-horizontally arg)))
+
+(defun hydra-move-splitter-up (arg)
+  "Move window splitter up."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (enlarge-window arg)
+    (shrink-window arg)))
+
+(defun hydra-move-splitter-down (arg)
+  "Move window splitter down."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (shrink-window arg)
+    (enlarge-window arg)))
+
+(defhydra hydra-window ()
+   "
+Movement^^        ^Split^         ^Switch^		^Resize^
+----------------------------------------------------------------
+_h_ ←       	_v_ertical    	_b_uffer		_q_ X←
+_j_ ↓        	_x_ horizontal	_f_ind files	_w_ X↓
+_k_ ↑        	_z_ undo      	_a_ce 1		_e_ X↑
+_l_ →        	_Z_ reset      	_s_wap		_r_ X→
+_F_ollow		_D_lt Other   	_S_ave		max_i_mize
+_SPC_ cancel	_o_nly this   	_d_elete
+"
+   ("h" windmove-left )
+   ("j" windmove-down )
+   ("k" windmove-up )
+   ("l" windmove-right )
+   ("q" hydra-move-splitter-left)
+   ("w" hydra-move-splitter-down)
+   ("e" hydra-move-splitter-up)
+   ("r" hydra-move-splitter-right)
+   ("b" helm-mini)
+   ("f" helm-find-files)
+   ("F" follow-mode)
+   ("a" (lambda ()
+          (interactive)
+          (ace-window 1)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+       )
+   ("v" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right))
+       )
+   ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down))
+       )
+   ("s" (lambda ()
+          (interactive)
+          (ace-window 4)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body)))
+   ("S" save-buffer)
+   ("d" delete-window)
+   ("D" (lambda ()
+          (interactive)
+          (ace-window 16)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+       )
+   ("o" delete-other-windows)
+   ("i" ace-maximize-window)
+   ("z" (progn
+          (winner-undo)
+          (setq this-command 'winner-undo))
+   )
+   ("Z" winner-redo)
+   ("SPC" nil)
+   )
 
 ;; bookmark setting
 ;; refer to http://rexim.me/emacs-as-bookmark-manager-links.html
@@ -394,3 +464,31 @@ buffer is not visiting a file."
       (find-file (concat "/sudo:root@localhost:"
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                                     :color pink
+                                     :hint nil
+                                     :post (deactivate-mark))
+  "
+  ^_k_^       _w_ copy      _o_pen       _N_umber-lines            |\\     -,,,--,,_
+_h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..  \-;;,_
+  ^_j_^       _d_ kill      _c_lear      _r_eset-region-mark      |,4-  ) )_   .;.(  `'-'
+^^^^          _u_ndo        _q_ quit     ^ ^                     '---''(./..)-'(_\_)
+"
+  ("k" rectangle-previous-line)
+  ("j" rectangle-next-line)
+  ("h" rectangle-backward-char)
+  ("l" rectangle-forward-char)
+  ("d" kill-rectangle)                    ;; C-x r k
+  ("y" yank-rectangle)                    ;; C-x r y
+  ("w" copy-rectangle-as-kill)            ;; C-x r M-w
+  ("o" open-rectangle)                    ;; C-x r o
+  ("t" string-rectangle)                  ;; C-x r t
+  ("c" clear-rectangle)                   ;; C-x r c
+  ("e" rectangle-exchange-point-and-mark) ;; C-x C-x
+  ("N" rectangle-number-lines)            ;; C-x r N
+  ("r" (if (region-active-p)
+           (deactivate-mark)
+         (rectangle-mark-mode 1)))
+  ("u" undo nil)
+  ("q" nil))      ;; ok

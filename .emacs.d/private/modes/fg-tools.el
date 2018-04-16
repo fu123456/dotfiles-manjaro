@@ -59,6 +59,24 @@ Don't mess with special buffers."
 (define-key global-map (kbd "C-h") 'windmove-left)
 (define-key global-map (kbd "C-l") 'windmove-right)
 
-(provide 'fg-tools)
+;; {{ presentation
+;; control my pdf presentation without leaving my Emacs
+;; xdotool key --window $(xdotool search --name "presentation.pdf") Return
+(defun fg/presentation-move-next ()
+  "click next monitor, pdf next, and back"
+  (interactive)
+  (shell-command
+   "bash ~/MEGA/dotfiles-manjaro/scripts/move-other-monitor-bak.sh"
+   ))
+(defun fg/presentation-move-previous ()
+  "click next monitor, pdf previous, and back"
+  (interactive)
+  (shell-command
+   "bash ~/MEGA/dotfiles-manjaro/scripts/move-other-monitor-bak-previous-pdf.sh"
+   ))
+(define-key evil-normal-state-map (kbd "<SPC>.") 'fg/presentation-move-next)
+(define-key evil-normal-state-map (kbd "<SPC>,") 'fg/presentation-move-previous)
+;; }}
 
+(provide 'fg-tools)
 ;;; fg-tools.el ends here

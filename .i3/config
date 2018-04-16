@@ -207,6 +207,7 @@ assign [class="^Google-chrome$"] → $wschrome
 assign [class="^Nautilus$"] → $wsfiles
 assign [class="^Emacs$"] → $wsemacs
 assign [class="^Impressive$"] → $wsPresentation
+assign [class="^impressive$"] → $wsPresentation
 assign [class="^Imp$"] → $wsPresentaion
 assign [class="^Evince$"] → $wsPresentation
 assign [class="^Inkscape"] → $wsmedia
@@ -276,6 +277,9 @@ for_window [class="mpv"] floating enable, resize set 840 410
 # smplayer
 assign [class="^Smplayer$"] → $wsmedia
 for_window [class="^Smplayer$"] floating enable, resize set 840 410
+# inkscape
+assign [class="^Inkscape$"] $wsmedia
+for_window [class="^Inkscape$"] #layout tabbed
 
 assign [class="^ANYDESK$"] $wsmedia
 for_window [class="^ANYDESK$"]medias

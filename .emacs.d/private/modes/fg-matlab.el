@@ -31,10 +31,6 @@
                 (font-lock-mode 1))
             ))
 
-;; ;; ;; highlight latex codes using latex-mode
-;; (require 'tex)
-;;(add-hook 'latex-mode-hook (lambda ()
-;;                             (setq font-lock-maximum-decoration 2)))
 (defun ora-matlab-switch-to-shell ()
   (interactive)
   (let ((wnd (cl-find-if (lambda (w) (string= "*MATLAB*" (buffer-name (window-buffer w))))

@@ -1,3 +1,6 @@
 [submodule "pdf-tools-org"]
 	path = pdf-tools-org
 	url = /home/fg/.emacs.d/private/pdf-tools-org
+[submodule ".emacs.d/private/org-weather"]
+	path = .emacs.d/private/org-weather
+	url = https://github.com/kautsig/org-weather.git

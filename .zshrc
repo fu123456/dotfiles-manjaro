@@ -513,3 +513,5 @@ export PATH=/home/fg/scripts:$PATH
 
 # export vim
 export VIMRUNTIME=/usr/share/vim/vim80 
+
+

@@ -1,8 +1,9 @@
 (autoload 'helm-bibtex "helm-bibtex" "" t)
 (setq bibtex-completion-bibliography
-      '("~/MEGA/bibtex-pdfs/bib/references.bib"))
+      '("~/MEGA/bibtex-pdfs/bib/references.org"))
 (setq bibtex-completion-library-path '("~/MEGA/bibtex-pdfs/"))
-(setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
+;; (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
+(setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notes")
 (setq bibtex-completion-display-formats
       '((article       . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} ${journal:40}")
         (inbook        . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
