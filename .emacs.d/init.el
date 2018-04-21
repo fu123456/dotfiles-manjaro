@@ -72,11 +72,13 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-deft.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-julia.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-git.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-email.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-search-engine.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gnus.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ediff.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ebdb.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-secret.el"))
 ;; global-mode
 (yas-global-mode 1)
 (global-company-mode 1)
@@ -101,3 +103,5 @@
 
 ;; bind ':ls' command to 'ibuffer instead of 'list-buffers
 (evil-ex-define-cmd "ls" 'ibuffer)
+
+(setf epa-pinentry-mode 'loopback)

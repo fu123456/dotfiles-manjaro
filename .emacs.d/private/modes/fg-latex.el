@@ -139,7 +139,6 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
   ;; ("q" quit-window "quit" :color blue)
   )
 (evil-leader/set-key (kbd "l") 'hydra-latex/body)
-;; (define-key latex-mode-map (kbd "<SPC>l") 'hydra-latex/body) ;; does not work well
 
 ;; fast to run and clean latex current buffer
 ;; run latex buffer

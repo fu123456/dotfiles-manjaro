@@ -16,7 +16,8 @@ sudo pacman --noconfirm -S git git-core
 echo "Installing base packages..."
 sudo pacman --noconfirm -S \
      termite-git \
-     bash-completion
+     bash-completion \
+     base-devel
 
 echo "Install sogou Chinese input method..."
 sudo pacman --noconfirm -S \
@@ -64,6 +65,7 @@ sudo pacman --noconfirm -S \
      ruby \
      xsel
 
+# {{ install python scientific computing environment
 echo "Installing python scientific computing environment "
 sudo yaourt --noconfirm -S \
      python2-pip \
@@ -91,6 +93,13 @@ echo "Installing other libaray"
 sudo yaourt --noconfirm -S \
      ann \
      boost
+# }}
+
+# {{
+echo "Installing java"
+sudo yaourt --noconfirm -S \
+     jdk
+# }}
 
 echo "Installing auctex..."
 cd ~

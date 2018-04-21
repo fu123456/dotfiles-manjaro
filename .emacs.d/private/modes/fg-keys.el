@@ -221,7 +221,7 @@ _U_: sublevels      ^ ^             ^ ^
   "
 ^Configuration^         ^Org^                ^Code^               ^bibtex^
 ^^^^^^^^----------------------------------------------------------------------------------
-_i_: init               _n_: notes         _c_: codes            _B_:bibtexOrg
+_i_: init               _n_: bookmark      _c_: codes            _B_:bibtexOrg
 _r_: reload init        _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
 _s_: spacemacs          _g_: gtd
 _o_: orgconfig
@@ -492,3 +492,79 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
          (rectangle-mark-mode 1)))
   ("u" undo nil)
   ("q" nil))      ;; ok
+
+;; {{ mail
+;; @see https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org
+;; gnus-group-mode
+(eval-after-load 'gnus-group
+  '(progn
+     (defhydra hydra-gnus-group (:color blue)
+       "?"
+       ("a" gnus-group-list-active "REMOTE groups A A")
+       ("l" gnus-group-list-all-groups "LOCAL groups L")
+       ("c" gnus-topic-catchup-articles "Rd all c")
+       ("G" gnus-group-make-nnir-group "Srch server G G")
+       ("g" gnus-group-get-new-news "Refresh g")
+       ("s" gnus-group-enter-server-mode "Servers")
+       ("m" gnus-group-new-mail "Compose m OR C-x m")
+       ("#" gnus-topic-mark-topic "mark #")
+       ("q" nil "Bye"))
+     ;; y is not used by default
+     (define-key gnus-group-mode-map "y" 'hydra-gnus-group/body)))
+
+;; gnus-summary-mode
+(eval-after-load 'gnus-sum
+  '(progn
+     (defhydra hydra-gnus-summary (:color blue)
+       "?"
+       ("s" gnus-summary-show-thread "Show thread")
+       ("h" gnus-summary-hide-thread "Hide thread")
+       ("n" gnus-summary-insert-new-articles "Refresh / N")
+       ("f" gnus-summary-mail-forward "Fwd C-c C-f")
+       ("!" gnus-summary-tick-article-forward "Mail -> disk !")
+       ("p" gnus-summary-put-mark-as-read "Mail <- disk")
+       ("c" gnus-summary-catchup-and-exit "Rd all c")
+       ("e" gnus-summary-resend-message-edit "Resend S D e")
+       ("R" gnus-summary-reply-with-original "Re with orig R")
+       ("r" gnus-summary-reply "Re r")
+       ("W" gnus-summary-wide-reply-with-original "Re all with orig S W")
+       ("w" gnus-summary-wide-reply "Re all S w")
+       ("#" gnus-topic-mark-topic "Mark #")
+       ("q" nil "Bye"))
+     ;; y is not used by default
+     (define-key gnus-summary-mode-map "y" 'hydra-gnus-summary/body)))
+
+;; gnus-article-mode
+(eval-after-load 'gnus-art
+  '(progn
+     (defhydra hydra-gnus-article (:color blue)
+       "?"
+       ("f" gnus-summary-mail-forward "Fwd")
+       ("R" gnus-article-reply-with-original "Re with orig R")
+       ("r" gnus-article-reply "Re r")
+       ("W" gnus-article-wide-reply-with-original "Re all with orig S W")
+       ("o" gnus-mime-save-part "Save attachment at point o")
+       ("w" gnus-article-wide-reply "Re all S w")
+       ("v" w3mext-open-with-mplayer "Video/audio at point")
+       ("d" w3mext-download-rss-stream "CLI to download stream")
+       ("b" w3mext-open-link-or-image-or-url "Link under cursor or page URL with external browser")
+       ("f" w3m-lnum-follow "Click link/button/input")
+       ("F" w3m-lnum-goto "Move focus to link/button/input")
+       ("q" nil "Bye"))
+     ;; y is not used by default
+     (define-key gnus-article-mode-map "y" 'hydra-gnus-article/body)))
+
+;; message-mode
+(eval-after-load 'message
+  '(progn
+     (defhydra hydra-message (:color blue)
+       "?"
+       ("a" counsel-bbdb-complete-mail "Mail address")
+       ("ca" mml-attach-file "Attach C-c C-a")
+       ("cc" message-send-and-exit "Send C-c C-c")
+       ("q" nil "Bye"))))
+
+(defun message-mode-hook-hydra-setup ()
+  (local-set-key (kbd "C-c C-y") 'hydra-message/body))
+(add-hook 'message-mode-hook 'message-mode-hook-hydra-setup)
+;; }}
