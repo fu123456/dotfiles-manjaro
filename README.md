@@ -2,4 +2,4 @@
 This is my dotfiles, mainly for these tools,
 vim, emacs, oh-my-zsh, tmux, percol.
 If you any question ,please contact me.
-My email: xyzgfu@gmail.com
+My email: xyzgfu@gmail.com, xyzgfu@outlook.com
