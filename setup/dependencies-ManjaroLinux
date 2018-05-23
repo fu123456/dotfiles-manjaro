@@ -25,11 +25,10 @@ sudo pacman --noconfirm -S \
      fcitx-configtool \
      fcitx-sogoupinyin
 
+# {{ softwares I often used
 echo "Installing tools..."
-sudo pacman --noconfirm -S \
+sudo yaourt --noconfirm -S \
      ttf-font-icons \
-     libqalculate \
-     xf86-input-synaptics \
      unrar \
      mplayer \
      smplayer \
@@ -63,11 +62,21 @@ sudo pacman --noconfirm -S \
      youtube-dl \
      aspell-en \
      ruby \
-     xsel
+     xsel \
+     gbkunzip \
+     xorg
+
+yaourt --noconfirm -S \
+       gnuplot
+
+sudo pacman --noconfirm -S \
+     libqalculate \
+    xf86-input-synaptics \
+# }}
 
 # {{ install python scientific computing environment
 echo "Installing python scientific computing environment "
-sudo yaourt --noconfirm -S \
+yaourt --noconfirm -S \
      python2-pip \
      python3-pip
 echo "Installing python scientific computing environment: python2"
@@ -90,15 +99,16 @@ sudo pip3 install \
      scikit-learn
 
 echo "Installing other libaray"
-sudo yaourt --noconfirm -S \
+yaourt --noconfirm -S \
      ann \
-     boost
+     boost \
+     tk # for python
 # }}
 
 # {{
 echo "Installing java"
-sudo yaourt --noconfirm -S \
-     jdk
+yaourt --noconfirm -S \
+     jdk # need you input password
 # }}
 
 echo "Installing auctex..."

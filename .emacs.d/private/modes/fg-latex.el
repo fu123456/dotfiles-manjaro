@@ -1,5 +1,8 @@
-(require 'magic-latex-buffer)
-(add-hook 'lattex-mode-hook 'magic-latex-buffer)
+;;{{{ dependencies
+;; magic-latex-buffer
+;; smartparens
+;; pdf-tools
+;;}}}
 
 (require 'tex)
 (add-hook 'LaTeX-mode-hook (lambda ()
@@ -9,18 +12,20 @@
                              (smartparens-mode 1)
                              ))
 
-;; ;; You can disable some features independently, if they’re too fancy.
-;; (setq magic-latex-enable-block-highlight nil
-;;       magic-latex-enable-suscript        t
-;;       magic-latex-enable-pretty-symbols  t
-;;       magic-latex-enable-block-align     nil
-;;       magic-latex-enable-inline-image    nil
-;;       magic-latex-enable-minibuffer-echo nil)
+;;{{{ magic-latex-buffer
+(require 'magic-latex-buffer)
+(add-hook 'lattex-mode-hook 'magic-latex-buffer)
+;; You can disable some features independently, if they’re too fancy.
+(setq magic-latex-enable-block-highlight nil
+      magic-latex-enable-suscript        t
+      magic-latex-enable-pretty-symbols  t
+      magic-latex-enable-block-align     nil
+      magic-latex-enable-inline-image    nil
+      magic-latex-enable-minibuffer-echo nil)
+;;}}}
 
-;; known issues about magic-latex-buffer
-;; Not perfectly compatible with multiple-cursors (but still usable)
 ;; latex-mode
-; (add-to-list 'ac-modes 'latex-mode)
+                                        ; (add-to-list 'ac-modes 'latex-mode)
 (defun ac-latex-mode-setup()
   (setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
 (add-hook 'latex-mode-hook 'ac-latex-mode-setup)
@@ -50,9 +55,9 @@
 ;; revert the pdf buffer after tex compilation has finished
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 ;; (add-hook 'LaTeX-mode-hook
-          ;; (lambda () (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view))
-          ;; (lambda () (local-set-key (kbd "<f5>") #'TeX-view))
-          ;; )
+;; (lambda () (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view))
+;; (lambda () (local-set-key (kbd "<f5>") #'TeX-view))
+;; )
 
 ;; auctex setting
 (load "auctex.el" nil t t)
@@ -102,7 +107,7 @@
 ;; xelatex --synctex=1 your.tex
 ;; pdflatex --synctex=1 your.tex
 
-;; make most command that you usually used in latex bindings that stick around
+;;{{{ make most command that you usually used in latex bindings that stick around
 (defhydra hydra-latex (:color pink
                               :hint nil)
   "
@@ -111,12 +116,12 @@
 _p_: preview-region      _v_: bibtex-validate   _f_: Referencing Labels  _e_: environment   _R_: English
 _l_: preview-clearout    _b_: format bibtex     _c_: reftex-citation     _`_: symbol        _T_: Chinese
 _m_: math-preview        _s_: sort bibtex       ^ ^                      _h_: help          _P_: pdflatex
-_q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
+_Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
   "
   ;; latex preview
   ("m" latex-math-preview-expression)
   ("p" preview-region)
-  ("q" latex-math-preview-delete-buffer)
+  ("Q" latex-math-preview-delete-buffer)
   ("l" preview-clearout)
   ;; org-ref, bibtex, need org-ref package
   ("v" bibtex-validate)
@@ -139,6 +144,7 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
   ;; ("q" quit-window "quit" :color blue)
   )
 (evil-leader/set-key (kbd "l") 'hydra-latex/body)
+;;}}}
 
 ;; fast to run and clean latex current buffer
 ;; run latex buffer
@@ -169,7 +175,7 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
   (interactive)
   (save-buffer)
   (shell-command
-   (format "pdflatex %s"
+   (format "pdflatex -synctex=1 -interaction=nonstopmode  %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 (evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
@@ -181,7 +187,7 @@ _q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
 ;; compile command line
 ;; 默认的编译命令是 pdflatex, 如果要使用自己的命令，请使用下面的命令，注释掉下面的代码
 ;; (custom-set-variables
- ;; '(pdf-latex-command (quote (".*") . "/home/fg/MEGA/sync/Shellscripttools/compile-latex.sh compile")))
+;; '(pdf-latex-command (quote (".*") . "/home/fg/MEGA/sync/Shellscripttools/compile-latex.sh compile")))
 
 ;;disable auto-fill-mode when editing equations
 (defvar my-LaTeX-no-autofill-environments
@@ -210,3 +216,14 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
   (setq auto-fill-function 'my-LaTeX-auto-fill-function))
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-setup-auto-fill)
+
+;;{{{ latex-math-preview
+;; see @ https://www.emacswiki.org/emacs/LaTeXMathPreview
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/latex-math-preview")
+(load "latex-math-preview")
+(load "latex-math-preview-extra-data")
+(autoload 'latex-math-preview-expression "latex-math-preview" nil t)
+(autoload 'latex-math-preview-insert-symbol "latex-math-preview" nil t)
+(autoload 'latex-math-preview-save-image-file "latex-math-preview" nil t)
+(autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t)
+;;}}}

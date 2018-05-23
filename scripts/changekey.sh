@@ -14,12 +14,14 @@ xmodmap -e 'add Control = Control_L'
 # make a fake escape key (so we can map it with xcape)
 xmodmap -e 'keycode 999 = Escape'
 xcape -e 'Control_L=Escape'
-# assign return to control on press, return on release
-xmodmap -e 'keycode 36 = 0x1234'
-xmodmap -e 'add Control = 0x1234'
-# make a fake return key (so we can map it with xcape)
-xmodmap -e 'keycode any = Return'
-xcape -e '0x1234=Return'   
+
+# # assign return to control on press, return on release
+# xmodmap -e 'keycode 36 = 0x1234'
+# xmodmap -e 'add Control = 0x1234'
+# # make a fake return key (so we can map it with xcape)
+# xmodmap -e 'keycode any = Return'
+# xcape -e '0x1234=Return'   
+
 # 会存在在vim按下Capslock键时要停留很短暂的时间
 # 如果操作速度太快，就会Capslock就会被作为
 # 组合键来使用。

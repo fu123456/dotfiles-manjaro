@@ -9,6 +9,9 @@
 (evil-leader/set-key (kbd "a") 'hydra-fgfiles/body)
 (global-set-key [f7] 'indent-whole)
 (global-set-key (kbd "C-x p i") 'cliplink)
+(dolist (key '("\C-z"))
+  (global-unset-key key))
+
 (defhydra hydra-zoom (global-map "<f10>")
   "zoom"
   ("g" text-scale-increase "in")
@@ -202,6 +205,10 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (find-file "~/MEGA/org/gtd.org")
   )
+(defun open-paper-file()
+  (interactive)
+  (find-file "~/MEGA/org/paper.org")
+  )
 (defun open-orgconfig-file()
   (interactive)
   (find-file "~/.emacs.d/private/modes/fg-org.el")
@@ -224,7 +231,7 @@ _U_: sublevels      ^ ^             ^ ^
 _i_: init               _n_: bookmark      _c_: codes            _B_:bibtexOrg
 _r_: reload init        _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
 _s_: spacemacs          _g_: gtd
-_o_: orgconfig
+_o_: orgconfig          _p_: paper
   "
   ;; config files
   ("i" open-init-file)
@@ -237,6 +244,7 @@ _o_: orgconfig
   ("b" open-bibtex-file)
   ("g" open-gtd-file)
   ("B" open-bibtex-org-file)
+  ("p" open-paper-file)
   ;; other
   ("c" open-code-file)
   ("I" open-interent-file)

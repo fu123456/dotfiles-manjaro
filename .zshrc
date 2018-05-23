@@ -51,7 +51,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract z last-working-dir wd redis-cli sudo wd vim-interaction vi-mode forklift copyfile copydir cp pj copybuffer)
+plugins=(git extract z last-working-dir wd redis-cli sudo wd vim-interaction vi-mode forklift copyfile copydir cp pj copybuffer emacs)
 PROJECT_PATHS=(~/source_codes/intrinsic_image_decomposition_source_code ~/MEGA/sync/shadow-detection)
 source $ZSH/oh-my-zsh.sh
 
@@ -130,6 +130,7 @@ alias szsh='source ~/.zshrc'
 alias Matlab='sudo /usr/local/MATLAB/R2017a/bin/matlab &'
 alias Mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
 alias mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
+alias mrun1="sudo /usr/local/MATLAB/R2010b/bin/matlab -nodesktop -nosplash -softwareopengl"
 alias matrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nodisplay -nosplash -nojvm"
 alias mat="LD_PRELOAD=/usr/lib64/libstdc++.so.6 /usr/local/MATLAB/R2017a/bin/matlab"
 alias -g vims='vim --servername vim --remote-silent'
@@ -172,7 +173,7 @@ alias pushdot="cd ~/.dotfiles && ./push.sh"
 # alias e="emacsclient-snapshot"
 # alias ec="emacsclient-snapshot -c"
 # alias et="emacsclient-snapshot -t"
-alias ed="emacs-snapshot --daemon"
+alias ed="emacs --daemon"
 alias ec="emacsclient -nc"
 
 # vimb

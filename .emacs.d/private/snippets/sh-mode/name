@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: file name and extension
+# key: name
+# --
+filename=\`basename \${${absolute file}}\`
+name=\${filename%.*}
+$0

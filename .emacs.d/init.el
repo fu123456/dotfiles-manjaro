@@ -36,6 +36,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                 fugang setting                       ;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;{{{ org C-c C-e, convert dot org file to latex/pdf file, there is error about
+;; version of org-mode
+(require 'org)
+(let ((current-prefix-arg 1))
+  (call-interactively 'org-reload))
+;;}}}
+
+;; {{{ disable warnings at iitialization
+;; see @ https://stackoverflow.com/questions/23749267/how-do-i-disable-warnings-at-initialization-in-emacs
+(setq warning-minimum-level :emergency)
+;; }}}
 
 ;; some useful config
 ;; without it graphviz-dot-mode does not work
@@ -55,7 +66,7 @@
 ;; close auto save function
 (setq auto-save-default nil)
 
-;; load config files
+;;{{{ load config files
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-matlab.el"))
@@ -79,6 +90,13 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ediff.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ebdb.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-secret.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-dict.el"))
+(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-gnuplot.el"))
+(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
+(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-fold.el"))
+(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-ibuffer.el"))
+;;}}}
+
 ;; global-mode
 (yas-global-mode 1)
 (global-company-mode 1)

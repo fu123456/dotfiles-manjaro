@@ -3,8 +3,12 @@
 #key : mathpre
 #contributor : Fu Gang
 # --
-\documentclass{jarticle}
+\documentclass{article}
 \usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \begin{document}
 $0
 \end{document}

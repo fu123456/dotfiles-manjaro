@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: mkdir a dir
+# key: mkdir
+# --
+if [ ! -d "\${${myfolder}}" ]; then
+   mkdir "\${${myfolder}}"
+fi
+$0

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org_beamer_figure
+# key: ogi
+# --
+#+CAPTION: $1
+#+ATTR_LATEX: :width $2\linewidth :placement [!htbp]
+file:$3
+$0

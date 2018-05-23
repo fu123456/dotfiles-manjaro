@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name:all images in 2-lay directory
+# key: imgAll
+#contributor: Fu Gang
+# --
+dir='$1';
+subdir=`ls ${dir}`;
+for i in ${subdir}
+do
+img=`ls ${dir}/${i}`;
+for j in ${img}
+do
+$2
+done
+done
+$0

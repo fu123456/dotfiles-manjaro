@@ -23,6 +23,7 @@
   (setq org-agenda-file-bookmark (expand-file-name "bookmark.org" org-agenda-dir))
   (setq org-agenda-file-code (expand-file-name "codes.org" org-agenda-dir))
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
+  (setq org-agenda-file-paper (expand-file-name "paper.org" org-agenda-dir))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
   (setq org-agenda-file-gym (expand-file-name "gym.org" org-agenda-dir))
   (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
@@ -41,6 +42,9 @@
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
            "* TODO [#A] %?\n  %i\n"
+           :empty-lines 1)
+          ("a" "Paper" entry (file+headline org-agenda-file-paper "Paper")
+           "* TODO [#B] %?\n %i\n %U"
            :empty-lines 1)
           ("b" "Bookmars" entry (file+headline org-agenda-file-bookmark "Bookmarks")
            "* %?\n   %i\n %i\n %U"
@@ -408,3 +412,47 @@ _y_: ?y? year       _q_: quit           _L__l__c_: log = ?l?"
           (orca-handler-file
            "~/MEGA/org/ent.org"
            "\\* Articles")))
+
+;; {{{ drag and drop image
+;; see @ http://kitchingroup.cheme.cmu.edu/blog/2015/07/10/Drag-images-and-files-onto-org-mode-and-insert-a-link-to-them/
+(defun my-dnd-func (event)
+  (interactive "e")
+  (goto-char (nth 1 (event-start event)))
+  (x-focus-frame nil)
+  (let* ((payload (car (last event)))
+         (type (car payload))
+         (fname (cadr payload))
+         (img-regexp "\\(png\\|jp[e]?g\\)\\>"))
+    (cond
+     ;; insert image link
+     ((and  (eq 'drag-n-drop (car event))
+            (eq 'file type)
+            (string-match img-regexp fname))
+      (insert (format "[[%s]]" fname))
+      (org-display-inline-images t t))
+     ;; insert image link with caption
+     ((and  (eq 'C-drag-n-drop (car event))
+            (eq 'file type)
+            (string-match img-regexp fname))
+      (insert "#+ATTR_ORG: :width 300\n")
+      (insert (concat  "#+CAPTION: " (read-input "Caption: ") "\n"))
+      (insert (format "[[%s]]" fname))
+      (org-display-inline-images t t))
+     ;; C-drag-n-drop to open a file
+     ((and  (eq 'C-drag-n-drop (car event))
+            (eq 'file type))
+      (find-file fname))
+     ((and (eq 'M-drag-n-drop (car event))
+           (eq 'file type))
+      (insert (format "[[attachfile:%s]]" fname)))
+     ;; regular drag and drop on file
+     ((eq 'file type)
+      (insert (format "[[%s]]\n" fname)))
+     (t
+      (error "I am not equipped for dnd on %s" payload)))))
+
+
+(define-key org-mode-map (kbd "<drag-n-drop>") 'my-dnd-func)
+(define-key org-mode-map (kbd "<C-drag-n-drop>") 'my-dnd-func)
+(define-key org-mode-map (kbd "<M-drag-n-drop>") 'my-dnd-func)
+;; }}}

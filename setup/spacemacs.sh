@@ -1,8 +1,5 @@
 #!/bin/bash
 
-##########################################################
-###############dir########################################
-##########################################################
 dir=`pwd`
 if [ ! -e "${dir}/$(basename $0)" ]; then
     echo "Script not called from within repository directory. Aborting."
@@ -19,11 +16,7 @@ done
 for i in $HOME/.emacs.d $HOME/.spacemacs;
 do [ -L $i ] && unlink $i;
 done
-##########################################################
 
-##########################################################
-###################spacemacs##############################
-##########################################################
 # Install spacemacs
 today=`date +%Y-%m-%d-%H-%M`
 if [ ! -d $HOME/.emacs.d ];then
@@ -44,4 +37,3 @@ ln -sfn ${dir}/.emacs.d/init.el ${HOME}/.emacs.d/init.el
 ln -sfn ${dir}/.spacemacs ${HOME}/.spacemacs
 ln -sfn ${dir}/.emacs.d/private ${HOME}/.emacs.d/private
 echo "Please start your emacs to install spacemacs plugins ..."
-###########################################################

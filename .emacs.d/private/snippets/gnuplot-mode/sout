@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: save output.png
+# key: sout
+# --
+set terminal pngcairo  background "#ffffff" enhanced fontscale 1.0 size 640, 480  dashlength 2
+set output '$1'$0
