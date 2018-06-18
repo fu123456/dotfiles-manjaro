@@ -91,10 +91,11 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ebdb.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-secret.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-dict.el"))
-(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-gnuplot.el"))
-(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
-(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-fold.el"))
-(mapc 'load(file-expand-wildcards "~/.emacs.d/private/modes/fg-ibuffer.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gnuplot.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fold.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ibuffer.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-occur.el"))
 ;;}}}
 
 ;; global-mode
@@ -102,15 +103,16 @@
 (global-company-mode 1)
 (global-auto-complete-mode nil)
 
-;; open PDF file using others
+;;{{{ open PDF file using others
 ;; below config about helm-bibtex if put fg-bibtex.el file,
 ;; it does not work, so put below
 (setq helm-bibtex-pdf-open-function
       (lambda (fpath)
-        (call-process "evince" nil 0 nil fpath)))
+        (call-process "zathura" nil 0 nil fpath)))
 (setq org-ref-open-pdf-function
       (lambda (fpath)
-        (start-process "evince" "*helm-bibtex-evince*" "/usr/bin/evince" fpath)))
+        (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
+;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.
 (setq dired-omit-mode t) ; Turn on Omit mode.

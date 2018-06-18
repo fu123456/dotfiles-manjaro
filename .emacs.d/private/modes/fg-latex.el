@@ -61,7 +61,7 @@
 
 ;; auctex setting
 (load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+                                        ; (load "preview-latex.el" nil t t)
 (add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex) ; with Emacs latex mode
@@ -108,42 +108,147 @@
 ;; pdflatex --synctex=1 your.tex
 
 ;;{{{ make most command that you usually used in latex bindings that stick around
-(defhydra hydra-latex (:color pink
-                              :hint nil)
+;; (defhydra hydra-latex (:color pink
+;;                               :hint nil)
+;;   "
+;; ^Latex Preview^          ^Org-ref Bib^           ^reftex^                ^cdlatex^             ^Compile^
+;; ^^^^^^^^----------------------------------------------------------------------------------------------------
+;; _p_: preview-region      _v_: bibtex-validate   _f_: Referencing Labels  _e_: environment   _R_: English
+;; _l_: preview-clearout    _b_: format bibtex     _c_: reftex-citation     _`_: symbol        _T_: Chinese
+;; _m_: math-preview        _s_: sort bibtex       ^ ^                      _h_: help          _P_: pdflatex
+;; _Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
+;;   "
+;;   ;; latex preview
+;;   ("m" latex-math-preview-expression)
+;;   ("p" preview-region)
+;;   ("Q" latex-math-preview-delete-buffer)
+;;   ("l" preview-clearout)
+;;   ;; org-ref, bibtex, need org-ref package
+;;   ("v" bibtex-validate)
+;;   ("b" org-ref-clean-bibtex-entry)
+;;   ("s" bibtex-sort-buffer)
+;;   ;; reftex setting
+;;   ("f" reftex-reference)
+;;   ("c" reftex-citation)
+;;   ;; cdlatex
+;;   ("e" cdlatex-environment)
+;;   ("`" cdlatex-math-symbol)
+;;   ("h" cdlatex-command-help)
+;;   ;; Compile
+;;   ("R" fg/compile-latex-file)
+;;   ("T" fg/compile-chinese-latex-file)
+;;   ("P" fg/pdflatex-file)
+;;   ("C" fg/clean-latex-file)
+;;   ;; quit
+;;   ("q" nil "cancel")
+;;   ;; ("q" quit-window "quit" :color blue)
+;;   )
+
+(defhydra hydra-latex-main (:color pink :hint nil)
   "
-^Latex Preview^          ^Org-ref Bib^           ^reftex^                ^cdlatex^             ^Compile^
-^^^^^^^^----------------------------------------------------------------------------------------------------
-_p_: preview-region      _v_: bibtex-validate   _f_: Referencing Labels  _e_: environment   _R_: English
-_l_: preview-clearout    _b_: format bibtex     _c_: reftex-citation     _`_: symbol        _T_: Chinese
-_m_: math-preview        _s_: sort bibtex       ^ ^                      _h_: help          _P_: pdflatex
-_Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
-  "
-  ;; latex preview
+ ^Preview^        | ^Compile^     | ^Bibtex^       | ^citeRef^     | ^Outline^
+-^-------^--------+-^-------^-----+-^------^-------+-^-------^-----+-^-------^----
+  _m_: math       | _R_: PBP      | _b_: bibtex    | _f_: ref      | _o_: outline
+ _SPC_: delete    | _P_: pdflatex | ^ ^            | _H_: helmBib  | ^ ^
+  _p_: auctex     | _X_: XBX      | ^ ^            | ^ ^           | ^ ^
+  ^ ^             | _x_: xelatex  | ^ ^            | ^ ^           | ^ ^
+  ^ ^             | _C_: clean    | ^ ^            | ^ ^           | ^ ^
+"
+  ;; latex math preview
   ("m" latex-math-preview-expression)
-  ("p" preview-region)
-  ("Q" latex-math-preview-delete-buffer)
-  ("l" preview-clearout)
-  ;; org-ref, bibtex, need org-ref package
-  ("v" bibtex-validate)
-  ("b" org-ref-clean-bibtex-entry)
-  ("s" bibtex-sort-buffer)
+  ("SPC" latex-math-preview-delete-buffer)
+  ("p" auctex-preview/body :color blue)
+  ;; compile
+  ("R" fg/compile-latex-file)
+  ("X" fg/compile-chinese-latex-file)
+  ("P" fg/pdflatex-file)
+  ("x" fg/xelatex-file)
+  ("C" fg/clean-latex-file)
+  ;; bibtex
+  ("b" bibtex-main/body :color blue)
   ;; reftex setting
   ("f" reftex-reference)
-  ("c" reftex-citation)
-  ;; cdlatex
-  ("e" cdlatex-environment)
-  ("`" cdlatex-math-symbol)
-  ("h" cdlatex-command-help)
-  ;; Compile
-  ("R" fg/compile-latex-file)
-  ("T" fg/compile-chinese-latex-file)
-  ("P" fg/pdflatex-file)
-  ("C" fg/clean-latex-file)
-  ;; quit
+  ;; citeRef
+  ("H" helm-bibtex)
+  ;; outline
+  ("o" hydra-outline-main/body :color blue)
   ("q" nil "cancel")
-  ;; ("q" quit-window "quit" :color blue)
   )
-(evil-leader/set-key (kbd "l") 'hydra-latex/body)
+;; auctex-preview
+(defhydra auctex-preview (:color teal :hint nil
+                                 :after-exit (hydra-latex-main/body))
+  "
+ ^Preview^         | ^Clear^
+-^-------^---------+-^-----^--------
+  _p_: point       | _P_: point
+  _e_: environment |
+  _r_: region      |
+  _s_: section     | _S_: section
+  _d_: document    | _D_: document
+  _a_: buffer      | _A_: buffer
+-^-------^---------+-^-----^--------
+"
+  ("p" preview-at-point)
+  ("P" preview-clearout-at-point)
+  ("r" preview-region)
+  ("e" preview-environment)
+  ("s" preview-section)
+  ("S" preview-clearout-section)
+  ("d" preview-document)
+  ("D" preview-clearout-document)
+  ("a" preview-buffer)
+  ("A" preview-clearout-buffer)
+  ("q" nil "cancel")
+  ("b" hydra-latex-main/body :color blue))
+(defhydra bibtex-main (:color teal :hint nil)
+"
+ ^Bibtex^
+ _v_: validate
+ _c_: clean
+ _s_: sort
+ _y_: orgBibYank
+"
+  ;; org-ref, bibtex, need org-ref package
+  ("v" bibtex-validate)
+  ("c" org-ref-clean-bibtex-entry)
+  ("s" bibtex-sort-buffer)
+  ("y" org-bibtex-yank)
+  ("b" hydra-latex-main/body :color blue))
+(defhydra hydra-outline-main (:color pink :hint nil)
+  "
+^Hide^              ^Show^          ^Jump^
+^^^^^^^^----------------------------------------------------
+_B_: body           _a_: all        _n_: next
+_e_: entry          _E_: entry      _p_: previous
+_o_: other          _c_: children   _f_: forward
+_s_: subtree        _r_: branches   _k_: backward
+_l_: leaves         _S_: subtree    _u_: up
+_U_: sublevels      ^ ^             ^ ^
+"
+  ;; show
+  ("a" show-all)
+  ("c" show-children)
+  ("E" show-entry)
+  ("r" show-branches)
+  ("S" show-subtree)
+  ;; hide
+  ("B" hide-body)
+  ("o" hide-other)
+  ("e" hide-entry)
+  ("s" hide-subtree)
+  ("l" hide-leaves)
+  ("U" hide-sublevels)
+  ;; outline move
+  ("n" outline-next-visible-heading)
+  ("p" outline-previous-visible-heading)
+  ("f" outline-forward-same-level)
+  ("k" outline-backward-same-level)
+  ("u" outline-up-heading)
+  ("b" hydra-latex-main/body :color blue)
+  ;; quit
+  ("q" nil "cancel"))
+
+(evil-leader/set-key (kbd "l") 'hydra-latex-main/body)
 ;;}}}
 
 ;; fast to run and clean latex current buffer
@@ -178,6 +283,13 @@ _Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
    (format "pdflatex -synctex=1 -interaction=nonstopmode  %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
+(defun fg/xelatex-file ()
+  (interactive)
+  (save-buffer)
+  (shell-command
+   (format "xelatex -synctex=1 -interaction=nonstopmode  %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))
 (evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
 (evil-leader/set-key (kbd "op") 'fg/pdflatex-file)
 (evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
@@ -191,7 +303,7 @@ _Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^    
 
 ;;disable auto-fill-mode when editing equations
 (defvar my-LaTeX-no-autofill-environments
-  '("equation" "equation*" "align" "align*" "split" "split*" "eqnarray" "eqnarray*" "figure" "figure*" "table" "table*")
+  '("equation" "equation*" "align" "align*" "split" "split*" "eqnarray" "eqnarray*" "cases" "cases*" "figure" "figure*" "table" "table*")
   "A list of LaTeX environment names in which `auto-fill-mode' should be inhibited.")
 
 (defun my-LaTeX-auto-fill-function ()
@@ -226,4 +338,7 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
 (autoload 'latex-math-preview-insert-symbol "latex-math-preview" nil t)
 (autoload 'latex-math-preview-save-image-file "latex-math-preview" nil t)
 (autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t)
+(defvar latex-math-preview-latex-template-header
+  "\\documentclass{article}\n \\usepackage{amsmath}\n \\usepackage{multirow}\n \\usepackage{float}\n \\usepackage{algorithm}\n \\usepackage{algorithmic}\n"
+  )
 ;;}}}

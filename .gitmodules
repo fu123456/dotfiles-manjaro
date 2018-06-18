@@ -7,3 +7,6 @@
 [submodule ".emacs.d/private/git/evil-collection"]
 	path = .emacs.d/private/git/evil-collection
 	url = https://github.com/emacs-evil/evil-collection.git
+[submodule ".emacs.d/private/evil-collection"]
+	path = .emacs.d/private/evil-collection
+	url = https://github.com/emacs-evil/evil-collection.git

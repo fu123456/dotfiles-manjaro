@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+
+# see @ https://samhobbs.co.uk/2017/01/bash-script-generate-pdf-source-code-syntax-highlighting-using-latex
+
+# CREATE PDF FROM SOURCE CODE
+# original source http://superuser.com/questions/601198/how-can-i-automatically-convert-all-source-code-files-in-a-folder-recursively
+# source code file names must not contain spaces
+
+# read input correctly
+if [ ! -n "$1" ]; then
+    echo "You have not input parmeter, please input a directory of source code"
+    echo "You can input -help for more help information"
+    exit 1;
+elif [ "$1"==-help ] && [ ! -n "$1" ] && [ ! -n "$2" ]; then
+    echo Usage:
+    echo "src2pdf <Dir> <Language> <Extenstions>"
+    echo "Dir: jedi path"
+    echo "Language: Matlab, octace, c++ etc."
+    echo "Extensiton: m php cpp c etc."
+    exit 1;
+elif [ -d "$1" ] && [ -n "$2" ] && [ -n "$2" ]; then
+    echo "Input directory is: $1"
+    echo "Language: $2"
+    echo "Extensions: $3"
+    title=`basename $1`
+    # if output files already exist, delete them
+    tex_file=${title}-tmmmmp.tex ## Random temp file name
+    echo " go directory: $1"
+    cd $1
+else
+    echo "Please input: Dir, Language, Extensions"
+    exit 1;
+fi
+
+if [ -f ./${title}-tmmmmp.aux ] || [ -f ./${title}-tmmmmp.log ] || [ -f ./${title}-tmmmmp.out ] || [ -f ./${title}-tmmmmp.pdf ] || [ -f ./${title}-tmmmmp.toc ] ; then
+    echo "Removing old output files..."
+    rm ./${title}-tmmmmp.*
+else
+    echo " No exist old files"
+fi
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: failed to create temporary file"
+    exit 1;
+fi
+
+# DOCUMENT HEADER
+
+cat<<EOF >$tex_file   ## Print the tex file header
+\batchmode
+\documentclass[titlepage,twoside]{article}
+
+%\usepackage{showframe}
+%\usepackage[inner=2cm,outer=4cm]{geometry}
+%\usepackage[]{geometry}
+\usepackage[inner=2.5cm,outer=2.5cm,bottom=2.5cm]{geometry}
+
+
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}  %% Allow color names
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  xleftmargin=\parindent,
+  language=$2,   %% Change this to whatever you write in
+  breaklines=true, %% Wrap long lines
+  basicstyle=\small\ttfamily,
+  commentstyle=\itshape\color{Gray},
+  stringstyle=\color{Black},
+  keywordstyle=\bfseries\color{OliveGreen},
+  identifierstyle=\color{blue},
+  %xleftmargin=-8em,
+}
+
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\begin{document}
+
+\title{$title}
+\author{Fu Gang}
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+EOF
+
+###############
+
+answer=$3;
+
+#
+# replace spaces with double escaped pipe using substring replacement  http://www.tldp.org/LDP/abs/html/parameter-substitution.html
+
+extensions="${answer// /\\|}"
+
+###############
+
+# FINDING FILES TO INCLUDE
+# inline comments http://stackoverflow.com/questions/2524367/inline-comments-for-bash#2524617
+# not all of the conditions below are necessary now that the regex for c++ files has been added, but they don't harm
+
+filesarray=(
+    $(
+        find .                                          `# find files in the current directory` \
+             -type f                                 `# must be regular files` \
+             -regex ".*\.\($extensions\)"            `# only files with the chosen extensions (.h, .cpp and .qml) by default` \
+             ! -regex ".*/\..*"                      `# exclude hidden directories - anything slash dot anything (Emacs regex on whole path https://www.emacswiki.org/emacs/RegularExpression)` \
+             ! -name ".*"                            `# not hidden files` \
+             ! -name "*~"                            `# don't include backup files` \
+             ! -name 'src2pdf'                       `# not this file if it's in the current directory`
+    ))
+
+###############
+
+# sort the array https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash#11789688
+# internal field separator $IFS https://bash.cyberciti.biz/guide/$IFS
+
+IFS=$'\n' filesarray=($(sort <<<"${filesarray[*]}"))
+unset IFS
+
+###############
+
+# Change ./foo/bar.src to foo/bar.src
+IFS=$'\n' filesarray=($(sed 's/^\..//' <<<"${filesarray[*]}"))
+unset IFS
+
+###############
+
+# create a .tex file with each section on its own page
+
+echo "Creating tex file..."
+
+for i in "${filesarray[@]}"
+do
+    echo "\newpage" >> $tex_file   # start each section on a new page
+    echo "\section{$i}" >> $tex_file  # create a section for each source file
+    echo "\lstinputlisting[style=customasm]{$i}" >>$tex_file # place the contents of each file in a listing
+done
+
+echo "\end{document}" >> $tex_file
+
+###############
+
+# run pdflatex twice to produce TOC
+echo "Creating pdf..."
+echo
+
+pdflatex $tex_file -output-directory .
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: pdflatex command failed on first run, refer to tmp.log for more information"
+    exit 1;
+fi
+
+pdflatex $tex_file -output-directory .
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: pdflatex command failed on second run, refer to tmp.log for more information"
+    exit 1;
+fi
+
+###############
+
+echo "Renaming output files..."
+
+mv ${title}-tmmmmp.pdf $title.pdf
+
+echo "Cleaning up..."
+
+rm ./${title}-tmmmmp.*
+
+echo "Done, output file is $title.pdf in this directory"

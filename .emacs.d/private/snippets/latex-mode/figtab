@@ -2,7 +2,7 @@
 # name: figures in talbe environment
 # key: figtab
 # --
-% {{{ figure table environment:
+%{{{ figure table environment:
 % rotate the figures or texts, e.g. \rotatebox{90}{\footnotesize Input}
 \begin{figure}[!htbp]
 \centering
@@ -16,5 +16,5 @@
 \caption{}
 \label{fig:}
 \end{figure}
-% }}}
+%}}}
 $0

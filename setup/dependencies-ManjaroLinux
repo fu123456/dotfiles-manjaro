@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
 #vim:ts=2:sw=2:expandtab
+
 echo "Installing prerequisites for pacaur..."
-sudo pacman --noconfirm -S git git-core
-
-# echo "Installing pacaur..."
-# if ! command -v "pacaur" >/dev/null 2>&1; then
-# mkdir /tmp/tmp-pacaur
-# cd /tmp/tmp-pacaur
-# wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
-# makepkg
-# sudo pacman --noconfirm -U *.tar.xz
-# cd -
-# fi
-
-echo "Installing base packages..."
-sudo pacman --noconfirm -S \
-     termite-git \
-     bash-completion \
-     base-devel
+sudo pacman -S base-devel fakeroot jshon expac cower wget
+echo "Installing pacaur..."
+if ! command -v "pacaur" >/dev/null 2>&1; then
+mkdir /tmp/tmp-pacaur
+cd /tmp/tmp-pacaur
+wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
+makepkg
+sudo pacman --noconfirm -U *.tar.xz
+cd -
+fi
 
 echo "Install sogou Chinese input method..."
 sudo pacman --noconfirm -S \
@@ -25,11 +19,11 @@ sudo pacman --noconfirm -S \
      fcitx-configtool \
      fcitx-sogoupinyin
 
-# {{ softwares I often used
-echo "Installing tools..."
-sudo yaourt --noconfirm -S \
-     ttf-font-icons \
+#{{{ softwares I often used
+echo "Installing my tools..."
+pacaur --noconfirm --noedit -S \
      unrar \
+     unzip \
      mplayer \
      smplayer \
      evince \
@@ -37,7 +31,7 @@ sudo yaourt --noconfirm -S \
      mupdf-tools \
      zathura \
      okular \
-     gvim \
+     vim \
      texmacs \
      anydesk \
      megasync \
@@ -46,7 +40,7 @@ sudo yaourt --noconfirm -S \
      shutter \
      xclip \
      synaptics \
-     emacs \
+     emacs-git \
      firefox \
      htop \
      eog \
@@ -57,28 +51,30 @@ sudo yaourt --noconfirm -S \
      google-chrome \
      imagemagick \
      percol \
-     lantern \
      electronic-wechat \
      youtube-dl \
-     aspell-en \
-     ruby \
-     xsel \
-     gbkunzip \
-     xorg
+     gnuplot \
+     rofi \
+##}}}
 
-yaourt --noconfirm -S \
-       gnuplot
-
+##{{{ other useful stuffs
 sudo pacman --noconfirm -S \
      libqalculate \
-    xf86-input-synaptics \
-# }}
+     xf86-input-synaptics \
+     ttf-font-icons \
+     ruby \
+     aspell-en \
+     xorg \
+     gbkunzip \
+     xsel \
+     libqalculate # rofi dependency
+##}}}
 
-# {{ install python scientific computing environment
+##{{{ install python scientific computing environment
 echo "Installing python scientific computing environment "
-yaourt --noconfirm -S \
+pacaur --noconfirm --noedit -S \
      python2-pip \
-     python3-pip
+     python-pip
 echo "Installing python scientific computing environment: python2"
 sudo pip2 install \
      numpy \
@@ -97,6 +93,7 @@ sudo pip3 install \
      scikit-image \
      pillow \
      scikit-learn
+##}}}
 
 echo "Installing other libaray"
 yaourt --noconfirm -S \
@@ -121,15 +118,3 @@ cd auctex-12.1
 make &&
     sudo make install
 cd ~ && rm -rf ./auctex-12.1 && rm -rf ./auctex-12.1.tar.gz
-
-echo "Install oh-my-zsh"
-wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-chsh -s /bin/zsh # replace bash to zsh
-if [ ! -d "/usr/share/fonts/OTF" ]; then
-    sudo mkdir -p /usr/share/fonts/OTF
-fi
-wget https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf
-wget https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf
-sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/
-sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
-sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/

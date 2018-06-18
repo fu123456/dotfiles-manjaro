@@ -210,7 +210,7 @@ alias i3clock='xset -dpms s on'
 # screen shot
 # alias scrot-s='scrot -s '%H%M%S-%d_$wx$h.png' -e 'mkdir -p ~/screenshot;mv $f ~/screenshot/;echo ~/screenshot/$f|tr -d \"\\n\"|xsel -ib;''
 
-# 关机、睡眠、休眠、挂起
+#{{{ 关机、睡眠、休眠、挂起
 # 休眠, save to disk, 要重新按开机键
 alias pmh='sudo pm-hibernate'
 # 挂起, save to ram, 按下键盘鼠标就行了
@@ -219,6 +219,10 @@ alias pms='sudo pm-suspend'
 alias -g rb='sudo reboot -h now'
 # 关机
 alias -g st='sudo shutdown -h now'
+# hybrid sleep
+alias -g hsleep='systemctl hybrid-sleep'
+alias -g hsuspend='systemctl suspend'
+#}}}
 
 # vimgolf alias
 alias vimg="vim -u .vimrc.basic"
@@ -246,7 +250,7 @@ alias mykey="ctp && cc && ckey"
 alias myall="cc && ctp && ckey && ed && ec"
 
 # alias for Manjaro Linux system
-alias manjaroUpdate="sudo pacman -Syyu" # update 
+alias manjaroUpdate="sudo pacman -Syyu" # update
 
 # multi monitor
 alias dualMonitor="xrandr --output DP2 --auto --output DP2 --auto --right-of eDP1"
@@ -268,11 +272,18 @@ prompt_context() {
     fi
 }
 
+#{{{texlive
 # texlive 2017 environment setting
 PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
 MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
 INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
 PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
+# texlive 2018 environment setting
+PATH=/usr/local/texlive/2018/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2018/texmf-dist/:${PACKAGEPATH}
+#}}}
 
 # Matlab R2017a
 PATH=/usr/local/MATLAB/R2017a/bin:${PATH}
@@ -513,6 +524,4 @@ export TERM=xterm-256color
 export PATH=/home/fg/scripts:$PATH
 
 # export vim
-export VIMRUNTIME=/usr/share/vim/vim80 
-
-
+export VIMRUNTIME=/usr/share/vim/vim81

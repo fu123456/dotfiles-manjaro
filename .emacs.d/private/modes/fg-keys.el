@@ -11,6 +11,8 @@
 (global-set-key (kbd "C-x p i") 'cliplink)
 (dolist (key '("\C-z"))
   (global-unset-key key))
+;; other keybinding
+(evil-leader/set-key (kbd "ii") 'ibuffer)
 
 (defhydra hydra-zoom (global-map "<f10>")
   "zoom"
