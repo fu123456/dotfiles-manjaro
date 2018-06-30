@@ -7,7 +7,8 @@ export ZSH=/home/fg/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="lambda"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -127,10 +128,10 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 alias q='bye'
 alias szsh='source ~/.zshrc'
-alias Matlab='sudo /usr/local/MATLAB/R2017a/bin/matlab &'
-alias Mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
-alias mrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
-alias mrun1="sudo /usr/local/MATLAB/R2010b/bin/matlab -nodesktop -nosplash -softwareopengl"
+alias matlab2017='sudo /usr/local/MATLAB/R2017a/bin/matlab &'
+alias matlab2014='sudo /usr/local/MATLAB/R2014b/bin/matlab &'
+alias m2017arun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
+alias m2014brun="sudo /usr/local/MATLAB/R2014b/bin/matlab -nodesktop -nosplash -softwareopengl"
 alias matrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nodisplay -nosplash -nojvm"
 alias mat="LD_PRELOAD=/usr/lib64/libstdc++.so.6 /usr/local/MATLAB/R2017a/bin/matlab"
 alias -g vims='vim --servername vim --remote-silent'
@@ -221,7 +222,7 @@ alias -g rb='sudo reboot -h now'
 alias -g st='sudo shutdown -h now'
 # hybrid sleep
 alias -g hsleep='systemctl hybrid-sleep'
-alias -g hsuspend='systemctl suspend'
+alias -g hsu='systemctl suspend'
 #}}}
 
 # vimgolf alias
@@ -254,6 +255,10 @@ alias manjaroUpdate="sudo pacman -Syyu" # update
 
 # multi monitor
 alias dualMonitor="xrandr --output DP2 --auto --output DP2 --auto --right-of eDP1"
+
+# voice control
+alias vcr="amixer set Master 5%+"
+alias vde="amixer set Master 5%-"
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -285,9 +290,14 @@ INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info/:${INFOPATH}
 PACKAGEPATH=/usr/local/texlive/2018/texmf-dist/:${PACKAGEPATH}
 #}}}
 
+##{{{ matlab
 # Matlab R2017a
 PATH=/usr/local/MATLAB/R2017a/bin:${PATH}
 PATH=/usr/local/MATLAB/R2017a/bin/glnxa64:${PATH}
+# Matlab R2014b
+PATH=/usr/local/MATLAB/R2014b/bin:${PATH}
+PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:${PATH}
+##}}}
 
 #perl
 # export PERL5LIB=/home/perl_modules/lib/perl5/:/home/perl_modules/lib/perl5/site_perl:

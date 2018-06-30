@@ -55,6 +55,7 @@ pacaur --noconfirm --noedit -S \
      youtube-dl \
      gnuplot \
      rofi \
+     libreoffice
 ##}}}
 
 ##{{{ other useful stuffs

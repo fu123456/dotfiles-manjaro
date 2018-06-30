@@ -181,6 +181,10 @@
   (pyim-isearch-mode -1)
   (yas-minor-mode -1)
   )
+
+;; Close evil-mode in pdf-tools
+(evil-set-initial-state 'pdf-view-mode 'emacs)
+
 (add-hook 'pdf-view-mode-hook 'fg/pdf-view-mode-hook)
 
 ;; ;; set pdf file on the right

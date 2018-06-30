@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=MATLAB R2014b
+Icon=matlab
+Path=/usr/local/MATLAB
+Exec=/usr/local/MATLAB/R2014b/bin/matlab -desktop -prefersoftwareopengl
+Terminal=false

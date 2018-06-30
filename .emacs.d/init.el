@@ -98,10 +98,13 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-occur.el"))
 ;;}}}
 
-;; global-mode
+;;{{{ global-mode, turn on these global mode
 (yas-global-mode 1)
 (global-company-mode 1)
 (global-auto-complete-mode nil)
+;; see @ https://github.com/Malabarba/aggressive-indent-mode
+(global-aggressive-indent-mode 1)
+;;}}}
 
 ;;{{{ open PDF file using others
 ;; below config about helm-bibtex if put fg-bibtex.el file,

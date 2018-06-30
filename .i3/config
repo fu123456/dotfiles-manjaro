@@ -264,6 +264,9 @@ for_window [class = "^Zathura$"] #layout tabbed
 # xournal
 assign [class="^Xournal"] $wsPresentation
 for_window [class = "^Xournal"] #layout tabbed
+# goldendict
+assign [class="^GoldenDict"] $wsemacs
+for_window [class = "^GoldenDict"] #layout tabbed
 # epdfview
 assign [class="^Epdfview$"] $wsPresentation
 for_window [class = "^Epdfview$"] #layout tabbed

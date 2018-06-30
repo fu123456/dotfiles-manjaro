@@ -55,13 +55,11 @@ of any of the matches found in occur."
   (register-to-point ?1))           ;; re-position cursor
 
 ;; some key bindings defined below. Use "p" ans "n" as in dired mode (without Cntrl key) for previous and next line; just show occurrence without leaving the "occur" buffer; use RET to display the line of the given occurrence, instead of jumping to i,t which you do clicking instead;  also quit mode with Ctrl-g.
-(eval-after-load "zencoding-mode"
-  '(define-key occur-mode-ap (kbd "q") nil))
 (define-key occur-mode-map (kbd "q") 'occur-mode-quit)
 (define-key occur-mode-map (kbd "C-q") 'occur-mode-quit)
 (define-key occur-mode-map (kbd "C-g") 'occur-mode-quit)
 (define-key occur-mode-map (kbd "C-RET") 'occur-mode-goto-occurrence-other-window)
 (define-key occur-mode-map (kbd "C-<up>") 'occur-mode-goto-occurrence-other-window)
 (define-key occur-mode-map (kbd "RET") 'occur-mode-display-occurrence)
-(define-key occur-mode-map (kbd "i") 'occur-edit-mode)
+(define-key occur-mode-map (kbd "C-c C-e") 'occur-edit-mode)
 ;;}}}
