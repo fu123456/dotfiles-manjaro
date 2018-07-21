@@ -441,7 +441,7 @@
   "Cache directory.")
 
 (defvar latex-math-preview-latex-template-header
-  "\\documentclass{article}\n \\usepackage{amsmath}\n \\usepackage{amsthm}\n \\usepackage{multirow}\n \\usepackage{float}\n \\usepackage{algorithm}\n \\usepackage{algorithmic}\n"
+  "\\documentclass{article}\n \\usepackage{amsmath}\n \\usepackage{amsthm}\n"
   ;; "\\documentclass{article}\n\\pagestyle{empty}\n"
   "Insert string to beginning of temporary latex file to make image.")
 

@@ -4,3 +4,4 @@
 (define-key julia-mode-map (kbd "C-c C-s") 'julia-shell-save-and-go)
 
 (provide 'fg-julia)
+;; fg-julia.el ends here

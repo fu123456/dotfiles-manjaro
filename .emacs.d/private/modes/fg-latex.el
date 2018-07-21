@@ -4,17 +4,10 @@
 ;; pdf-tools
 ;;}}}
 
-(require 'tex)
-(add-hook 'LaTeX-mode-hook (lambda ()
-                             (setq font-lock-maximum-decoration 2)
-                             (rainbow-delimiters-mode 1)
-                             (magic-latex-buffer 1)
-                             (smartparens-mode 1)
-                             ))
-
 ;;{{{ magic-latex-buffer
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/magic-latex-buffer")
 (require 'magic-latex-buffer)
-(add-hook 'lattex-mode-hook 'magic-latex-buffer)
+(add-hook 'latex-mode-hook 'magic-latex-buffer)
 ;; You can disable some features independently, if they’re too fancy.
 (setq magic-latex-enable-block-highlight nil
       magic-latex-enable-suscript        t
@@ -23,6 +16,15 @@
       magic-latex-enable-inline-image    nil
       magic-latex-enable-minibuffer-echo nil)
 ;;}}}
+
+(require 'tex)
+(add-hook 'LaTeX-mode-hook (lambda ()
+                             (setq font-lock-maximum-decoration 2)
+                             (rainbow-delimiters-mode 1)
+                             (magic-latex-buffer 1)
+                             (aggressive-indent-mode 1)
+                             (smartparens-mode 1)
+                             ))
 
 ;; latex-mode
                                         ; (add-to-list 'ac-modes 'latex-mode)
@@ -33,24 +35,25 @@
 ;; 设定打开PDF文件的软件
 (cond
  ((string-equal system-type "darwin")
-  (progn (setq TeX-view-program-selection '((output-pdf "xdg-open")))))
+  (progn (setq TeX-view-program-selection '((output-pdf "pdf-tools")))))
  ((string-equal system-type "gnu/linux")
-  (progn (setq TeX-view-program-selection '((output-pdf "xdg-open"))))))
+  (progn (setq TeX-view-program-selection '((output-pdf "pdf-tools"))))))
 
 ;; ;; 在tex文件和对应的pdf文件跳转
 ;; ;; |f6 |tex文档到pdf的跳转, pdf到tex的快捷键C-mouse
 (setq TeX-source-correlate-mode t)
 (setq TeX-source-correlate-start-server t)
 (setq TeX-source-correlate-method 'synctex)
+(setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))
 ;; (setq TeX-view-program-list
 ;;       '(("Evince" "evince --unique %o#src:%n%b")
 ;;         ("Skim" "displayline -b -g %n %o %b")))
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (setq TeX-view-program-selection
       (quote
-       ((output-pdf "xdg-open")
-        (output-dvi "xdg-open")
-        (output-html "xdg-open"))))
+       ((output-pdf "pdf-tools")
+        (output-dvi "pdf-tools")
+        (output-html "pdf-tools"))))
 
 ;; revert the pdf buffer after tex compilation has finished
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
@@ -94,7 +97,6 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
 (define-key cdlatex-mode-map ";" 'cdlatex-tab)
-
 
 (add-hook 'LaTeX-mode-hook 'turn-on-flyspell) ; with flyspell Latex(latex) mode
 (add-hook 'plain-TeX-mode-hook 'LaTeX-mode) ; plainlatex automatically convert to Latex mode

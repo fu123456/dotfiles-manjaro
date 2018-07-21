@@ -370,16 +370,16 @@ mode "resize" {
 # bindsym k resize grow height 5 px or 5 ppt
 # bindsym l resize shrink height 5 px or 5 ppt
 # bindsym semicolon resize grow width 5 px or 5 ppt
-bindsym h resize shrink width 5 px or 5 ppt
-bindsym j resize grow height 5 px or 5 ppt
-bindsym k resize shrink height 5 px or 5 ppt
-bindsym l resize grow width 5 px or 5 ppt
+bindsym h resize shrink width 30 px or 30 ppt
+bindsym j resize grow height 30 px or 30 ppt
+bindsym k resize shrink height 30 px or 30 ppt
+bindsym l resize grow width 30 px or 30 ppt
 
 # same bindings, but for the arrow keys
-bindsym Left resize shrink width 10 px or 10 ppt
-bindsym Down resize grow height 10 px or 10 ppt
-bindsym Up resize shrink height 10 px or 10 ppt
-bindsym Right resize grow width 10 px or 10 ppt
+bindsym Left resize shrink width 20 px or 20 ppt
+bindsym Down resize grow height 20 px or 20 ppt
+bindsym Up resize shrink height 20 px or 20 ppt
+bindsym Right resize grow width 20 px or 20 ppt
 
 # exit resize mode: Enter or Escape
 bindsym Return mode "default"

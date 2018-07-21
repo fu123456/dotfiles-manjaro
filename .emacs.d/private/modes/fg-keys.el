@@ -104,7 +104,15 @@ T - tag prefix
   ("q" nil)
   ("." nil :color blue))
 
-;; projectile settting using hydra
+;; projectile
+(defhydra hydra-projectile-other-window (:color teal)
+  "projectile-other-window"
+  ("f"  projectile-find-file-other-window        "file")
+  ("g"  projectile-find-file-dwim-other-window   "file dwim")
+  ("d"  projectile-find-dir-other-window         "dir")
+  ("b"  projectile-switch-to-buffer-other-window "buffer")
+  ("q"  nil                                      "cancel" :color blue))
+
 (defhydra hydra-projectile (:color teal
                                    :hint nil)
   "
@@ -142,7 +150,66 @@ _s-f_: file            _a_: ag                _i_: Ibuffer           _c_: cache 
   ("z"   projectile-cache-current-file)
   ("`"   hydra-projectile-other-window/body "other window")
   ("q"   nil "cancel" :color blue))
-
+;; projectile settting using hydra
+(defhydra hydra-project (:color blue :hint nil :idle 0.4)
+  "
+                                                                    ╭────────────┐
+    Files             Search          Buffer             Do         │ Projectile │
+  ╭─────────────────────────────────────────────────────────────────┴────────────╯
+    [_f_] file          [_a_] ag          [_b_] switch         [_g_] magit
+    [_l_] file dwim     [_A_] grep        [_v_] show all       [_p_] commander
+    [_r_] recent file   [_s_] occur       [_V_] ibuffer        [_i_] info
+    [_d_] dir           [_S_] replace     [_K_] kill all
+    [_o_] other         [_t_] find tag
+    [_u_] test file     [_T_] make tags
+    [_h_] root
+                                                                        ╭────────┐
+    Other Window      Run             Cache              Do             │ Fixmee │
+  ╭──────────────────────────────────────────────────╯ ╭────────────────┴────────╯
+    [_F_] file          [_U_] test        [_kc_] clear         [_x_] TODO & FIXME
+    [_L_] dwim          [_m_] compile     [_kk_] add current   [_X_] toggle
+    [_D_] dir           [_c_] shell       [_ks_] cleanup
+    [_O_] other         [_C_] command     [_kd_] remove
+    [_B_] buffer
+  --------------------------------------------------------------------------------
+        "
+  ("<tab>" hydra-master/body "back")
+  ("<ESC>" nil "quit")
+  ("a"   projectile-ag)
+  ("A"   projectile-grep)
+  ("b"   projectile-switch-to-buffer)
+  ("B"   projectile-switch-to-buffer-other-window)
+  ("c"   projectile-run-async-shell-command-in-root)
+  ("C"   projectile-run-command-in-root)
+  ("d"   projectile-find-dir)
+  ("D"   projectile-find-dir-other-window)
+  ("f"   projectile-find-file)
+  ("F"   projectile-find-file-other-window)
+  ("g"   projectile-vc)
+  ("h"   projectile-dired)
+  ("i"   projectile-project-info)
+  ("kc"  projectile-invalidate-cache)
+  ("kd"  projectile-remove-known-project)
+  ("kk"  projectile-cache-current-file)
+  ("K"   projectile-kill-buffers)
+  ("ks"  projectile-cleanup-known-projects)
+  ("l"   projectile-find-file-dwim)
+  ("L"   projectile-find-file-dwim-other-window)
+  ("m"   projectile-compile-project)
+  ("o"   projectile-find-other-file)
+  ("O"   projectile-find-other-file-other-window)
+  ("p"   projectile-commander)
+  ("r"   projectile-recentf)
+  ("s"   projectile-multi-occur)
+  ("S"   projectile-replace)
+  ("t"   projectile-find-tag)
+  ("T"   projectile-regenerate-tags)
+  ("u"   projectile-find-test-file)
+  ("U"   projectile-test-project)
+  ("v"   projectile-display-buffer)
+  ("V"   projectile-ibuffer)
+  ("X"   fixmee-mode)
+  ("x"   fixmee-view-listing))
 
 ;; outline mode setting using hydra
 (defhydra hydra-outline (:color pink
@@ -325,15 +392,17 @@ _o_: orgconfig          _p_: paper
 
 (defhydra hydra-window ()
   "
-Movement^^        ^Split^         ^Switch^		^Resize^
-----------------------------------------------------------------
-_h_ ←       	_v_ertical    	_b_uffer		_Q_ X←
-_j_ ↓        	_x_ horizontal	_f_ind files	_w_ X↓
+Movement^^        ^Split^         ^Switch^		^Resize^      ^Layout^
+-----------------------------------------------------------------------
+_h_ ←       	_v_ertical    	_b_uffer		_Q_ X←            _u_ undo
+_j_ ↓        	_x_ horizontal	_f_ind files	_w_ X↓          _r_ redo
 _k_ ↑        	_z_ undo      	_a_ce 1		_e_ X↑
-_l_ →        	_Z_ reset      	_s_wap		_r_ X→
+_l_ →        	_Z_ reset      	_s_wap		_R_ X→
 _F_ollow		_D_lt Other   	_S_ave		max_i_mize
 _q_ cancel	_o_nly this   	_d_elete
 "
+  ("u" winner-undo)
+  ("r" winner-redo)
   ("h" windmove-left )
   ("j" windmove-down )
   ("k" windmove-up )
@@ -341,7 +410,7 @@ _q_ cancel	_o_nly this   	_d_elete
   ("Q" hydra-move-splitter-left)
   ("w" hydra-move-splitter-down)
   ("e" hydra-move-splitter-up)
-  ("r" hydra-move-splitter-right)
+  ("R" hydra-move-splitter-right)
   ("b" helm-mini)
   ("f" helm-find-files)
   ("F" follow-mode)
@@ -428,8 +497,10 @@ _q_ cancel	_o_nly this   	_d_elete
                           (buffer-string))))))
 
 ;; mc-evil
-
-(defhydra hydra-mc (:color pink :hint nil)
+(defhydra hydra-mc (:body-pre (evil-mc-mode 1)
+                              :color pink
+                              :hint nil
+                              :post (deactivate-mark))
   "
 ^ ^                      ^Cursor^                     ^Match^
                    ^Make^        ^Skip^         ^Make^       ^Skip^
@@ -460,6 +531,7 @@ _grl_: last
   ("C-t"  evil-mc-skip-and-goto-next-match)
   ("C-p"  evil-mc-make-and-goto-prev-match)
   ("grp"  evil-mc-skip-and-goto-prev-match)
+  ("." hydra-repeat)
   ;; quit
   ("q" nil "cancel"))
 (evil-leader/set-key (kbd "ec") 'hydra-mc/body)
@@ -503,6 +575,20 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
          (rectangle-mark-mode 1)))
   ("u" undo nil)
   ("q" nil))      ;; ok
+;;{{{ magit
+(defhydra hydra-magit(:color blue :hint nil)
+  "
+_mp_ magit-push _mc_ magit-commit _md_ magit diff _mla_ magit diff _mla_ magit status
+"
+  ;;Magit part
+  ("mp" magit-push)
+  ("mc" magit-commit)
+  ("md" magit-diff)
+  ("mla" magit-log-all)
+  ("ms" magit-status)
+  )
+(evil-leader/set-key (kbd "ma") 'hydra-magit/body)
+;;}}}
 
 ;;{{{ mail
 ;; @see https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org

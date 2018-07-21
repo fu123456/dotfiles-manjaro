@@ -1,3 +1,4 @@
+;;{{{ Chinese input method, pyim
 (require 'pyim)
 (require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
 (pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
@@ -53,3 +54,14 @@
   :bind
   (("C-c y" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
    ("C-;" . pyim-delete-word-from-personal-buffer)))
+;;}}}
+
+;; ;;{{{ 中英文等宽等高设定
+;; ;; see @ https://github.com/tumashu/cnfonts
+;; (add-to-list 'load-path "~/.emacs.d/private/myPackages/cnfonts")
+;; (require 'cnfonts)
+;; ;; 让 cnfonts 随着 Emacs 自动生效。
+;; (cnfonts-enable)
+;; ;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+;; (cnfonts-set-spacemacs-fallback-fonts)
+;; ;;;}}}

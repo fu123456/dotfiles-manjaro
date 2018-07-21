@@ -11,6 +11,16 @@
 (eval-after-load 'pdf-view
   '(define-key pdf-view-mode-map (kbd "<tab>") 'pdf-annot-add-highlight-markup-annotation))
 
+;;{{{ auto revert buffer
+;; see @ https://github.com/politza/pdf-tools/issues/25
+(setq auto-revert-interval 0.5)
+(auto-revert-set-timer)
+(setq revert-without-query '(".*"))
+(add-hook 'pdf-tools-mode-hook (lambda ()
+                                 (auto-revert-mode 1)
+                                 ))
+;;}}}
+
 ;;importing and exporting pdf annotations from/to org files.
 ;;https://github.com/pinguim06/pdf-tools-org
 (add-to-list 'load-path "~/MEGA/dotfiles-manjaro/.emacs.d/private/OtherUsefulElFiles")
@@ -154,8 +164,10 @@
              ("G"  . pdf-view-last-page)
              ("l"  . image-forward-hscroll)
              ("h"  . image-backward-hscroll)
-             ("j"  . pdf-view-next-page)
-             ("k"  . pdf-view-previous-page)
+             ("j"  . pdf-view-next-line-or-next-page)
+             ("J"  . pdf-view-next-page)
+             ("k"  . pdf-view-previous-line-or-previous-page)
+             ("K"  . pdf-view-previous-page)
              ("e"  . pdf-view-goto-page)
              ("U"  . pdf-view-revert-buffer)
              ("al" . pdf-annot-list-annotations)
@@ -169,6 +181,8 @@
              ("b"  . pdf-view-set-slice-from-bounding-box)
              ("r"  . pdf-view-reset-slice)
              ("w"  . save-buffer)
+             ("r" . revert-buffer)
+             (".." . delete-other-windows)
              )
   (use-package org-pdfview
     :ensure t)
@@ -240,7 +254,7 @@
                                                                       ╭───────────┐
        Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
    ╭──────────────────────────────────────────────────────────────────┴───────────╯
-         ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
+         ^^_gg_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
          ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
          ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
          ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
@@ -262,7 +276,7 @@
   ("+" pdf-view-enlarge :color red)
   ("-" pdf-view-shrink :co(setq helm-bibtex-pdf-open-function
                                 (lambda (fpath)
-                                  (call-process "xdg-open" nil 0 nil fpath)))lor red)
+                                  (call-process "pdf-tools" nil 0 nil fpath)))lor red)
   ("0" pdf-view-scale-reset)
   ("H" pdf-view-fit-height-to-window)
   ("W" pdf-view-fit-width-to-window)
@@ -272,7 +286,7 @@
   ("d" pdf-view-dark-minor-mode)
   ("b" pdf-view-set-slice-from-bounding-box)
   ("r" pdf-view-reset-slice)
-  ("g" pdf-view-first-page)
+  ("gg" pdf-view-first-page)
   ("G" pdf-view-last-page)
   ("e" pdf-view-goto-page)
   ("o" pdf-outline)

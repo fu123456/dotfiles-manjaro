@@ -1,6 +1,6 @@
 (autoload 'helm-bibtex "helm-bibtex" "" t)
 (setq bibtex-completion-bibliography
-      '("~/MEGA/bibtex-pdfs/bib/references.org"))
+      '("~/MEGA/bibtex-pdfs/bib/references.bib"))
 (setq bibtex-completion-library-path '("~/MEGA/bibtex-pdfs/"))
 ;; (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
 (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notes")

@@ -45,4 +45,6 @@
 (push "*MATLAB*" popwin:special-display-config)
 (push "*latex-math-preview-tex-processing-error*" popwin:special-display-config)
 (push "*latex-math-preview-expression*" popwin:special-display-config)
-
+(push "*Org PDF Latex Output*" popwin:special-display-config)
+(push "*Org Agenda*" popwin:special-display-config)
+(push "*quickrun*" popwin:special-display-config)

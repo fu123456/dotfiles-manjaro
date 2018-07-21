@@ -132,6 +132,7 @@ alias matlab2017='sudo /usr/local/MATLAB/R2017a/bin/matlab &'
 alias matlab2014='sudo /usr/local/MATLAB/R2014b/bin/matlab &'
 alias m2017arun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nosplash"
 alias m2014brun="sudo /usr/local/MATLAB/R2014b/bin/matlab -nodesktop -nosplash -softwareopengl"
+alias m2010brun="sudo /usr/local/MATLAB/R2010b/bin/matlab -nodesktop -nosplash -softwareopengl"
 alias matrun="sudo /usr/local/MATLAB/R2017a/bin/matlab -nodesktop -nodisplay -nosplash -nojvm"
 alias mat="LD_PRELOAD=/usr/lib64/libstdc++.so.6 /usr/local/MATLAB/R2017a/bin/matlab"
 alias -g vims='vim --servername vim --remote-silent'
@@ -259,6 +260,9 @@ alias dualMonitor="xrandr --output DP2 --auto --output DP2 --auto --right-of eDP
 # voice control
 alias vcr="amixer set Master 5%+"
 alias vde="amixer set Master 5%-"
+
+# Manjaro
+alias myyaourt='export PATH=/bin:/usr/bin:/usr/sbin &&  yaourt'
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -533,5 +537,21 @@ export TERM=xterm-256color
 # export my scripts
 export PATH=/home/fg/scripts:$PATH
 
-# export vim
-export VIMRUNTIME=/usr/share/vim/vim81
+#{{{ export vim
+# solve the problem: E484: Can't open file /usr/local/share/vim/vim80/syntax/syntax.vim
+export VIMRUNTIME=/usr/share/vim/vim80
+#}}}
+
+#{{{ Manjaro install software tools
+# see @ https://bbs.archlinux.org/viewtopic.php?id=237513 
+isrc() {
+	current="$PWD"
+	bld_dir="$HOME/build"
+	[ ! -d "$bld_dir" ] && mkdir "$bld_dir"
+	cd "$bld_dir"
+	asp export $1 2> /dev/null || git clone https://aur.archlinux.org/$1.git
+	cd $1
+	makepkg -isf --noconfirm
+	sudo pacman -Rns $(pacman -Qqdt)
+	cd "$current"
+} 
