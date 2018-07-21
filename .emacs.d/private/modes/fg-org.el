@@ -308,16 +308,13 @@ The full path into relative path and insert it as a local file link in org-mode"
     ))
 (define-key org-mode-map (kbd "C-k") 'insert-file-link-from-clipboard)
 
-;; This setup is tested on Emacs 24.3 & Emacs 24.4 on Linux/OSX
+;;{{{ org -> docx
 ;; org v7 bundled with Emacs 24.3
 (setq org-export-odt-preferred-output-format "doc")
 ;; org v8 bundled with Emacs 24.4
 (setq org-odt-preferred-output-format "doc")
-;; BTW, you can assign "pdf" in above variables if you prefer PDF format
-;; Run the command "M-x org-export-as-odt".
-
-;; If you need page break in exported document, insert below snippet into the org file:
-;; #+ODT: <text:p text:style-name="PageBreak"/>
+(setq org-odt-convert-processes '(("LibreOffice" "/usr/bin/libreoffice --headless --convert-to %f%x --outdir %d %i")))
+;;}}}
 
 ;; highlight latex text in org file:
 (setq org-highlight-latex-and-related '(latex script entities))

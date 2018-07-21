@@ -578,7 +578,7 @@ _h_   _l_     _y_ank        _t_ype       _e_xchange-point          /,`.-'`'   ..
 ;;{{{ magit
 (defhydra hydra-magit(:color blue :hint nil)
   "
-_mp_ magit-push _mc_ magit-commit _md_ magit diff _mla_ magit diff _mla_ magit status
+_mp_ magit-push _mc_ magit-commit _md_ magit diff _mla_ magit diff _ms_ magit status
 "
   ;;Magit part
   ("mp" magit-push)

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: execute a shell command if exist or no exist the file
+# key: iff
+# --
+if [ ! -f "$file" ]; then
+${1:Input your command line}
+else
+${2:Input you other command line}
+fi
+$0

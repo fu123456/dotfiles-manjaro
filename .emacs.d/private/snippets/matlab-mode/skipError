@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:  skip the error and continue to run
+# key: skiperror
+# --
+try
+${1:Your Matlab code}
+catch err
+disp('Skip some errors, and continue to run ...');
+end
