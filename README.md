@@ -1,12 +1,13 @@
 
 # Table of Contents
 
-1.  [Dotfiles for Manjaro](#org9b611a2)
-2.  [Install](#org2e1fff4)
-    1.  [percol](#orgcb208cb)
+1.  [Dotfiles for Manjaro](#org89a0785)
+2.  [Install dependencies](#org9a3c935)
+    1.  [Emacs](#org38e1e46)
+    2.  [percol](#org9e07fae)
 
 
-<a id="org9b611a2"></a>
+<a id="org89a0785"></a>
 
 # Dotfiles for Manjaro
 
@@ -17,12 +18,21 @@ If you any question ,please contact me.
 My email: xyzgfu@gmail.com, xyzgfu@outlook.com
 
 
-<a id="org2e1fff4"></a>
+<a id="org9a3c935"></a>
 
-# Install
+# Install dependencies
 
 
-<a id="orgcb208cb"></a>
+<a id="org38e1e46"></a>
+
+## Emacs
+
+If use Archlinux (Manjaro) system, you can install newest emacs by following command,
+
+    yaourt -S emacs-git
+
+
+<a id="org9e07fae"></a>
 
 ## percol
 
