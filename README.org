@@ -4,7 +4,12 @@
   My system is Manjaro (archlinux).
   If you any question ,please contact me.
   My email: xyzgfu@gmail.com, xyzgfu@outlook.com
-* Install
+* Install dependencies
+** Emacs
+   If use Archlinux (Manjaro) system, you can install newest emacs by following command,
+   #+BEGIN_SRC shell
+     yaourt -S emacs-git
+   #+END_SRC
 ** percol
    #+BEGIN_SRC shell
      git clone git://github.com/mooz/percol.git
