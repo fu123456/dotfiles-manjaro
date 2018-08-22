@@ -3,5 +3,6 @@
 # key: name
 # --
 filename=\`basename \${${absolute file}}\`
+dirname=\`dir \${${absolute file}}\`
 name=\${filename%.*}
 $0

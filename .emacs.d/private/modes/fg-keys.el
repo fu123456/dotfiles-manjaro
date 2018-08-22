@@ -290,17 +290,21 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (find-file "~/MEGA/org/surfInternet.org")
   )
+(defun open-latex-symbol-file ()
+  (interactive)
+  (find-file "/home/fg/MEGA/linux-pdfs/Symbols.pdf")
+  )
 
 ;; quickl open my files using hydra
 (defhydra hydra-fgfiles (:color pink
                                 :hint nil)
   "
-^Configuration^         ^Org^                ^Code^               ^bibtex^
+^Configuration^         ^Org^                ^Code^               ^LatexWritting^
 ^^^^^^^^----------------------------------------------------------------------------------
 _i_: init               _n_: bookmark      _c_: codes            _B_:bibtexOrg
 _r_: reload init        _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
-_s_: spacemacs          _g_: gtd
-_o_: orgconfig          _p_: paper
+_s_: spacemacs          _g_: gtd           ^ ^                   _l_:mathSymbol
+_o_: orgconfig          _p_: paper         ^ ^
   "
   ;; config files
   ("i" open-init-file)
@@ -317,6 +321,7 @@ _o_: orgconfig          _p_: paper
   ;; other
   ("c" open-code-file)
   ("I" open-interent-file)
+  ("l" open-latex-symbol-file)
   ;; quit
   ("q" nil "cancel")
   )

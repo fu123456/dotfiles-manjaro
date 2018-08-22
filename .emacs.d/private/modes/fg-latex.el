@@ -4,6 +4,7 @@
 ;; pdf-tools
 ;;}}}
 
+
 ;;{{{ magic-latex-buffer
 (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/magic-latex-buffer")
 (require 'magic-latex-buffer)
@@ -109,52 +110,21 @@
 ;; xelatex --synctex=1 your.tex
 ;; pdflatex --synctex=1 your.tex
 
-;;{{{ make most command that you usually used in latex bindings that stick around
-;; (defhydra hydra-latex (:color pink
-;;                               :hint nil)
-;;   "
-;; ^Latex Preview^          ^Org-ref Bib^           ^reftex^                ^cdlatex^             ^Compile^
-;; ^^^^^^^^----------------------------------------------------------------------------------------------------
-;; _p_: preview-region      _v_: bibtex-validate   _f_: Referencing Labels  _e_: environment   _R_: English
-;; _l_: preview-clearout    _b_: format bibtex     _c_: reftex-citation     _`_: symbol        _T_: Chinese
-;; _m_: math-preview        _s_: sort bibtex       ^ ^                      _h_: help          _P_: pdflatex
-;; _Q_: math-preview-quit   ^ ^                    ^ ^                      ^ ^                _C_: clean
-;;   "
-;;   ;; latex preview
-;;   ("m" latex-math-preview-expression)
-;;   ("p" preview-region)
-;;   ("Q" latex-math-preview-delete-buffer)
-;;   ("l" preview-clearout)
-;;   ;; org-ref, bibtex, need org-ref package
-;;   ("v" bibtex-validate)
-;;   ("b" org-ref-clean-bibtex-entry)
-;;   ("s" bibtex-sort-buffer)
-;;   ;; reftex setting
-;;   ("f" reftex-reference)
-;;   ("c" reftex-citation)
-;;   ;; cdlatex
-;;   ("e" cdlatex-environment)
-;;   ("`" cdlatex-math-symbol)
-;;   ("h" cdlatex-command-help)
-;;   ;; Compile
-;;   ("R" fg/compile-latex-file)
-;;   ("T" fg/compile-chinese-latex-file)
-;;   ("P" fg/pdflatex-file)
-;;   ("C" fg/clean-latex-file)
-;;   ;; quit
-;;   ("q" nil "cancel")
-;;   ;; ("q" quit-window "quit" :color blue)
-;;   )
+
+(defun open-latex-symbol-file ()
+  (interactive)
+  (find-file "/home/fg/MEGA/linux-pdfs/Symbols.pdf")
+  )
 
 (defhydra hydra-latex-main (:color pink :hint nil)
   "
- ^Preview^        | ^Compile^     | ^Bibtex^       | ^citeRef^     | ^Outline^
--^-------^--------+-^-------^-----+-^------^-------+-^-------^-----+-^-------^----
-  _m_: math       | _R_: PBP      | _b_: bibtex    | _f_: ref      | _o_: outline
- _SPC_: delete    | _P_: pdflatex | ^ ^            | _H_: helmBib  | ^ ^
-  _p_: auctex     | _X_: XBX      | ^ ^            | ^ ^           | ^ ^
-  ^ ^             | _x_: xelatex  | ^ ^            | ^ ^           | ^ ^
-  ^ ^             | _C_: clean    | ^ ^            | ^ ^           | ^ ^
+ ^Preview^        | ^Compile^     | ^Bibtex^       | ^citeRef^     | ^Outline^   | ^help^
+-^-------^--------+-^-------^-----+-^------^-------+-^-------^-----+-^-------^-----^----^----------
+  _m_: math       | _R_: PBP      | _b_: bibtex    | _f_: ref      | _o_: outline| _s_: mathSymbol
+ _SPC_: delete    | _P_: pdflatex | ^ ^            | _H_: helmBib  | ^ ^         |
+  _p_: auctex     | _X_: XBX      | ^ ^            | ^ ^           | ^ ^         |
+  ^ ^             | _x_: xelatex  | ^ ^            | ^ ^           | ^ ^         |
+  ^ ^             | _C_: clean    | ^ ^            | ^ ^           | ^ ^         |
 "
   ;; latex math preview
   ("m" latex-math-preview-expression)
@@ -172,6 +142,7 @@
   ("f" reftex-reference)
   ;; citeRef
   ("H" helm-bibtex)
+  ("s" open-latex-symbol-file)
   ;; outline
   ("o" hydra-outline-main/body :color blue)
   ("q" nil "cancel")

@@ -214,10 +214,10 @@ assign [class="^Inkscape"] → $wsmedia
 assign [class="^Texmacs"] → $wsTexmacs
 assign [class="^texmacs"] → $wsTexmacs
 assign [class="^Gimp"] → $wsmedia
-assign [class="^Ss-qt5"] → $wsOther # does not work
+#Shadowsocks-Qt5, Ss-qt5, does not work
+assign [class="^shadowsocks-qt5"] → $wsmedia
 assign [class="^Anydesk"] → $wsmedia
 assign [class="^Virt-manager"] → $wsmedia
-assign [class="^Matlab$"] → $wsterm
 assign [class="^Pcmanfm$"] → $wsPresentation
 # assign [class="^Electronic-wechat$"] → $wsmedia
 
@@ -252,6 +252,11 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 #################################################################
 
+# shutter
+# for_window [class="(?i)Shutter"] floating enable, resize set 840 480
+assign [class="^Shutter"] $wsmedia
+for_window [class = "^Shutter"] #floating enable
+
 # mupdf
 assign [class="^euPDF$"] $wsPresentation
 for_window [class = "^MuPDF$"] #floating enable
@@ -279,8 +284,6 @@ for_window [class="^Inkscape$"] #layout tabbed
 # gimp
 assign [class="^Gimp$"] $wsmedia
 for_window [class="^Gimp$"] $wsmedia
-# shutter
-for_window [class="(?i)Shutter"] floating enable, resize set 840 480
 # mpv
 for_window [class="mpv"] floating enable, resize set 840 410
 # smplayer
@@ -289,6 +292,10 @@ for_window [class="^Smplayer$"] floating enable, resize set 840 410
 # inkscape
 assign [class="^Inkscape$"] $wsmedia
 for_window [class="^Inkscape$"] #layout tabbed
+# Viewnior
+for_window [class="^Viewnior"] floating enable
+# Eog
+for_window [class="^Eog"] floating enable
 
 assign [class="^ANYDESK$"] $wsmedia
 for_window [class="^ANYDESK$"]medias
@@ -296,18 +303,17 @@ for_window [class="^ANYDESK$"]medias
 assign [class="(?!)electronic-wechat"] $wsmedia
 for_window [class="(?i)electronic-wechat"] floating enable border normal
 
-# # Eog open image setting
-# assign [class="^Eog$"] $wsfiles
-# for_window [class="^Eog$"] floating enable border normal
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# {{{ Matlab window
 for_window [class="mlterm" instance="mlterm"] floating disable
 for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] floating enable
-assign [class="MATLAB.*"] $wsterm
+assign [class="MATLAB.*"] $wsmedia
 for_window [class="MATLAB.*"] #layout tabbed
+# }}}
 
 font pango:Inconsolata, Icons 12
 # my workspace setting end

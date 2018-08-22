@@ -10,3 +10,9 @@
 [submodule ".emacs.d/private/evil-collection"]
 	path = .emacs.d/private/evil-collection
 	url = https://github.com/emacs-evil/evil-collection.git
+[submodule ".emacs.d/private/colors/emacs-leuven-theme"]
+	path = .emacs.d/private/colors/emacs-leuven-theme
+	url = https://github.com/fniessen/emacs-leuven-theme.git
+[submodule ".emacs.d/private/myPackages/orca"]
+	path = .emacs.d/private/myPackages/orca
+	url = https://github.com/abo-abo/orca.git

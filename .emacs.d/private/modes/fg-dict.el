@@ -1,2 +1,2 @@
 (require 'goldendict)
-(global-set-key (kbd "C-c C-j") 'goldendict-dwim)
+;; (global-set-key (kbd "C-g C-g") 'goldendict-dwim)

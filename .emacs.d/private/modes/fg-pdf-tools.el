@@ -16,9 +16,9 @@
 (setq auto-revert-interval 0.5)
 (auto-revert-set-timer)
 (setq revert-without-query '(".*"))
-(add-hook 'pdf-tools-mode-hook (lambda ()
-                                 (auto-revert-mode 1)
-                                 ))
+(add-hook 'pdf-view-mode-hook (lambda ()
+                                (auto-revert-mode 1)
+                                ))
 ;;}}}
 
 ;;importing and exporting pdf annotations from/to org files.
@@ -300,3 +300,37 @@
   ("l" image-forward-hscroll :color red)
   ("h" image-backward-hscroll :color red))
 (global-set-key (kbd "<f5>") 'hydra-pdftools/body)
+
+;;{{{ remove some keybinding and define new keybinding in pdf-tools
+(define-key pdf-view-mode-map (kbd "SPC") nil)
+(define-key pdf-view-mode-map (kbd "SPC hb") 'helm-bibtex)
+(define-key pdf-view-mode-map (kbd "SPC w") 'hydra-window/body)
+(define-key pdf-view-mode-map (kbd "SPC oy") 'xah-copy-file-path)
+(define-key pdf-view-mode-map (kbd "SPC ii") 'ibuffer)
+(define-key pdf-view-mode-map (kbd "SPC ff") 'find-file)
+(define-key pdf-view-mode-map (kbd "SPC bb") 'switch-to-buffer)
+(define-key pdf-view-mode-map (kbd "SPC bp") 'previous-buffer)
+(define-key pdf-view-mode-map (kbd "SPC bn") 'next-buffer)
+;;;}}}
+
+;; {{{ pdf-occur
+(evil-set-initial-state 'pdf-occur-buffer-mode 'emacs)
+(defvar pdf-occur-buffer-mode-map
+  (let ((kmap (make-sparse-keymap)))
+    (set-keymap-parent kmap tablist-mode-map)
+    (define-key kmap (kbd "RET") 'pdf-occur-goto-occurrence)
+    (define-key kmap (kbd "C-o") 'pdf-occur-view-occurrence)
+    (define-key kmap (kbd "SPC") 'pdf-occur-view-occurrence)
+    (define-key kmap (kbd "C-c C-f") 'next-error-follow-minor-mode)
+    (define-key kmap (kbd "g") 'pdf-occur-revert-buffer-with-args)
+    (define-key kmap (kbd "K") 'pdf-occur-abort-search)
+    (define-key kmap (kbd "D") 'pdf-occur-tablist-do-delete)
+    (define-key kmap (kbd "x") 'pdf-occur-tablist-do-flagged-delete)
+    (define-key kmap (kbd "A") 'pdf-occur-tablist-gather-documents)
+    kmap)
+  "The keymap used for `pdf-occur-buffer-mode'.")
+(define-key pdf-occur-buffer-mode-map (kbd "j") 'next-line)
+(define-key pdf-occur-buffer-mode-map (kbd "k") 'previous-line)
+(define-key pdf-occur-buffer-mode-map (kbd "h") 'left-char)
+(define-key pdf-occur-buffer-mode-map (kbd "l") 'right-char)
+;; }}}

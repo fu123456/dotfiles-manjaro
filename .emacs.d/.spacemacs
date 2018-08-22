@@ -70,7 +70,6 @@ values."
      disable-mouse
      evil-commentary
      chinese
-     cnfonts
      deft
      (ranger :variables
              ranger-show-preview t)
@@ -90,8 +89,14 @@ values."
                                            (magic-latex-buffer :location (recipe :fetcher github :repo "zk-phi/magic-latex-buffer"))
                                            (auto-package-update :location (recipe :fetcher github :repo "rranelli/auto-package-update.el"))
                                            (org-wc :location (recipe :fetcher github :repo "tesujimath/org-wc"))
+                                           (ox-hugo :location (recipe :fetcher github :repo "kaushalmodi/ox-hugo"))
                                            ggtags
                                            key-chord
+                                           bbdb
+                                           helm-swoop
+                                           visual-regexp
+                                           helm-projectile
+                                           expand-region
                                            )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -175,7 +180,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("DejaVu Sans Mono"
+   ;; default font: DejaVu Sans Mono
+   dotspacemacs-default-font '("Monaco"
                                :size 15
                                ;; :size 17
                                :weight normal
@@ -335,7 +341,8 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
-   dotspacemacs-themes '(xemacs)
+   ;; dotspacemacs-themes '(xemacs)
+   dotspacemacs-themes '(dichromacy)
    ;; dotspacemacs-themes '(zenburn)
    ))
 
@@ -391,10 +398,15 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
+   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
    '(canlock-password "a0ad8d2016bcdc914c276ef507fa8001d5fc90e9")
+   '(custom-safe-themes
+     '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "72c530c9c8f3561b5ab3bf5cda948cd917de23f48d9825b7a781fe1c0d737f2f" default))
+   '(evil-want-Y-yank-to-eol nil)
    '(matlab-shell-command-switches '("-nodesktop -nosplash"))
    '(package-selected-packages
-     '(fixmee org-wc diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord helm-bibtex parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))
+     '(helm-projectile diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord helm-bibtex parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))
    '(vlf-application 'dont-ask))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.

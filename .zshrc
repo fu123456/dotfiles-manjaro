@@ -171,12 +171,9 @@ alias ss="ss-qt5 > /dev/null 2>&1 &"
 alias pulldot="cd ~/.dotfiles && ./pull.sh"
 alias pushdot="cd ~/.dotfiles && ./push.sh"
 
-#emacs
-# alias e="emacsclient-snapshot"
-# alias ec="emacsclient-snapshot -c"
-# alias et="emacsclient-snapshot -t"
-alias ed="emacs --daemon"
+#ec, ed for emacs
 alias ec="emacsclient -nc"
+alias ed="/usr/bin/emacs --daemon"
 
 # vimb
 alias vimb="vimb > /dev/null 2>&1 &"
@@ -263,6 +260,12 @@ alias vde="amixer set Master 5%-"
 
 # Manjaro
 alias myyaourt='export PATH=/bin:/usr/bin:/usr/sbin &&  yaourt'
+
+# Mons
+# more help, please see help. mons -h
+alias copyMonitor='mons -d right' # copy monitor
+alias onlyMainMonitor='mons -o'
+
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -539,11 +542,12 @@ export PATH=/home/fg/scripts:$PATH
 
 #{{{ export vim
 # solve the problem: E484: Can't open file /usr/local/share/vim/vim80/syntax/syntax.vim
-export VIMRUNTIME=/usr/share/vim/vim80
+# export VIMRUNTIME=/usr/share/vim/vim80
+export VIMRUNTIME=/usr/share/vim/vim81
 #}}}
 
 #{{{ Manjaro install software tools
-# see @ https://bbs.archlinux.org/viewtopic.php?id=237513 
+# see @ https://bbs.archlinux.org/viewtopic.php?id=237513
 isrc() {
 	current="$PWD"
 	bld_dir="$HOME/build"
@@ -554,4 +558,5 @@ isrc() {
 	makepkg -isf --noconfirm
 	sudo pacman -Rns $(pacman -Qqdt)
 	cd "$current"
-} 
+}
+

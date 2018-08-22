@@ -5,9 +5,9 @@
 (eval-after-load "matlab" '(progn
                              (define-key matlab-mode-map (kbd "C-M-i") nil)
                              (define-key matlab-mode-map (kbd "C-j") nil)
+                             (define-key matlab-mode-map (kbd "C-h") nil)
                              (define-key matlab-mode-map (kbd "<f6>") 'matlab-run-file)
                              (define-key matlab-mode-map (kbd "C-c C-z") 'ora-matlab-switch-to-shell)
-                             (define-key matlab-mode-map (kbd "C-h") nil)
                              ))
 
 ;; matlab mode parens highlight,
@@ -22,11 +22,11 @@
             (abbrev-mode 1)
             ;;(setq font-lock-maximum-decoration 1)
             (auto-fill-mode 1)
-            (mlint-minor-mode 1)
+            ;; (mlint-minor-mode 1)
             (rainbow-delimiters-mode 1)
             (smartparens-mode 1)
             (auto-complete-mode 1)
-            (org-toggle-latex-fragment)
+            ;; (org-toggle-latex-fragment)
             (if (eq window-system 'x)
                 (font-lock-mode 1))
             ))
@@ -55,16 +55,16 @@
 
 (setq matlab-fill-code nil)
 
-;; hydra for mlint
-(defhydra hydra-mlint (:color pink :hint nil)
-  "
- _k_: previous   _f_: fix
- _j_: next       _m_: mlint
-"
-  ("k" mlint-prev-buffer)
-  ("j" mlint-next-buffer)
-  ("f" mlint-fix-warning)
-  ("m" mlint-buffer)
-  ("q" nil :color blue))
+;; ;; hydra for mlint
+;; (defhydra hydra-mlint (:color pink :hint nil)
+;;   "
+;;  _k_: previous   _f_: fix
+;;  _j_: next       _m_: mlint
+;; "
+;;   ("k" mlint-prev-buffer)
+;;   ("j" mlint-next-buffer)
+;;   ("f" mlint-fix-warning)
+;;   ("m" mlint-buffer)
+;;   ("q" nil :color blue))
 
 (provide 'fg-matlab)

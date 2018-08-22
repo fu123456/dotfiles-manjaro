@@ -72,6 +72,17 @@
   (call-interactively 'org-reload))
 ;;}}}
 
+;;{{{ autosave
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+(make-directory "~/.emacs.d/backups/" t)
+;; put files
+(custom-set-variables
+ '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
+ '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+;;}}}
+
 ;; {{{ disable warnings at iitialization
 ;; see @ https://stackoverflow.com/questions/23749267/how-do-i-disable-warnings-at-initialization-in-emacs
 (setq warning-minimum-level :emergency)
@@ -120,11 +131,11 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-vlf.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-dired.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pdf-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-latex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/ora-company.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-graphviz.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-keys.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pdf-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hooks.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-chinese.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-deft.el"))
@@ -144,6 +155,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-key-chord.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-quickrun.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gtags.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-visual-regexp.el"))
 ;;}}}
 
 ;;{{{ open PDF file using others

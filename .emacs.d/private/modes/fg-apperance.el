@@ -46,3 +46,6 @@
 (if (fboundp 'menu-bar-mode)
     (menu-bar-mode -1))
 ;;}}}
+
+;; (add-to-list 'custom-theme-load-path "/home/fg/.emacs.d/private/colors/emacs-leuven-theme")
+;; (load-theme 'leuven t)                  ; For Emacs 24+.

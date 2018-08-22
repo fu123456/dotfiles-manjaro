@@ -2,6 +2,8 @@
 (define-key dired-mode-map [tab] 'dired-subtree-toggle)
 (define-key dired-mode-map [backtab] 'dired-subtree-cycle)
 
+;; load other useful packages
+(add-to-list 'load-path "~/.emacs.d/private/OtherUsefulElFiles")
 ;;; Start a process from dired
 ;;; please refer to  https://oremacs.com/2015/01/04/dired-nohup/
 ;; Ignore running processes when closing Emacs
@@ -88,7 +90,6 @@
 
 ;;----------------------------------------
 ;;Sort settings
-(add-to-list 'load-path "~/.emacs.d/private/OtherUsefulElFiles")
 (require 'dired-sort-menu+)
 (add-hook 'dired-load-hook
           (lambda () (require 'dired-sort-menu)))

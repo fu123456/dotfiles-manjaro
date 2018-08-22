@@ -8,14 +8,16 @@
   (key-chord-define-global "uu" 'undo-tree-visualize)
   (key-chord-define-global ";;" ";")
   (key-chord-define-global "''" 'indent-for-comment)
+  (key-chord-define latex-mode-map ";;"  'pdf-sync-forward-search)
+
 
   ;; This create a prefix keymap
   ;; https://stackoverflow.com/questions/25473660/how-do-i-use-a-key-chord-combination-as-a-prefix-binding
-  (let
-      ((sub-keymap (make-sparse-keymap)))
-    (define-key sub-keymap "a" 'org-agenda)
-    (define-key sub-keymap "c" 'org-capture)
-    (key-chord-define-global "cc" sub-keymap))
+  ;; (let
+  ;;     ((sub-keymap (make-sparse-keymap)))
+  ;;   (define-key sub-keymap "a" 'org-agenda)
+  ;;   (define-key sub-keymap "c" 'org-capture)
+  ;;   (key-chord-define-global "cc" sub-keymap))
 
   (defvar key-chord-tips
     '(

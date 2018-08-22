@@ -54,7 +54,7 @@
            "* %?\n   %i\n %i\n %U"
            :empty-lines 1)
           ("c" "Codes" entry (file+headline org-agenda-file-code "Codes")
-           "*  %?\n  | code name, dir     |       |\n  | description        |       |\n  | code download link |       |\n  | project url        |       |\n\n %U"
+           "* %?\n %i\n | code name, dir     |        |\n  | archieve package   |       |\n  | description        |       |\n  | code download link |       |\n  | project url        |       |\n\n %U"
            :empty-lines 1)
           ("i" "surfInternet" entry (file+headline org-agenda-file-internet "surfInternet")
            "* %?\n  %i\n %U"
@@ -398,6 +398,8 @@ _y_: ?y? year       _q_: quit           _L__l__c_: log = ?l?"
   ("x" org-agenda-exit :exit t)
   ("v" nil))
 
+;; {{{ orca
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/orca")
 (require 'orca)
 (setq orca-handler-list
       '((orca-handler-match-url
@@ -413,6 +415,7 @@ _y_: ?y? year       _q_: quit           _L__l__c_: log = ?l?"
         (orca-handler-file
          "~/MEGA/org/ent.org"
          "\\* Articles")))
+;; }}}
 
 ;; {{{ drag and drop image
 ;; see @ http://kitchingroup.cheme.cmu.edu/blog/2015/07/10/Drag-images-and-files-onto-org-mode-and-insert-a-link-to-them/
