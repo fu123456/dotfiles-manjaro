@@ -71,7 +71,7 @@ bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart du
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+# bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # focus_follows_mouse no
@@ -90,10 +90,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -193,6 +193,7 @@ bindsym $mod+Shift+8 move container to workspace $wsmedia
 # assign specific windows to workspaces
 # nautilus
 assign [class="^Firefox$"] → $wsfirefox
+assign [class="^Waterfox$"] → $wsfirefox
 assign [class="^palemoon$"] → $wsfirefox
 assign [class="^Gnome-terminal$"] → $wsterm
 assign [class="^terminal$"] → $wsterm
@@ -205,7 +206,6 @@ assign [class="^myterm$"] → $wsterm
 assign [class="^xdg-open$"] → $wsfile
 assign [class="^Google-chrome$"] → $wschrome
 assign [class="^Nautilus$"] → $wsfiles
-# assign [class="^Emacs$"] → $wsemacs
 assign [class="^Impressive$"] → $wsPresentation
 assign [class="^impressive$"] → $wsPresentation
 assign [class="^Imp$"] → $wsPresentaion
@@ -262,7 +262,7 @@ assign [class="^euPDF$"] $wsPresentation
 for_window [class = "^MuPDF$"] #floating enable
 # evince
 assign [class="^Evince$"] $wsPresentation
-for_window [class = "^Evince$"] #layout tabbed
+for_window [class = "^Evince$"] layout tabbed
 # zathura
 assign [class="^Zathura$"] $wsPresentation
 for_window [class = "^Zathura$"] #layout tabbed
@@ -277,7 +277,7 @@ assign [class="^Epdfview$"] $wsPresentation
 for_window [class = "^Epdfview$"] #layout tabbed
 # Emacs
 assign [class="^Emacs$"] $wsemacs
-for_window [class="^Emacs$"] #floating enable #layout tabbed
+for_window [class="^Emacs$"] layout tabbed
 # inkscape
 assign [class="^Inkscape$"] $wsmedia
 for_window [class="^Inkscape$"] #layout tabbed
@@ -319,8 +319,8 @@ font pango:Inconsolata, Icons 12
 # my workspace setting end
 exec --no-startup-id fcitx
 ##{{{ my useful bash scripts
+exec /home/fg/MEGA/dotfiles-manjaro/scripts/touchpad_toggle.sh &
 exec /home/fg/MEGA/dotfiles-manjaro/scripts/changekey.sh &
-exec /home/fg/MEGA/dotfiles-manjaro/scripts/remapCtrlReturn.sh &
 ##}}}
 
 # {{ emacs anywhere

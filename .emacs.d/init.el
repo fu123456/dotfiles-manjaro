@@ -129,13 +129,13 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-matlab.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-vlf.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-keys.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pdf-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-dired.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-latex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/ora-company.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-graphviz.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-keys.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pdf-tools.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hooks.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-chinese.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-deft.el"))
@@ -156,6 +156,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-quickrun.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gtags.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-visual-regexp.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-expand-region.el"))
 ;;}}}
 
 ;;{{{ open PDF file using others
@@ -168,13 +169,6 @@
 ;; (setq org-ref-open-pdf-function
 ;;       (lambda (fpath)
 ;;         (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
-
-;; (setq helm-bibtex-pdf-open-function
-;;       (lambda (fpath)
-;;         (call-process "PDF-tools" nil 0 nil fpath)))
-;; (setq org-ref-open-pdf-function
-;;       (lambda (fpath)
-;;         (start-process "PDF-tools" "*helm-bibtex-PDF-tools*" "/usr/bin/xdg-open" fpath)))
 
 ;;}}}
 
@@ -189,3 +183,6 @@
 (evil-ex-define-cmd "ls" 'ibuffer)
 
 (setf epa-pinentry-mode 'loopback)
+
+;; avoid package initialized warning messages
+(unless package--initialized (package-initialize t))

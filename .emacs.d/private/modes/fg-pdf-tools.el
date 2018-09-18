@@ -159,15 +159,16 @@
   ;; (setq-default pdf-view-display-size 'fit-page)
   (bind-keys :map pdf-view-mode-map
              ("\\" . hydra-pdftools/body)
-             ("<s-spc>" .  pdf-view-scroll-down-or-next-page)
+             ("C-d" .  pdf-view-scroll-up-or-next-page)
+             ("C-u" . pdf-view-scroll-down-or-previous-page)
              ("g"  . pdf-view-first-page)
              ("G"  . pdf-view-last-page)
              ("l"  . image-forward-hscroll)
              ("h"  . image-backward-hscroll)
              ("j"  . pdf-view-next-line-or-next-page)
-             ("J"  . pdf-view-next-page)
+             ("C-f"  . pdf-view-next-page)
              ("k"  . pdf-view-previous-line-or-previous-page)
-             ("K"  . pdf-view-previous-page)
+             ("C-b"  . pdf-view-previous-page)
              ("e"  . pdf-view-goto-page)
              ("U"  . pdf-view-revert-buffer)
              ("al" . pdf-annot-list-annotations)
@@ -200,51 +201,6 @@
 (evil-set-initial-state 'pdf-view-mode 'emacs)
 
 (add-hook 'pdf-view-mode-hook 'fg/pdf-view-mode-hook)
-
-;; ;; set pdf file on the right
-;; ;; http://mbork.pl/2016-06-13_Displaying_pdfs_on_the_right
-;; (defvar pdf-minimal-width 72
-;;   "Minimal width of a window displaying a pdf.
-;; If an integer, number of columns.  If a float, fraction of the
-;; original window.")
-
-;; (defvar pdf-split-width-threshold 120
-;;   "Minimum width a window should have to split it horizontally
-;; for displaying a pdf in the right.")
-
-;; (defun pdf-split-window-sensibly (&optional window)
-;;   "A version of `split-window-sensibly' for pdfs.
-;; It prefers splitting horizontally, and takes `pdf-minimal-width'
-;; into account."
-;;   (let ((window (or window (selected-window)))
-;; 	(width (- (if (integerp pdf-minimal-width)
-;; 		      pdf-minimal-width
-;; 		    (round (* pdf-minimal-width (window-width window)))))))
-;;     (or (and (window-splittable-p window t)
-;; 	     ;; Split window horizontally.
-;; 	     (with-selected-window window
-;; 	       (split-window-right width)))
-;; 	(and (window-splittable-p window)
-;; 	     ;; Split window vertically.
-;; 	     (with-selected-window window
-;; 	       (split-window-below)))
-;; 	(and (eq window (frame-root-window (window-frame window)))
-;; 	     (not (window-minibuffer-p window))
-;; 	     ;; If WINDOW is the only window on its frame and is not the
-;; 	     ;; minibuffer window, try to split it vertically disregarding
-;; 	     ;; the value of `split-height-threshold'.
-;; 	     (let ((split-height-threshold 0))
-;; 	       (when (window-splittable-p window)
-;; 		 (with-selected-window window
-;; 		   (split-window-below))))))))
-
-;; (defun display-buffer-pop-up-window-pdf-split-horizontally (buffer alist)
-;;   "Call `display-buffer-pop-up-window', using `pdf-split-window-sensibly'
-;; when needed."
-;;   (let ((split-height-threshold nil)
-;; 	(split-width-threshold pdf-split-width-threshold)
-;; 	(split-window-preferred-function #'pdf-split-window-sensibly))
-;;     (display-buffer-pop-up-window buffer alist)))
 
 ;; (add-to-list 'display-buffer-alist '("\\.pdf\\(<[^>]+>\\)?$" . (display-buffer-pop-up-window-pdf-split-horizontally)))
 
@@ -311,6 +267,18 @@
 (define-key pdf-view-mode-map (kbd "SPC bb") 'switch-to-buffer)
 (define-key pdf-view-mode-map (kbd "SPC bp") 'previous-buffer)
 (define-key pdf-view-mode-map (kbd "SPC bn") 'next-buffer)
+;; window movement like vim style
+(define-key pdf-view-mode-map (kbd "C-w j") 'evil-window-down)
+(define-key pdf-view-mode-map (kbd "C-w k") 'evil-window-up)
+(define-key pdf-view-mode-map (kbd "C-w h") 'evil-window-left)
+(define-key pdf-view-mode-map (kbd "C-w l") 'evil-window-right)
+;; M-x
+(define-key pdf-view-mode-map (kbd "SPC SPC") 'counsel-M-x)
+;; buffer
+(define-key pdf-view-mode-map (kbd "SPC b p") 'previous-buffer)
+(define-key pdf-view-mode-map (kbd "SPC b n") 'next-buffer)
+;; quickly open my files
+(define-key pdf-view-mode-map (kbd "SPC a") 'hydra-fgfiles/body)
 ;;;}}}
 
 ;; {{{ pdf-occur

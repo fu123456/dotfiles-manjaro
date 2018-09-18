@@ -159,7 +159,7 @@ With a prefix ARG always prompt for command to use."
                      (t (read-shell-command "Open current file with: ")))
                     " "
                     (shell-quote-argument buffer-file-name)))))
-(global-set-key (kbd "C-c C-u o") 'prelude-open-with)
+(global-set-key (kbd "C-c C-c o") 'open-with)
 ;; }}}
 
 (provide 'fg-tools)

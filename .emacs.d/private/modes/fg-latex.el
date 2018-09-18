@@ -65,6 +65,8 @@
 
 ;; auctex setting
 (load "auctex.el" nil t t)
+;; avoiding indent
+(setq LaTeX-indent-environment-check nil)
                                         ; (load "preview-latex.el" nil t t)
 (add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
@@ -76,24 +78,6 @@
 ;;;auctex other;;;
 (setq preview-default-preamble (quote ("\\RequirePackage[" ("," . preview-default-option-list) "]{preview}[2004/11/05]" "\\PreviewEnvironment{center}" "\\PreviewEnvironment{enumerate}")))
 
-;; TeX-fold-mode in AUCTEX and "auto-folding"
-;; please read this site  http://www.flannaghan.com/2013/01/11/tex-fold-mode
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (TeX-fold-mode 1)
-            (fci-mode 1)
-            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (add-hook 'after-change-functions
-                      (lambda (start end oldlen)
-                        (when (= (- end start) 1)
-                          (let ((char-point
-                                 (buffer-substring-no-properties
-                                  start end)))
-                            (when (or (string= char-point "}")
-                                      (string= char-point "$"))
-                              (TeX-fold-paragraph)))))
-                      t t)))
-
 ;;cdlatex setting
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
@@ -101,14 +85,6 @@
 
 (add-hook 'LaTeX-mode-hook 'turn-on-flyspell) ; with flyspell Latex(latex) mode
 (add-hook 'plain-TeX-mode-hook 'LaTeX-mode) ; plainlatex automatically convert to Latex mode
-
-;; Syncing with Auctex
-;; jump to PDF location from source	C-c C-g
-;; jump source location from PDF	C-mouse-1
-;; page: https://github.com/politza/pdf-tools#some-keybindings
-;; shoule compile wiht "--synctex=1"
-;; xelatex --synctex=1 your.tex
-;; pdflatex --synctex=1 your.tex
 
 
 (defun open-latex-symbol-file ()
@@ -268,12 +244,6 @@ _U_: sublevels      ^ ^             ^ ^
 (evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
 (evil-leader/set-key (kbd "oc") 'fg/clean-latex-file)
 
-;; using your latex command, pdflatex, xelatex, compile command line
-;; compile command line
-;; 默认的编译命令是 pdflatex, 如果要使用自己的命令，请使用下面的命令，注释掉下面的代码
-;; (custom-set-variables
-;; '(pdf-latex-command (quote (".*") . "/home/fg/MEGA/sync/Shellscripttools/compile-latex.sh compile")))
-
 ;;disable auto-fill-mode when editing equations
 (defvar my-LaTeX-no-autofill-environments
   '("equation" "equation*" "align" "align*" "split" "split*" "eqnarray" "eqnarray*" "cases" "cases*" "figure" "figure*" "table" "table*")
@@ -281,9 +251,9 @@ _U_: sublevels      ^ ^             ^ ^
 
 (defun my-LaTeX-auto-fill-function ()
   "This function checks whether point is currently inside one of
-the LaTeX environments listed in
-`my-LaTeX-no-autofill-environments'. If so, it inhibits automatic
-filling of the current paragraph."
+  the LaTeX environments listed in
+  `my-LaTeX-no-autofill-environments'. If so, it inhibits automatic
+  filling of the current paragraph."
   (let ((do-auto-fill t)
         (current-environment "")
         (level 0))
@@ -292,7 +262,8 @@ filling of the current paragraph."
             current-environment (LaTeX-current-environment level)
             do-auto-fill (not (member current-environment my-LaTeX-no-autofill-environments))))
     (when do-auto-fill
-      (do-auto-fill))))
+      (do-auto-fill)))
+  )
 
 (defun my-LaTeX-setup-auto-fill ()
   "This function turns on auto-fill-mode and sets the function
@@ -300,7 +271,7 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
   (auto-fill-mode)
   (setq auto-fill-function 'my-LaTeX-auto-fill-function))
 
-(add-hook 'LaTeX-mode-hook 'my-LaTeX-setup-auto-fill)
+;; (add-hook 'LaTeX-mode-hook 'my-LaTeX-setup-auto-fill)
 
 ;;{{{ latex-math-preview
 ;; see @ https://www.emacswiki.org/emacs/LaTeXMathPreview

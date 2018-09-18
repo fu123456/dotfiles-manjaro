@@ -1,9 +1,4 @@
 ;; refer to Chenbin dotfiles
-(require 'ggtags)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'matlab-mode)
-              (ggtags-mode 1))))
 (defun gtags-ext-produce-tags-if-needed (dir)
   (if (not (= 0 (call-process "global" nil nil nil " -p"))) ; tagfile doesn't exist?
       (let ((default-directory dir))

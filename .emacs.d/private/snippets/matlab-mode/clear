@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: clear
+# key: clear
+# --
+clear all;
+close all;
+clc;
+
+$0

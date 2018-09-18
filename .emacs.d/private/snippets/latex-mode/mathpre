@@ -11,6 +11,7 @@
 \usepackage{algorithmic}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{graphicx}
 \begin{document}
 $0
 \end{document}

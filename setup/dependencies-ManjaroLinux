@@ -19,6 +19,10 @@ sudo pacman --noconfirm -S \
      fcitx-configtool \
      fcitx-sogoupinyin
 
+echo "Install some fonts"
+sudo pacman --noconfirm -S \
+     ttf-monaco
+
 #{{{ softwares I often used
 echo "Installing my tools..."
 pacaur --noconfirm --noedit -S \

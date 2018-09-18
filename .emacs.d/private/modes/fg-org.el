@@ -2,6 +2,9 @@
 ;; (let ((current-prefix-arg 1))
 ;;   (call-interactively 'org-reload))
 
+;; org-habit config
+(add-to-list 'org-modules 'org-habit)
+
 ;;*keys
 ;;** org-mode-map
 (define-key org-mode-map (kbd "C-h") nil)

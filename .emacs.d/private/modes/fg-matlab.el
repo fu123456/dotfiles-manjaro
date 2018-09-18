@@ -26,6 +26,7 @@
             (rainbow-delimiters-mode 1)
             (smartparens-mode 1)
             (auto-complete-mode 1)
+            ;; (ggtags-mode 1)
             ;; (org-toggle-latex-fragment)
             (if (eq window-system 'x)
                 (font-lock-mode 1))
@@ -49,9 +50,10 @@
     (switch-to-buffer buffer)
     (save-window-excursion
       (switch-to-buffer (concat "*" matlab-shell-buffer-name "*"))
-      (matlab-shell-send-string (format "addpath('%s');\n"
+      (matlab-shell-send-string (format "cd %s;\n"
                                         dir)))
     (matlab-shell-save-and-go)))
+
 
 (setq matlab-fill-code nil)
 

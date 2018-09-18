@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Firefox56
+Icon=/home/fg/MEGA/dotfiles-manjaro/applications/firefox56.png
+Exec=/home/fg/Install/firefox/firefox
+Terminal=false

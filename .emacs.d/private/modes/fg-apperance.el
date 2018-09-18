@@ -4,16 +4,16 @@
       (setq initial-frame-alist
             '(
               (tool-bar-lines . 0)
-              (width . 82) ; chars
-              (height . 38) ; lines
+              (width . 84) ; chars
+              (height . 39) ; lines
               ;;
               ))
 
       (setq default-frame-alist
             '(
               (tool-bar-lines . 0)
-              (width . 82)
-              (height . 38)
+              (width . 84)
+              (height . 39)
               ;;
               )))
   (progn
