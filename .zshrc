@@ -284,6 +284,8 @@ prompt_context() {
     fi
 }
 
+## my apps output config
+
 #{{{texlive
 # texlive 2017 environment setting
 PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
@@ -305,6 +307,10 @@ PATH=/usr/local/MATLAB/R2017a/bin/glnxa64:${PATH}
 PATH=/usr/local/MATLAB/R2014b/bin:${PATH}
 PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:${PATH}
 ##}}}
+
+# ANN
+PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/include/ANN:${PATH}
+PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/lib:${PATH}
 
 #perl
 # export PERL5LIB=/home/perl_modules/lib/perl5/:/home/perl_modules/lib/perl5/site_perl:

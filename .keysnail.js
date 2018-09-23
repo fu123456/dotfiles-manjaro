@@ -115,11 +115,11 @@ key.setGlobalKey('C-r', function (ev) {
             }, 'Emacs like incremental search backward', true);
 
 key.setGlobalKey(["C-x", "k"], function (ev) {
-                BrowserCloseTabOrWindow();
+    BrowserCloseTabOrWindow();
             }, 'Close tab / window', false);
 
 key.setGlobalKey(["C-x", "K"], function (ev) {
-                closeWindow(true);
+    closeWindow(true);
             }, 'Close the window', false);
 
 key.setGlobalKey(["C-c", "u"], function (ev) {
@@ -408,8 +408,8 @@ key.setViewKey(["C-x", "h"], function (ev) {
                 goDoCommand("cmd_selectAll");
             }, 'Select all', true);
 
-key.setViewKey('f', function (ev) {
-                command.focusElement(command.elementsRetrieverTextarea, 0);
+key.setViewKey(["f"], function (ev) {
+    command.focusElement(command.elementsRetrieverTextarea, 0);
             }, 'Focus to the first textarea', true);
 
 key.setViewKey('M-p', function (ev) {
@@ -514,8 +514,8 @@ key.setCaretKey(["C-x", "h"], function (ev) {
                 goDoCommand("cmd_selectAll");
             }, 'Select all', true);
 
-key.setCaretKey('f', function (ev) {
-                command.focusElement(command.elementsRetrieverTextarea, 0);
+key.setCaretKey(["f"], function (ev) {
+    command.focusElement(command.elementsRetrieverTextarea, 0);
             }, 'Focus to the first textarea', true);
 
 key.setCaretKey('M-p', function (ev) {
@@ -548,8 +548,9 @@ hook.setHook('PluginLoaded', function () {
 });
 
 
-key.setGlobalKey(['C-c','C-f'], function (aEvent, aArg) {
-        ext.exec("hok-start-foreground-mode", aArg);
+// C-c,C-f
+key.setGlobalKey(['C-c', 'C-f'], function (aEvent, aArg) {
+    ext.exec("hok-start-foreground-mode", aArg);
 }, 'Hok - Foreground hint mode', true);
 
 key.setGlobalKey(['C-c','C-b'], function (aEvent, aArg) {
