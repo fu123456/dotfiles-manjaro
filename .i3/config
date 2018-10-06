@@ -210,6 +210,7 @@ assign [class="^Impressive$"] → $wsPresentation
 assign [class="^impressive$"] → $wsPresentation
 assign [class="^Imp$"] → $wsPresentaion
 assign [class="^Evince$"] → $wsPresentation
+assign [class="^MEGAsync$"] → $wsmedia
 assign [class="^Inkscape"] → $wsmedia
 assign [class="^Texmacs"] → $wsTexmacs
 assign [class="^texmacs"] → $wsTexmacs
@@ -308,9 +309,9 @@ floating_modifier $mod
 
 # {{{ Matlab window
 for_window [class="mlterm" instance="mlterm"] floating disable
-for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] floating enable
+for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] #floating enable
 assign [class="MATLAB.*"] $wsmedia
 for_window [class="MATLAB.*"] #layout tabbed
 # }}}

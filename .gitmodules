@@ -16,3 +16,6 @@
 [submodule ".emacs.d/private/myPackages/orca"]
 	path = .emacs.d/private/myPackages/orca
 	url = https://github.com/abo-abo/orca.git
+[submodule ".emacs.d/private/myPackages/workgroups2"]
+	path = .emacs.d/private/myPackages/workgroups2
+	url = https://github.com/pashinin/workgroups2.git

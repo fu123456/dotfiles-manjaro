@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: image gradient along x and y
+# key: imgxy
+# --
+${1:image}x=padarray(diff($1,1,2),[0 1],'post');
+$1y=padarray(diff($1,1,1),[1 0],'post');
+$0

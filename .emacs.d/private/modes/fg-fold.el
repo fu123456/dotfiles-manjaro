@@ -2,7 +2,7 @@
 
 ;;{{{ folding-mode
 ;; see @ https://www.emacswiki.org/emacs/FoldingMode
-(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/fold")
+(add-to-list 'load-path "~/.emacs.d/private/fold")
 (load "folding" 'nomessage 'noerror)
 (folding-mode-add-find-file-hook)
 (folding-add-to-marks-list 'latex-mode "%{{{" "%}}}" nil t)

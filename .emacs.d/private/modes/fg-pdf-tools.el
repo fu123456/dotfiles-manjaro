@@ -23,7 +23,7 @@
 
 ;;importing and exporting pdf annotations from/to org files.
 ;;https://github.com/pinguim06/pdf-tools-org
-(add-to-list 'load-path "~/MEGA/dotfiles-manjaro/.emacs.d/private/OtherUsefulElFiles")
+(add-to-list 'load-path "~/.emacs.d/private/OtherUsefulElFiles")
 (require 'pdf-tools-org)
 ;;auto save org when pdf file closed
 (add-hook 'after-save-hook

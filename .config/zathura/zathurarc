@@ -1,1 +1,4 @@
+# copy selection to system clipboard
 set selection-clipboard clipboard
+# http://tuxdiary.com/2016/07/31/zathura
+set smooth-scroll true

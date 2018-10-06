@@ -1,3 +1,4 @@
+ZSH_DISABLE_COMPFIX=true # problem: insecure completion-dependent directiores detected
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -287,6 +288,11 @@ prompt_context() {
 ## my apps output config
 
 #{{{texlive
+# texlive 2016 environment setting
+PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
 # texlive 2017 environment setting
 PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
 MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
@@ -566,3 +572,11 @@ isrc() {
 	cd "$current"
 }
 
+# {{{ deep learning environment
+# cuda
+export PATH=/usr/local/cuda-8.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
+# caffe
+export PYTHONPATH=/home/fg/Experiments/saw_release/caffe/python:$PYTHONPATH
+# }}}

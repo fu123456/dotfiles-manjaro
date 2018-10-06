@@ -6,7 +6,7 @@
 
 
 ;;{{{ magic-latex-buffer
-(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/magic-latex-buffer")
+(add-to-list 'load-path "~/.emacs.d/private/myPackages/magic-latex-buffer")
 (require 'magic-latex-buffer)
 (add-hook 'latex-mode-hook 'magic-latex-buffer)
 ;; You can disable some features independently, if they’re too fancy.
@@ -275,7 +275,7 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
 
 ;;{{{ latex-math-preview
 ;; see @ https://www.emacswiki.org/emacs/LaTeXMathPreview
-(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/latex-math-preview")
+(add-to-list 'load-path "~/.emacs.d/private/latex-math-preview")
 (load "latex-math-preview")
 (load "latex-math-preview-extra-data")
 (autoload 'latex-math-preview-expression "latex-math-preview" nil t)

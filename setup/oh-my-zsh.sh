@@ -15,8 +15,6 @@ lnif() {
 
 echo "Install oh-my-zsh ..."
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-# replace bash to zsh
-sudo chsh -s /bin/zsh
 # link .zshrc file
 # lnif "$CURRENT_DIR/.zshrc" "$HOME/.zshrc" #如果建立软连接，oh my zsh终端显示会失败，在安装默认的.zshrc文件中进行修改，而不要进行软连接
 #install pipeline fonts, if not, the theme is messy
@@ -40,6 +38,10 @@ done
 
 # ln zshrc files
 lnif ${dir}/zshrc $HOME/.zshrc
+
+# convert bash to zsh
+echo "convert bash to zsh"
+sudo chsh -s ${which zsh}
 
 # finally, reboot computer
 # sudo reboot -h now
