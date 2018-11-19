@@ -1,0 +1,61 @@
+# -*- mode: snippet -*-
+# name: beamer_chinese
+# key: beamer_chinese
+# --
+#+BEGIN_PREFACE
+#+TITLE: ${1:title}
+#+AUTHOR: ${2:author}
+#+BEAMER_HEADER: \date{\today}
+#+BEAMER_HEADER: \institute[]{${3:insititute}}
+#+OPTIONS: H:2 num:t toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+STARTUP: inlineimages
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [10pt,mathserif]
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+BEAMER_FRAME_LEVEL: 2
+#+LaTex_HEADER: \usepackage[noindent,UTF8]{ctexcap}
+#+LaTex_HEADER: \renewcommand\CJKfamilydefault{\CJKsfdefault}
+#+LaTex_HEADER: \setCJKsansfont{FZQingKeBenYueSongS-R-GB}
+#+LaTeX_HEADER: \usepackage{graphicx,amsmath,amssymb,tikz,psfrag,pifont}
+#+LaTex_HEADER: \usefonttheme{serif}
+#+LaTex_HEADER: \mode<presentation>
+#+LaTex_HEADER: {
+#+LaTex_HEADER: \usetheme{default}
+#+LaTex_HEADER: }
+#+LaTex_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LaTex_HEADER: \usecolortheme[rgb={0,0,0}]{structure}
+#+LaTex_HEADER: \setbeamertemplate{itemize subitem}{\ding{111}}
+#+LaTex_HEADER: \setbeamertemplate{itemize subsubitem}{\ding{111}}
+#+LaTex_HEADER: \setbeamertemplate{itemize item}{\ding{111}}
+#+LaTex_HEADER: \setbeamertemplate{frametitle} {
+#+LaTex_HEADER: 	\begin{center}
+#+LaTex_HEADER: 	  {\large\bf \insertframetitle}
+#+LaTex_HEADER: 	\end{center}
+#+LaTex_HEADER: }
+#+LaTex_HEADER:
+#+LaTex_HEADER: \newcommand\footlineon{
+#+LaTex_HEADER:   \setbeamertemplate{footline} {
+#+LaTex_HEADER:     \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.8cm,rightskip=.6cm]{structure}
+#+LaTex_HEADER:       \footnotesize \insertsection
+#+LaTex_HEADER:       \hfill
+#+LaTex_HEADER:       {\insertframenumber}
+#+LaTex_HEADER:     \end{beamercolorbox}
+#+LaTex_HEADER:     \vskip 0.45cm
+#+LaTex_HEADER:   }
+#+LaTex_HEADER: }
+#+LaTex_HEADER: \footlineon
+#+LaTex_HEADER:
+#+LaTex_HEADER: \AtBeginSection[]
+#+LaTex_HEADER: {
+#+LaTex_HEADER: 	\begin{frame}<beamer>
+#+LaTex_HEADER: 		\frametitle{Outline}
+#+LaTex_HEADER: 		\tableofcontents[currentsection,currentsubsection]
+#+LaTex_HEADER: 	\end{frame}
+#+LaTex_HEADER: }
+#+END_PREFACE
+$0

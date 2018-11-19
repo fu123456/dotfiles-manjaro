@@ -6,6 +6,7 @@
                              (define-key matlab-mode-map (kbd "C-M-i") nil)
                              (define-key matlab-mode-map (kbd "C-j") nil)
                              (define-key matlab-mode-map (kbd "C-h") nil)
+                             (define-key matlab-mode-map (kbd "C-k") nil)
                              (define-key matlab-mode-map (kbd "<f6>") 'matlab-run-file)
                              (define-key matlab-mode-map (kbd "C-c C-z") 'ora-matlab-switch-to-shell)
                              ))

@@ -48,3 +48,4 @@
 (push "*Org PDF Latex Output*" popwin:special-display-config)
 (push "*Org Agenda*" popwin:special-display-config)
 (push "*quickrun*" popwin:special-display-config)
+(push "*PDF-Occur*" popwin:special-display-config)

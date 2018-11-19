@@ -265,7 +265,6 @@ alias myyaourt='export PATH=/bin:/usr/bin:/usr/sbin &&  yaourt'
 # Mons
 # more help, please see help. mons -h
 alias copyMonitor='mons -d right' # copy monitor
-alias rightMonitor='mons -e right' # right monitor
 alias onlyMainMonitor='mons -o'
 
 #  ___ _  _ ___

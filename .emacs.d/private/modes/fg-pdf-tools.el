@@ -1,4 +1,4 @@
-(package-initialize t)
+;; (package-initialize t)
 (package-activate 'pdf-tools)
 (pdf-tools-install)
 ;;grap org-pdfview https://github.com/markus1189/org-pdfview/blob/master/org-pdfview.el
@@ -77,10 +77,10 @@
 (write-file filename pdf-tools-org-export-confirm-overwrite))))
 
 ;;auto save org when pdf file closed
-(add-hook 'after-save-hook
-          (lambda ()
-            (when (eq major-mode 'pdf-view-mode)
-              (pdf-tools-org-export-to-org-mod))))
+;; (add-hook 'after-save-hook
+;;           (lambda ()
+;;             (when (eq major-mode 'pdf-view-mode)
+;;               (pdf-tools-org-export-to-org-mod))))
 
 (defun pdf-annot-markups-as-org-text (pdfpath &optional title level)
 "Acquire highlight annotations as text"
@@ -121,35 +121,35 @@
                 )
 
            ;; Square annotations are written to images and displayed inline
-        (when (eq type 'square)
-          (pdf-view-extract-region-image (list region) page (cons 1000 1000) pdf-image-buffer)
-          (with-current-buffer pdf-image-buffer
-            (write-file imagefile))
-          (setq annotation-as-org (concat "[[file:" imagefile "]]" "\n\n(" linktext ", " (number-to-string page) ")\n\n")))
+           (when (eq type 'square)
+             (pdf-view-extract-region-image (list region) page (cons 1000 1000) pdf-image-buffer)
+             (with-current-buffer pdf-image-buffer
+               (write-file imagefile))
+             (setq annotation-as-org (concat "[[file:" imagefile "]]" "\n\n(" linktext ", " (number-to-string page) ")\n\n")))
 
-        ;; Insert outline heading if not already inserted
-        (let* ((outline-info (ignore-errors
-                               (with-current-buffer (pdf-outline-buffer-name)
-                                 (pdf-outline-move-to-page page)
-                                 (pdf-outline-link-at-pos))))
-                (outline-page (when outline-info (number-to-string (assoc-default 'page outline-info)))))
-           (when outline-info
-             (unless (equal last-outline-page outline-page)
-               (setq outputstring (concat outputstring
-                                          (make-string (+ level (assoc-default 'depth outline-info)) ?*)
-                                          " "
-                                          (assoc-default 'title outline-info)
-                                          ", "
-                                          outline-page
-                                          "\n\n"))
-               (setq last-outline-page outline-page))))
+           ;; Insert outline heading if not already inserted
+           (let* ((outline-info (ignore-errors
+                                  (with-current-buffer (pdf-outline-buffer-name)
+                                    (pdf-outline-move-to-page page)
+                                    (pdf-outline-link-at-pos))))
+                  (outline-page (when outline-info (number-to-string (assoc-default 'page outline-info)))))
+             (when outline-info
+               (unless (equal last-outline-page outline-page)
+                 (setq outputstring (concat outputstring
+                                            (make-string (+ level (assoc-default 'depth outline-info)) ?*)
+                                            " "
+                                            (assoc-default 'title outline-info)
+                                            ", "
+                                            outline-page
+                                            "\n\n"))
+                 (setq last-outline-page outline-page))))
 
-         (setq outputstring (concat outputstring annotation-as-org)))
-       )
-     annots))
-  )
-(insert outputstring)
-))
+           (setq outputstring (concat outputstring annotation-as-org)))
+         )
+       annots))
+    )
+  (insert outputstring)
+  ))
 
 ;; key setting
 (use-package pdf-tools
@@ -195,6 +195,11 @@
   (linum-mode -1)
   (pyim-isearch-mode -1)
   (yas-minor-mode -1)
+  (pangu-spacing-mode -1)
+  (aggressive-indent-mode -1)
+  (line-number-mode -1)
+  (font-lock-mode -1)
+  (column-number-mode -1)
   )
 
 ;; Close evil-mode in pdf-tools
@@ -255,7 +260,8 @@
   ("N" pdf-history-forward :color red)
   ("l" image-forward-hscroll :color red)
   ("h" image-backward-hscroll :color red))
-(global-set-key (kbd "<f5>") 'hydra-pdftools/body)
+;; (global-set-key (kbd "<f5>") 'hydra-pdftools/body)
+(define-key pdf-view-mode-map (kbd "<f5>") 'hydra-pdftools/body)
 
 ;;{{{ remove some keybinding and define new keybinding in pdf-tools
 (define-key pdf-view-mode-map (kbd "SPC") nil)
@@ -280,6 +286,8 @@
 ;; quickly open my files
 (define-key pdf-view-mode-map (kbd "SPC a") 'hydra-fgfiles/body)
 ;;;}}}
+(define-key pdf-view-mode-map (kbd "SPC [") 'hydra-tab/body)
+(define-key pdf-view-mode-map (kbd "SPC ]") 'hydra-workgroups/body)
 
 ;; {{{ pdf-occur
 (evil-set-initial-state 'pdf-occur-buffer-mode 'emacs)

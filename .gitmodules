@@ -19,3 +19,15 @@
 [submodule ".emacs.d/private/myPackages/workgroups2"]
 	path = .emacs.d/private/myPackages/workgroups2
 	url = https://github.com/pashinin/workgroups2.git
+[submodule "awesome-tab"]
+	path = .emacs.d/private/myPackages/awesome-tab
+	url = https://github.com/manateelazycat/awesome-tab.git
+[submodule "pdf-tools"]
+	path = .emacs.d/private/myPackages/pdf-tools
+	url = https://github.com/politza/pdf-tools.git
+[submodule "super-save"]
+	path = .emacs.d/private/myPackages/super-save
+	url = https://github.com/bbatsov/super-save.git
+[submodule "workgroups"]
+	path = .emacs.d/private/myPackages/workgroups
+	url = https://github.com/tlh/workgroups.el.git
