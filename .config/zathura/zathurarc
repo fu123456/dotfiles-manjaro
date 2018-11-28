@@ -1,14 +1,4 @@
-# see http://rachpt.me/2018/01/22/linux-pdfreader-zathura/
-# set adjust-open "width" #以宽度自适应打开
-# set font "Noto Sans CJK SC Regular 10" #字体与字号
-# set guioptions "" #GUI相关，留空可隐藏底部statusbar
-set window-title-basename true #只显示文件名，否则显示完整路径
-set incremental-search true #增强搜索，实时搜索
-# set show-v-scrollbar true #显示右侧进度条
-set selection-clipboard clipboard #粘贴版
-map < scroll page-top
-map > scroll page-bottom
-map H adjust_window best-fit
-map W adjust_window width
-map h scroll left
-map l scroll right
+# copy selection to system clipboard
+set selection-clipboard clipboard
+# http://tuxdiary.com/2016/07/31/zathura
+set smooth-scroll true

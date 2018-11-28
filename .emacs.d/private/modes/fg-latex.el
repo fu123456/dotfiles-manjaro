@@ -4,6 +4,7 @@
 ;; pdf-tools
 ;;}}}
 
+
 ;;{{{ magic-latex-buffer
 (add-to-list 'load-path "~/.emacs.d/private/myPackages/magic-latex-buffer")
 (require 'magic-latex-buffer)
@@ -24,11 +25,10 @@
                              (magic-latex-buffer 1)
                              (aggressive-indent-mode 1)
                              (smartparens-mode 1)
-                             (tex-fold-mode 1)
                              ))
 
 ;; latex-mode
-;; (add-to-list 'ac-modes 'latex-mode)
+                                        ; (add-to-list 'ac-modes 'latex-mode)
 (defun ac-latex-mode-setup()
   (setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
 (add-hook 'latex-mode-hook 'ac-latex-mode-setup)
@@ -150,7 +150,7 @@
   ("q" nil "cancel")
   ("b" hydra-latex-main/body :color blue))
 (defhydra bibtex-main (:color teal :hint nil)
-  "
+"
  ^Bibtex^
  _v_: validate
  _c_: clean
@@ -239,18 +239,10 @@ _U_: sublevels      ^ ^             ^ ^
    (format "xelatex -synctex=1 -interaction=nonstopmode  %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
-;; latex keybindings
-;; (evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
-;; (evil-leader/set-key (kbd "op") 'fg/pdflatex-file)
-;; (evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
+(evil-leader/set-key (kbd "or") 'fg/compile-latex-file)
+(evil-leader/set-key (kbd "op") 'fg/pdflatex-file)
+(evil-leader/set-key (kbd "ox") 'fg/compile-chinese-latex-file)
 (evil-leader/set-key (kbd "oc") 'fg/clean-latex-file)
-
-;; {{{ key config
-(define-key LaTeX-mode-map (kbd "<f4>") 'fg/pdflatex-file)
-(define-key LaTeX-mode-map (kbd "<f5>") 'fg/compile-latex-file)
-(define-key LaTeX-mode-map (kbd "<f6>") 'fg/compile-chinese-latex-file)
-;; }}}
-
 
 ;;disable auto-fill-mode when editing equations
 (defvar my-LaTeX-no-autofill-environments

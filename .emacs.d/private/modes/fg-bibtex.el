@@ -34,8 +34,6 @@
         (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
         (default       . bibtex-completion-format-citation-default)))
 
-(setq bibtex-completion-additional-search-fields '(tags))
-
 ;; Predefined searches
 (defun helm-bibtex-my-publications (&optional arg)
   "Search BibTeX entries authored by “Jane Doe”.
@@ -54,7 +52,5 @@ With a prefix ARG, the cache is invalidated and the bibliography reread."
             :filter-return 'reverse)
 
 (setq bibtex-completion-find-additional-pdfs t)
-
 ;; my keybinding setting for helm-bibtex
 (define-key evil-normal-state-map (kbd "<SPC>hb") 'helm-bibtex)
-

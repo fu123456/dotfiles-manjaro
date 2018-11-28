@@ -265,7 +265,6 @@ alias myyaourt='export PATH=/bin:/usr/bin:/usr/sbin &&  yaourt'
 # Mons
 # more help, please see help. mons -h
 alias copyMonitor='mons -d right' # copy monitor
-alias rightMonitor='mons -e right' # right monitor
 alias onlyMainMonitor='mons -o'
 
 #  ___ _  _ ___
@@ -289,21 +288,21 @@ prompt_context() {
 ## my apps output config
 
 #{{{texlive
-# # texlive 2016 environment setting
-# PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
-# MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
-# INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
-# PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
-# # texlive 2017 environment setting
-# PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
-# MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
-# INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
-# PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
+# texlive 2016 environment setting
+PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
+# texlive 2017 environment setting
+PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
 # texlive 2018 environment setting
-PATH=/usr/local/texlive/2018/bin/x86_64-linux:${PATH}
-MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man:${MANPATH}
-INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info:${INFOPATH}
-PACKAGEPATH=/usr/local/texlive/2018/texmf-dist:${PACKAGEPATH}
+PATH=/usr/local/texlive/2018/bin/x86_64-linux/:${PATH}
+MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man/:${MANPATH}
+INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info/:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2018/texmf-dist/:${PACKAGEPATH}
 #}}}
 
 ##{{{ matlab

@@ -1,64 +1,14 @@
 (require 'workgroups2)
 (workgroups-mode 1)
+;; Change prefix key (before activating WG)
+(setq wg-prefix-key (kbd "C-c z"))
 
 ;; Change workgroups session file
-(setq wg-session-file "~/MEGA/dotfiles-manjaro/.emacs.d/.emacs_workgroups")
-;; Mode Line changes
-;; Display workgroups in Mode Line?
-(setq wg-mode-line-display-on t)          ; Default: (not (featurep 'powerline))
-(setq wg-flag-modified t)                 ; Display modified flags as well
-(setq wg-mode-line-decor-left-brace "["
-      wg-mode-line-decor-right-brace "]"  ; how to surround it
-      wg-mode-line-decor-divider ":")
+(setq wg-session-file "~/.emacs.d/.emacs_workgroups")
 
-(setq wg-use-default-session-file nil)
-;; don't open last workgroup automatically in `wg-open-session',
-;; I only want to check available workgroups! Nothing more.
-(setq wg-load-last-workgroup nil)
-(setq wg-open-this-wg nil)
-
-                                        ;(workgroups-mode 1) ; put this one at the bottom of .emacs
-;; by default, the sessions are saved in "~/.emacs_workgroups"
-(defun my-wg-switch-workgroup ()
-  (interactive)
-  (unless (featurep 'workgroups2) (require 'workgroups2))
-  (unless (featurep 'ivy) (require 'ivy))
-  (let* ((group-names (mapcar (lambda (group)
-                                ;; re-shape list for the ivy-read
-                                (cons (wg-workgroup-name group) group))
-                              (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file)))))))
-
-    (ivy-read "work groups"
-              group-names
-              :action (lambda (e)
-                        (wg-find-session-file wg-default-session-file)
-                        ;; ivy8 & ivy9
-                        (if (stringp (car e)) (setq e (cdr e)))
-                        (wg-switch-to-workgroup e)))))
-
-(eval-after-load 'workgroups2
-  '(progn
-     ;; make sure wg-create-workgroup always success
-     (defadvice wg-create-workgroup (around wg-create-workgroup-hack activate)
-       (unless (file-exists-p (wg-get-session-file))
-         (wg-reset t)
-         (wg-save-session t))
-
-       (unless wg-current-session
-         ;; code extracted from `wg-open-session'.
-         ;; open session but do NOT load any workgroup.
-         (let ((session (read (f-read-text (file-truename wg-session-file)))))
-           (setf (wg-session-file-name session) wg-session-file)
-           (wg-reset-internal (wg-unpickel-session-parameters session))))
-       ad-do-it
-       ;; save the session file in real time
-       (wg-save-session t))
-
-     (defadvice wg-reset (after wg-reset-hack activate)
-       (wg-save-session t))
-
-     ;; I'm fine to to override the original workgroup
-     (defadvice wg-unique-workgroup-name-p (around wg-unique-workgroup-name-p-hack activate)
-       (setq ad-return-value t))))
-
-(provide 'init-workgroups2)
+;; Set your own keyboard shortcuts to reload/save/switch WGs:
+;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
+(global-set-key (kbd "<pause>")     'wg-reload-session)
+(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+(global-set-key (kbd "s-z")         'wg-switch-to-workgroup)
+(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)

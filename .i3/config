@@ -253,11 +253,11 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 #################################################################
 
-# My assign specific windows to workspaces
 # shutter
 # for_window [class="(?i)Shutter"] floating enable, resize set 840 480
 assign [class="^Shutter"] $wsmedia
 for_window [class = "^Shutter"] #floating enable
+
 # mupdf
 assign [class="^euPDF$"] $wsPresentation
 for_window [class = "^MuPDF$"] #floating enable
@@ -304,32 +304,25 @@ for_window [class="^ANYDESK$"]medias
 assign [class="(?!)electronic-wechat"] $wsmedia
 for_window [class="(?i)electronic-wechat"] floating enable border normal
 
-assign [class="^VMware Player$"] →  $wsmedia
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # {{{ Matlab window
 for_window [class="mlterm" instance="mlterm"] floating disable
-for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] floating enable
+for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] #floating enable
 assign [class="MATLAB.*"] $wsmedia
-for_window [class="MATLAB.*"] layout tabbed
+for_window [class="MATLAB.*"] #layout tabbed
 # }}}
 
 font pango:Inconsolata, Icons 12
 # my workspace setting end
-# exec --no-startup-id fcitx
+exec --no-startup-id fcitx
 ##{{{ my useful bash scripts
 exec /home/fg/MEGA/dotfiles-manjaro/scripts/touchpad_toggle.sh &
 exec /home/fg/MEGA/dotfiles-manjaro/scripts/changekey.sh &
 ##}}}
-
-# {{{ my startup setting
-# add your command lines according to your needs
-exec /home/fg/MEGA/dotfiles-manjaro/scripts/startupStuff.sh &
-# }}}
 
 # {{ emacs anywhere
 bindsym $mod+p exec /home/fg/.emacs_anywhere/bin/run

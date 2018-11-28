@@ -31,3 +31,6 @@
 [submodule "workgroups"]
 	path = .emacs.d/private/myPackages/workgroups
 	url = https://github.com/tlh/workgroups.el.git
+[submodule "y"]
+	path = .emacs.d/private/myPackages/awesome-tab
+	url = https://github.com/manateelazycat/awesome-tab.git

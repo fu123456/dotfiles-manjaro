@@ -5,10 +5,8 @@
 (evil-leader/set-key (kbd "O") 'hydra-outline/body)
 (evil-leader/set-key (kbd "w") 'hydra-window/body)
 (evil-leader/set-key (kbd "c") 'hydra-rectangle/body)
-(evil-leader/set-key (kbd "[") 'hydra-tab/body)
 (global-set-key (kbd "<f8>") 'fg/sudo-edit)
 (evil-leader/set-key (kbd "a") 'hydra-fgfiles/body)
-(evil-leader/set-key (kbd "]") 'hydra-workgroups/body)
 (global-set-key [f7] 'indent-whole)
 (global-set-key (kbd "C-x p i") 'cliplink)
 (dolist (key '("\C-z"))
@@ -52,9 +50,6 @@
   ("r" helm-yas-create-snippet-on-region)
   ;; quit
   ("q" nil "cancel"))
-;; see @ https://github.com/joaotavora/yasnippet/issues/708
-(define-key yas-minor-mode-map [(tab)] nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
 
 ;; dired setting using hydra
 (defhydra hydra-dired (:hint nil :color pink)
@@ -675,45 +670,3 @@ _mp_ magit-push _mc_ magit-commit _md_ magit diff _mla_ magit log _ms_ magit sta
   (local-set-key (kbd "C-c C-y") 'hydra-message/body))
 (add-hook 'message-mode-hook 'message-mode-hook-hydra-setup)
 ;;}}}
-
-;; {{{ awesome-tab config
-
-;; yasnippet settings using hydra
-(defhydra hydra-tab (:color pink :hint nil)
-  "
-              ^Awesome-tab^
---------------------------------------------------------
-    ^Move^            ^Move^                ^Kill^
- _h_:left tab     _<_:tabToLeft            _k_:other
- _l_:right tab    _>_:tabToRight           _K_:all
- _H_:left group   _f_:left tab other       _x_:match
- _L_:right group  _b_:right tab other      ^ ^
-"
-  ("h" awesome-tab-backward-tab)
-  ("l" awesome-tab-forward-tab)
-  ("H" awesome-tab-backward-group)
-  ("L" awesome-tab-forward-group)
-  ("<" awesome-tab-move-current-tab-to-left)
-  (">" awesome-tab-move-current-tab-to-right)
-  ("K" awesome-tab-kill-all-buffers-in-current-group)
-  ("k" awesome-tab-kill-other-buffers-in-current-group)
-  ("x" awesome-tab-kill-match-buffers-in-current-group)
-  ("f"  awesome-tab-forward-tab-other-window)
-  ("b"  awesome-tab-backward-tab-other-window)
-  ;; quit
-  ("q" nil "cancel"))
-;; }}}
-
-;; {{{ workgroups config
-(defhydra hydra-workgroups (:color pink :hint nil)
-  "
-[workgroups2] _c_:creat _v_:switch _s_:save _r_:reload _k_:kill
-"
-  ("c" wg-create-workgroup  :bind nil :exit t)
-  ("v" wg-switch-to-workgroup :bind nil :exit t)
-  ("s" wg-save-session  :bind nil :exit t)
-  ("r" wg-reload-session :bind nil :exit t)
-  ("k" wg-kill-workgroup :bind nil :exit t)
-  ;; quit
-  ("q" nil "cancel"))
-;; }}}

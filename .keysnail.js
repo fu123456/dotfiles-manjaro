@@ -330,8 +330,8 @@ key.setEditKey('M-p', function (ev) {
             }, 'Focus to the previous text area', false);
 
 key.setViewKey([["C-n"], ["j"]], function (ev) {
-    key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
-}, 'Scroll line down', false);
+                key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
+            }, 'Scroll line down', false);
 
 key.setViewKey([["C-p"], ["k"]], function (ev) {
                 key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
@@ -526,37 +526,11 @@ key.setCaretKey('M-n', function (ev) {
                 command.walkInputElement(command.elementsRetrieverButton, false, true);
             }, 'Focus to the previous button', false);
 
-// 这样在caret模式中按v即可切换visual模式，进入visual模式后用jkhl即可选择页面文字。
-// see @ http://www.cnblogs.com/bamanzi/archive/2011/04/12/firefox-keysnail-tips.html
-key.setCaretKey('v', function (ev, arg) {
-    content.document.documentElement.ksMarked = !content.document.documentElement.ksMarked;
-}, 'Toggle visual mode');
 
 // {{ caret-mode
-// key.setGlobalKey(['C-c','C-i'], function (ev, arg) {
-//     util.setBoolPref("accessibility.browsewithcaret", !util.isCaretEnabled());
-// }, 'Enter to caret mode', true);
-
-// see @ http://www.cnblogs.com/bamanzi/archive/2011/04/12/firefox-keysnail-tips.html
-util.setBoolPref("accessibility.browsewithcaret", true);
-//this add some visual effect indicating the caret mode
-key.setViewKey(['C-c', 'C-i'], function (ev) {
-    children = document.getElementById("nav-bar").children;
-    for (i = 0; i < children.length; i++) {
-        children[i].style.backgroundColor = "pink";
-    }
-    util.setBoolPref("accessibility.browsewithcaret", true);
-}, 'Start Caret-Browse Mode');
-
-key.setCaretKey(['C-c', 'C-i'], function (ev) {
-    children = document.getElementById("nav-bar").children;
-    for (i = 0; i < children.length; i++) {
-        children[i].style.backgroundColor = "transparent";
-    }
-    util.setBoolPref("accessibility.browsewithcaret", false);
-}, 'Exit Caret-Browse Mode');
-
-
+key.setGlobalKey(['C-c','C-i'], function (ev, arg) {
+    util.setBoolPref("accessibility.browsewithcaret", !util.isCaretEnabled());
+}, 'Enter to caret mode', true);
 // }}
 
 // {{ hok

@@ -21,17 +21,9 @@
     (:exec    . "%c %s")
     :mode 'latex-mode))
 (quickrun-add-command "fg/xelatex"
-                      '((:command . "xelatex")
-                        (:exec    . "%c %s")
-                        :mode 'latex-mode))
-
-;; Use this parameter as C++ default
-(quickrun-add-command "c++/c1z"
-                      '((:command . "g++")
-                        (:exec    . ("%c -std=c++1z %o -o %e %s"
-		                                 "%e %a"))
-                        (:remove  . ("%e")))
-                      :default "c++")
+  '((:command . "xelatex")
+    (:exec    . "%c %s")
+    :mode 'latex-mode))
 
 (setq quickrun-timeout-seconds nil)
 

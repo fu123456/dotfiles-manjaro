@@ -4,4 +4,6 @@
 # --
 clear all;
 close all;
-clc;$0
+clc;
+
+$0
