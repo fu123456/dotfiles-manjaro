@@ -157,6 +157,11 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gtags.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-visual-regexp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-expand-region.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tab.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-cpp.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
 ;;}}}
 
 ;;{{{ open PDF file using others
@@ -185,4 +190,11 @@
 (setf epa-pinentry-mode 'loopback)
 
 ;; avoid package initialized warning messages
-(unless package--initialized (package-initialize t))
+;; (unless package--initialized (package-initialize t))
+
+
+;; Change workgroups session file
+(setq wg-session-file "~/MEGA/dotfiles-manjaro/.emacs.d/.emacs_workgroups")
+
+(setq buffer-save-without-query t)
+(setq confirm-nonexistent-file-or-buffer nil)

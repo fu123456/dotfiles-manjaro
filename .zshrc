@@ -265,6 +265,7 @@ alias myyaourt='export PATH=/bin:/usr/bin:/usr/sbin &&  yaourt'
 # Mons
 # more help, please see help. mons -h
 alias copyMonitor='mons -d right' # copy monitor
+alias rightMonitor='mons -e right' # right monitor
 alias onlyMainMonitor='mons -o'
 
 #  ___ _  _ ___
@@ -288,21 +289,21 @@ prompt_context() {
 ## my apps output config
 
 #{{{texlive
-# texlive 2016 environment setting
-PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
-MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
-INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
-PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
-# texlive 2017 environment setting
-PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
-MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
-INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
-PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
+# # texlive 2016 environment setting
+# PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
+# MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
+# INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
+# PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
+# # texlive 2017 environment setting
+# PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
+# MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
+# INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
+# PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
 # texlive 2018 environment setting
-PATH=/usr/local/texlive/2018/bin/x86_64-linux/:${PATH}
-MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man/:${MANPATH}
-INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info/:${INFOPATH}
-PACKAGEPATH=/usr/local/texlive/2018/texmf-dist/:${PACKAGEPATH}
+PATH=/usr/local/texlive/2018/bin/x86_64-linux:${PATH}
+MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man:${MANPATH}
+INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2018/texmf-dist:${PACKAGEPATH}
 #}}}
 
 ##{{{ matlab
@@ -580,3 +581,11 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 # caffe
 export PYTHONPATH=/home/fg/Experiments/saw_release/caffe/python:$PYTHONPATH
 # }}}
+
+# # control <-> return
+# # see @https://emacsredux.com/blog/2016/01/30/remap-return-to-control-in-gnu-slash-linux/
+# xmodmap -e "remove Control = Control_R"
+# xmodmap -e "keycode 0x69 = Return"
+# xmodmap -e "keycode 0x24 = Control_R"
+# xmodmap -e "add Control = Control_R"
+# xcape -t 10000 -e "Control_R=Return"

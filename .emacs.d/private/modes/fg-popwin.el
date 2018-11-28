@@ -1,9 +1,10 @@
 (require 'popwin)
 (popwin-mode 1)
-; (global-set-key (kbd "C-z") 'popwin:keymap)
-; (global-set-key (kbd "<SPC>ee") 'popwin:close-popup-window)
-; (define-key key-translation-map (kbd "ESC") (kbd "<SPC>ee"))
+                                        ; (global-set-key (kbd "C-z") 'popwin:keymap)
+                                        ; (global-set-key (kbd "<SPC>ee") 'popwin:close-popup-window)
+                                        ; (define-key key-translation-map (kbd "ESC") (kbd "<SPC>ee"))
 (global-set-key (kbd "C-g") popwin:keymap)
+(global-set-key (kbd "C-g C-g") 'popwin:close-popup-window)
 
 ;; M-x anythinqg
 (setq anything-samewindow nil)
@@ -48,3 +49,4 @@
 (push "*Org PDF Latex Output*" popwin:special-display-config)
 (push "*Org Agenda*" popwin:special-display-config)
 (push "*quickrun*" popwin:special-display-config)
+(push "*PDF-Occur*" popwin:special-display-config)

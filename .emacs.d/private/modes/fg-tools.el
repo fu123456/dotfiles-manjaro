@@ -7,7 +7,7 @@
                                     ((and buffer-file-name (equal buffer-file-name abbrev-file-name)))
                                     ((and buffer-file-name (eq major-mode 'latex-mode)))
                                     ((and buffer-file-name (eq major-mode 'markdown-mode)))
-				    ((and buffer-file-name (eq major-mode 'pdf-view-mode)))
+				                            ((and buffer-file-name (eq major-mode 'pdf-view-mode)))
                                     ((and buffer-file-name (derived-mode-p 'org-mode)))))))
 (define-key evil-normal-state-map (kbd "<SPC>fw") 'fg/save-some-buffers)
 
@@ -146,6 +146,9 @@ Version 2017-09-01"
 (define-key evil-normal-state-map (kbd "<SPC>oy") 'xah-copy-file-path)
 ;; }}}
 
+;; copy current directory path
+(define-key evil-normal-state-map (kbd "<SPC>od") 'spacemacs/copy-directory-path)
+
 ;; {{{ open a file with external app
 (defun prelude-open-with (arg)
   "Open visited file in default external program.
@@ -160,6 +163,33 @@ With a prefix ARG always prompt for command to use."
                     " "
                     (shell-quote-argument buffer-file-name)))))
 (global-set-key (kbd "C-c C-u o") 'prelude-open-with)
+;; }}}
+
+;; {{{ convert markdown file to org file
+(defun markdown-convert-buffer-to-org ()
+  "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+  (interactive)
+  (shell-command-on-region (point-min) (point-max)
+                           (format "pandoc -f markdown -t org -o %s"
+                                   (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+;; }}}
+
+;; {{{
+;; see @https://emacsredux.com/blog/2013/03/27/open-file-in-external-program/
+(defun er-open-with (arg)
+  "Open visited file in default external program.
+
+With a prefix ARG always prompt for command to use."
+  (interactive "P")
+  (when buffer-file-name
+    (shell-command (concat
+                    (cond
+                     ((and (not arg) (eq system-type 'darwin)) "open")
+                     ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
+                     (t (read-shell-command "Open current file with: ")))
+                    " "
+                    (shell-quote-argument buffer-file-name)))))
+(global-set-key (kbd "C-c C-o") #'er-open-with)
 ;; }}}
 
 (provide 'fg-tools)
