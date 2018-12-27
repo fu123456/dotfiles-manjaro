@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: tramp_offer_sbatch_format_homework
+# key: tramp_sbatch
+# --
+chmod  +x ${1:file name}.sbatch
+sleep 2
+sbatch -A cxxiao -p hpxg ${2:file name}.sbatch

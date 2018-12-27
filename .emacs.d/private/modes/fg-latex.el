@@ -249,6 +249,8 @@ _U_: sublevels      ^ ^             ^ ^
 (define-key LaTeX-mode-map (kbd "<f4>") 'fg/pdflatex-file)
 (define-key LaTeX-mode-map (kbd "<f5>") 'fg/compile-latex-file)
 (define-key LaTeX-mode-map (kbd "<f6>") 'fg/compile-chinese-latex-file)
+(define-key LaTeX-mode-map (kbd "<f3>") nil)
+(define-key LaTeX-mode-map (kbd "<f3>") 'fg/xelatex-file)
 ;; }}}
 
 

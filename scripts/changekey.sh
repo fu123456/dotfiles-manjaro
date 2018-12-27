@@ -20,7 +20,7 @@ xcape -e 'Control_L=Escape'
 # xmodmap -e 'add Control = 0x1234'
 # # make a fake return key (so we can map it with xcape)
 # xmodmap -e 'keycode any = Return'
-# xcape -e '0x1234=Return'   
+# xcape -e '0x1234=Return'
 
 # 会存在在vim按下Capslock键时要停留很短暂的时间
 # 如果操作速度太快，就会Capslock就会被作为
@@ -30,7 +30,7 @@ setxkbmap -option "ctrl:nocaps"
 synclient TouchpadOff=1
 
 # Emacs
-# emacs-snapshot --daemon 
+# emacs-snapshot --daemon
 # emacsclient -nc
 
 # close screen clock

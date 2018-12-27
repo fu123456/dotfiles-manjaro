@@ -149,8 +149,8 @@ bindsym $mod+Ctrl+Left workspace prev
 # my workspace setting
 set $wsterm    1:Term
 set $wsemacs   2:Emacs
-set $wsfirefox 3:Firefox
-set $wschrome  4:Chrome
+set $wsdoc 3:Document
+set $wsbrowser  4:Browser
 set $wsTexmacs 5:Texmacs
 set $wsPresentation 6:Presentation
 set $wsOther 7:Other
@@ -160,8 +160,8 @@ set $wsmedia 8:Media
 
 workspace "$wsterm" output $sidescreen
 workspace "$wsemacs" output $mainscreen
-workspace "$wsfirefox" output $mainscreen
-workspace "$wschrome" output $mainscreen
+workspace "$wsdoc" output $mainscreen
+workspace "$wsbrowser" output $mainscreen
 workspace "$wsTexmacs" output $mainscreen
 workspace "$wsPresentation" output $mainscreen
 workspace "$wsOther" output $mainscreen
@@ -173,8 +173,8 @@ workspace "$wsmedia" output $mainscreen
 #workspace_layout tabbed
 bindsym $mod+1 workspace $wsterm
 bindsym $mod+2 workspace $wsemacs
-bindsym $mod+3 workspace $wsfirefox
-bindsym $mod+4 workspace $wschrome
+bindsym $mod+3 workspace $wsdoc
+bindsym $mod+4 workspace $wsbrowser
 bindsym $mod+5 workspace $wsTexmacs
 bindsym $mod+6 workspace $wsPresentation
 bindsym $mod+7 workspace $wsOther
@@ -183,8 +183,8 @@ bindsym $mod+8 workspace $wsmedia
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $wsterm
 bindsym $mod+Shift+2 move container to workspace $wsemacs
-bindsym $mod+Shift+3 move container to workspace $wsfirefox
-bindsym $mod+Shift+4 move container to workspace $wschrome
+bindsym $mod+Shift+3 move container to workspace $wsdoc
+bindsym $mod+Shift+4 move container to workspace $wsbrowser
 bindsym $mod+Shift+5 move container to workspace $wsTexmacs
 bindsym $mod+Shift+6 move container to workspace $wsPresentation
 bindsym $mod+Shift+7 move container to workspace $wsOther
@@ -192,9 +192,9 @@ bindsym $mod+Shift+8 move container to workspace $wsmedia
 
 # assign specific windows to workspaces
 # nautilus
-assign [class="^Firefox$"] → $wsfirefox
-assign [class="^Waterfox$"] → $wsfirefox
-assign [class="^palemoon$"] → $wsfirefox
+assign [class="^Firefox$"] → $wsbrowser
+assign [class="^Waterfox$"] → $wsbrowser
+assign [class="^palemoon$"] → $wsbrowser
 assign [class="^Gnome-terminal$"] → $wsterm
 assign [class="^terminal$"] → $wsterm
 assign [class="^Terminal$"] → $wsterm
@@ -204,81 +204,38 @@ assign [class="^urxvt$"] → $wsterm
 assign [class="^URxvt$"] → $wsterm
 assign [class="^myterm$"] → $wsterm
 assign [class="^xdg-open$"] → $wsfile
-assign [class="^Google-chrome$"] → $wschrome
+assign [class="^Google-chrome$"] → $wsbrowser
 assign [class="^Nautilus$"] → $wsfiles
 assign [class="^Impressive$"] → $wsPresentation
 assign [class="^impressive$"] → $wsPresentation
 assign [class="^Imp$"] → $wsPresentaion
-assign [class="^Evince$"] → $wsPresentation
 assign [class="^MEGAsync$"] → $wsmedia
 assign [class="^Inkscape"] → $wsmedia
 assign [class="^Texmacs"] → $wsTexmacs
 assign [class="^texmacs"] → $wsTexmacs
 assign [class="^Gimp"] → $wsmedia
+assign [class="^Teamviewer"] → $wsmedia
 #Shadowsocks-Qt5, Ss-qt5, does not work
 assign [class="^shadowsocks-qt5"] → $wsmedia
 assign [class="^Anydesk"] → $wsmedia
 assign [class="^Virt-manager"] → $wsmedia
-assign [class="^Pcmanfm$"] → $wsPresentation
-# assign [class="^Electronic-wechat$"] → $wsmedia
-
-# Manjaro default setting ###################################
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Manjaro Settings Manager"] floating enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
-for_window [title="About Pale Moon"] floating enable
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="Xfburn"] floating enable
-#################################################################
-
-# My assign specific windows to workspaces
-# shutter
-# for_window [class="(?i)Shutter"] floating enable, resize set 840 480
-assign [class="^Shutter"] $wsmedia
-for_window [class = "^Shutter"] #floating enable
-# mupdf
-assign [class="^euPDF$"] $wsPresentation
-for_window [class = "^MuPDF$"] #floating enable
-# evince
-assign [class="^Evince$"] $wsPresentation
-for_window [class = "^Evince$"] layout tabbed
-# zathura
-assign [class="^Zathura$"] $wsPresentation
-for_window [class = "^Zathura$"] #layout tabbed
+assign [class="^Zathura$"] $wsdoc
+for_window [class = "^Zathura$"] layout tabbed focus
+# pcmanfm
+assign [class="^Pcmanfm$"] $wsPresentation
+for_window [class = "^Pcmanfm"] focus
 # xournal
-assign [class="^Xournal"] $wsPresentation
+assign [class="^Xournal"] $wsdoc
 for_window [class = "^Xournal"] #layout tabbed
 # goldendict
 assign [class="^GoldenDict"] $wsemacs
 for_window [class = "^GoldenDict"] #layout tabbed
 # epdfview
-assign [class="^Epdfview$"] $wsPresentation
+assign [class="^Epdfview$"] $wsdoc
 for_window [class = "^Epdfview$"] #layout tabbed
 # Emacs
 assign [class="^Emacs$"] $wsemacs
-for_window [class="^Emacs$"] layout tabbed
+for_window [class="^Emacs$"] layout tabbed focus
 # inkscape
 assign [class="^Inkscape$"] $wsmedia
 for_window [class="^Inkscape$"] #layout tabbed
@@ -311,16 +268,17 @@ floating_modifier $mod
 
 # {{{ Matlab window
 for_window [class="mlterm" instance="mlterm"] floating disable
-for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] floating enable
+for_window [class="com-mathworks-.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XFramePeer"] #floating enable
+for_window [class="MATLAB.*" instance="sun-awt-X11-XWindowPeer"] #floating enable
 assign [class="MATLAB.*"] $wsmedia
 for_window [class="MATLAB.*"] layout tabbed
+assign [class="com-mathworks-util-PostVMInit" title="^Fig"] $wsmedia
 # }}}
 
 font pango:Inconsolata, Icons 12
 # my workspace setting end
-# exec --no-startup-id fcitx
+exec --no-startup-id fcitx
 ##{{{ my useful bash scripts
 exec /home/fg/MEGA/dotfiles-manjaro/scripts/touchpad_toggle.sh &
 # exec /home/fg/MEGA/dotfiles-manjaro/scripts/changekey.sh &

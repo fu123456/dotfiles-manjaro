@@ -30,16 +30,13 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lua
-     javascript
-     php
+   '(
      python
      markdown
      vimscript
      vimscript
      html
      graphviz
-     ;; magic-latex-buffer
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -49,64 +46,51 @@ values."
      auto-completion
      ;; better-defaults
      emacs-lisp
+     git
      markdown
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      ;; spell-checking
      (spell-checking :variables
                      ispell-program-name "aspell"
                      ispell-dictionary "american"
                      spell-checking-enable-by-default nil)
      ;; syntax-checking
-     version-control
-     ;;{{{my packages
-     ;; extra-langs
+     ;; version-control
+     ;; my packages
+     pdf-tools
+     extra-langs
      latex
      cdlatex
+     magic-latex-buffer
      bibtex
      org-pdfview
      git
      disable-mouse
      evil-commentary
      chinese
+     ;; cnfonts
      deft
+     julia
      (ranger :variables
              ranger-show-preview t)
      gnus
      vlf
      command-log-mode
      search-engine
-     ;;}}}
+     orca
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ebdb goldendict pdf-tools matlab-mode
-                                           evil-collection
-                                           (magic-latex-buffer :location (recipe :fetcher github :repo "zk-phi/magic-latex-buffer"))
-                                           (auto-package-update :location (recipe :fetcher github :repo "rranelli/auto-package-update.el"))
-                                           (org-wc :location (recipe :fetcher github :repo "tesujimath/org-wc"))
-                                           (ox-hugo :location (recipe :fetcher github :repo "kaushalmodi/ox-hugo"))
-                                           ggtags
-                                           key-chord
-                                           bbdb
-                                           helm-swoop
-                                           visual-regexp
-                                           helm-projectile
-                                           expand-region
-                                           workgroups2
-                                           blimp
-                                           )
+   dotspacemacs-additional-packages '(ebdb)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(org-projectile julia-mode spaceline
-                                                   window-purpose
-                                                   ivy-purpose
-                                                   )
+   dotspacemacs-excluded-packages '(org-projectile julia-mode)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -114,9 +98,7 @@ values."
    ;; `used-but-keep-unused' installs only the used packages but won't uninstall
    ;; them if they become unused. `all' installs *all* packages supported by
    ;; Spacemacs and never uninstall them. (default is `used-only')
-   ;; dotspacemacs-install-packages 'used-only)
-   dotspacemacs-install-packages 'used-but-keep-unused)
-  )
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -182,9 +164,9 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   ;; default font: DejaVu Sans Mono, Monaco
    dotspacemacs-default-font '("DejaVu Sans Mono"
                                :size 15
+                               ;; :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -343,9 +325,6 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
    dotspacemacs-themes '(xemacs)
-   ;; dotspacemacs-themes '(dichromacy)
-   ;; dotspacemacs-themes '(zenburn)
-   ;; dotspacemacs-themes '(zenburn)
    ))
 
 (defun dotspacemacs/user-init ()
@@ -360,6 +339,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/colors")
   )
 
@@ -370,7 +350,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -383,7 +362,7 @@ you should place your code here."
  '(canlock-password "a0ad8d2016bcdc914c276ef507fa8001d5fc90e9")
  '(matlab-shell-command-switches '("-nodesktop -nosplash"))
  '(package-selected-packages
-   '(diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))
+   '(wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord helm-bibtex parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))
  '(vlf-application 'dont-ask))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -391,27 +370,3 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
-   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
-   '(canlock-password "a0ad8d2016bcdc914c276ef507fa8001d5fc90e9")
-   '(matlab-shell-command-switches '("-nodesktop -nosplash"))
-   '(package-selected-packages
-     '(blimp eimp diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))
-   '(vlf-application 'dont-ask))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-  )

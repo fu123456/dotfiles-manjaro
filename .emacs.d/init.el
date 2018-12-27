@@ -113,13 +113,18 @@
 ;;}}}
 
 ;;{{{ global-mode, turn on these global mode
-(yas-global-mode 1)
+;; (yas-global-mode 1)
 (global-company-mode 1)
-(global-auto-complete-mode nil)
+;; (global-auto-complete-mode nil)
 ;; see @ https://github.com/Malabarba/aggressive-indent-mode
 (global-aggressive-indent-mode 1)
 (global-auto-revert-mode)
 ;;}}}
+
+;; {{{ hl-todo
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/hl-todo")
+(require 'hl-todo)
+;; }}}
 
 ;;{{{ load config files
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-package-update.el"))
@@ -157,11 +162,13 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gtags.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-visual-regexp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-expand-region.el"))
-;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tab.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-supersave.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-cpp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
+(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
 ;;}}}
 
 ;;{{{ open PDF file using others

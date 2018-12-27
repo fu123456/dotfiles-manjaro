@@ -53,7 +53,7 @@
           (format "%s %s" cmd list-switch)
         cmd)
       (mapconcat #'expand-file-name file-list "\" \"")))))
-(define-key dired-mode-map (kbd "C-c r") 'dired-start-process)
+;; (define-key dired-mode-map (kbd "C-c r") 'dired-start-process)
 
 ;; Other setting
 ;; https://www.reddit.com/r/emacs/comments/4agkye/how_do_you_customize_dired/
@@ -133,7 +133,8 @@
 ;; Allow to switch from current user to sudo when browsind `dired' buffers.
 ;; To activate and swit with "C-c C-s" just put in your .emacs:
 (require 'dired-toggle-sudo)
-(define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
+;; (define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
+
 ;; (eval-after-load 'tramp
 ;;  '(progn
 ;;     ;; Allow to use: /sudo:user@host:/path/to/file
@@ -141,7 +142,10 @@
 ;;        '(".*" "\\`.+\\'" "/ssh:%h:"))))
 
 ;;http://www.emacswiki.org/emacs/DiredPlus
-;; (require 'dired+)
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/diredPlus")
+(require 'dired+)
+(define-key dired-mode-map (kbd "C-,") 'diredp-copy-abs-filenames-as-kill)
+(define-key dired-mode-map (kbd "C-y") 'diredp-yank-files)
 
 ;;------------------------------
 ;; Create new file via "N" key with full path creation if subdirectories missing (foo/bar/filename.txt as example). "+" key create only directory.
@@ -307,6 +311,75 @@
 	        (dired-do-kill-lines))
 	    (progn (revert-buffer) ; otherwise just revert to re-show
 	           (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+
+;; {{{ open directory with Pcmanfm
+;; to see @ http://jixiuf.github.io/blog/emacs%E7%9A%84%E6%8F%92%E4%BB%B6openwith.el/
+(defun open-directory-with-pcmanfm()
+  (interactive)
+  (start-process "pcmanfm"  nil "pcmanfm" (expand-file-name  default-directory)))
+(eval-after-load 'dired
+  '(define-key dired-mode-map (quote [C-M-return]) 'open-directory-with-pcmanfm))
+(global-set-key (quote [C-M-return]) (quote open-directory-with-pcmanfm))
+;; }}}
+
+;; {{{ using rsync in dired-mode
+;; to see @ https://oremacs.com/2016/02/24/dired-rsync/
+;;;###autoload
+(defun ora-dired-rsync (dest)
+  (interactive
+   (list
+    (expand-file-name
+     (read-file-name
+      "Rsync to:"
+      (dired-dwim-target-directory)))))
+  ;; store all selected files into "files" list
+  (let ((files (dired-get-marked-files
+                nil current-prefix-arg))
+        ;; the rsync command
+        (tmtxt/rsync-command
+         "rsync -arvz --progress "))
+    ;; add all selected file names as arguments
+    ;; to the rsync command
+    (dolist (file files)
+      (setq tmtxt/rsync-command
+            (concat tmtxt/rsync-command
+                    (shell-quote-argument file)
+                    " ")))
+    ;; append the destination
+    (setq tmtxt/rsync-command
+          (concat tmtxt/rsync-command
+                  (shell-quote-argument dest)))
+    ;; run the async shell command
+    (async-shell-command tmtxt/rsync-command "*rsync*")
+    ;; finally, switch to that window
+    (other-window 1)))
+
+(define-key dired-mode-map "Y" 'ora-dired-rsync)
+;; }}}
+
+;; {{{rsync config
+;; to see @ https://vxlabs.com/2018/03/30/asynchronous-rsync-with-emacs-dired-and-tramp/
+;; also see @ https://truongtx.me/tmtxt-dired-async.html
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/tmtxt-async-tasks")
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/tmtxt-dired-async")
+(require 'tmtxt-async-tasks)
+(require 'tmtxt-dired-async)
+(eval-after-load "dired" '(progn
+                            (define-key dired-mode-map (kbd "C-c C-o") 'tda/rsync)
+                            (define-key dired-mode-map (kbd "C-c C-R") 'tda/rsync-delete)
+                            (define-key dired-mode-map (kbd "C-c C-z") 'tda/zip)
+                            (define-key dired-mode-map (kbd "C-c C-u") 'tda/unzip)
+
+                            (define-key dired-mode-map (kbd "C-c C-a") 'tda/rsync-multiple-mark-file)
+                            (define-key dired-mode-map (kbd "C-c C-e") 'tda/rsync-multiple-empty-list)
+                            (define-key dired-mode-map (kbd "C-c C-d") 'tda/rsync-multiple-remove-item)
+                            (define-key dired-mode-map (kbd "C-c C-v") 'tda/rsync-multiple)
+
+                            (define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)
+
+                            (define-key dired-mode-map (kbd "C-c C-q") 'tda/download-to-current-dir)
+                            ))
+;; }}}
 
 (provide 'fg-dired)
 ;; fg-dired.el ends here

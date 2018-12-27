@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: sbatch file write
+# key: tramp_sbatch_script
+# --
+#!/bin/bash
+cd ${1:code dir}
+/home/software/MATLAB/R2017b/bin/matlab -nodisplay -nodesktop -r "run ${2:matlab file}"
+$0

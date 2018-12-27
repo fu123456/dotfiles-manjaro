@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: read image
+# key: ri
+# --
+${1:}=im2double(imread('${2:}'));
+$0

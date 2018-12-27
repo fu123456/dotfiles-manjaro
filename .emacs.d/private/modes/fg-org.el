@@ -401,25 +401,6 @@ _y_: ?y? year       _q_: quit           _L__l__c_: log = ?l?"
   ("x" org-agenda-exit :exit t)
   ("v" nil))
 
-;; {{{ orca
-(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/orca")
-(require 'orca)
-(setq orca-handler-list
-      '((orca-handler-match-url
-         "https://www.reddit.com/emacs/"
-         "~/MEGA/org/wiki/emacs.org"
-         "Reddit")
-        (orca-handler-match-url
-         "https://emacs.stackexchange.com/"
-         "~/MEGA/org/wiki/emacs.org"
-         "\\* Questions")
-        (orca-handler-current-buffer
-         "\\* Tasks")
-        (orca-handler-file
-         "~/MEGA/org/ent.org"
-         "\\* Articles")))
-;; }}}
-
 ;; {{{ drag and drop image
 ;; see @ http://kitchingroup.cheme.cmu.edu/blog/2015/07/10/Drag-images-and-files-onto-org-mode-and-insert-a-link-to-them/
 (defun my-dnd-func (event)

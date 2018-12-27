@@ -1,3 +1,5 @@
+set nocompatible
+
 "change leader key
 "let mapleader = ','
 "let g:mapleader = ','

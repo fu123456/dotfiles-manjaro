@@ -1,6 +1,29 @@
+;; (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/helm-bibtex")
+;; ;; {{{ ivy-bibtex
+;; (autoload 'ivy-bibtex "ivy-bibtex" "" t)
+;; ;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
+;; ;; ignores the order of regexp tokens when searching for matching candidates.
+;; ;; Add something like this to your init file:
+;; (setq ivy-re-builders-alist
+;;       '((ivy-bibtex . ivy--regex-ignore-order)
+;;         (t . ivy--regex-plus)))
+;; ;; }}}
 (autoload 'helm-bibtex "helm-bibtex" "" t)
-(setq bibtex-completion-bibliography
-      '("~/MEGA/bibtex-pdfs/bib/references.bib"))
+
+;; {{{ open PDF using Zathura
+(with-eval-after-load 'helm-bibtex
+  (defun bibtex-completion-open-pdf-external (keys &optional fallback-action)
+    (let ((bibtex-completion-pdf-open-function
+           (lambda (fpath) (start-process "zathura" "helm-bibtex-zathura" "/usr/bin/zathura" fpath))))
+      (bibtex-completion-open-pdf (list keys) fallback-action)))
+  (helm-add-action-to-source
+   "Zathura (PDF)" 'bibtex-completion-open-pdf-external
+   helm-source-bibtex 0)
+  )
+  ;; }}}
+
+  (setq bibtex-completion-bibliography
+        '("~/MEGA/bibtex-pdfs/bib/references.bib"))
 (setq bibtex-completion-library-path '("/home/fg/MEGA/bibtex-pdfs/"))
 ;; (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
 (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notes")
@@ -57,4 +80,3 @@ With a prefix ARG, the cache is invalidated and the bibliography reread."
 
 ;; my keybinding setting for helm-bibtex
 (define-key evil-normal-state-map (kbd "<SPC>hb") 'helm-bibtex)
-

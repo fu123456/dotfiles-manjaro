@@ -562,15 +562,15 @@ export VIMRUNTIME=/usr/share/vim/vim81
 #{{{ Manjaro install software tools
 # see @ https://bbs.archlinux.org/viewtopic.php?id=237513
 isrc() {
-	current="$PWD"
-	bld_dir="$HOME/build"
-	[ ! -d "$bld_dir" ] && mkdir "$bld_dir"
-	cd "$bld_dir"
-	asp export $1 2> /dev/null || git clone https://aur.archlinux.org/$1.git
-	cd $1
-	makepkg -isf --noconfirm
-	sudo pacman -Rns $(pacman -Qqdt)
-	cd "$current"
+	  current="$PWD"
+	  bld_dir="$HOME/build"
+	  [ ! -d "$bld_dir" ] && mkdir "$bld_dir"
+	  cd "$bld_dir"
+	  asp export $1 2> /dev/null || git clone https://aur.archlinux.org/$1.git
+	  cd $1
+	  makepkg -isf --noconfirm
+	  sudo pacman -Rns $(pacman -Qqdt)
+	  cd "$current"
 }
 
 # {{{ deep learning environment
@@ -589,3 +589,22 @@ export PYTHONPATH=/home/fg/Experiments/saw_release/caffe/python:$PYTHONPATH
 # xmodmap -e "keycode 0x24 = Control_R"
 # xmodmap -e "add Control = Control_R"
 # xcape -t 10000 -e "Control_R=Return"
+
+# added by Anaconda2 5.3.1 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/home/fg/anaconda2/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/home/fg/anaconda2/etc/profile.d/conda.sh" ]; then
+        . "/home/fg/anaconda2/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/home/fg/anaconda2/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+
+export PATH=/usr/local/lib/python2.7/dist-packages/torch:$PATH

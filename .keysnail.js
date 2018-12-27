@@ -114,12 +114,12 @@ key.setGlobalKey('C-r', function (ev) {
                 command.iSearchBackwardKs(ev);
             }, 'Emacs like incremental search backward', true);
 
-key.setGlobalKey(["C-x", "k"], function (ev) {
-    BrowserCloseTabOrWindow();
+key.setGlobalKey(["C-x", "C-x"], function (ev) {
+                BrowserCloseTabOrWindow();
             }, 'Close tab / window', false);
 
-key.setGlobalKey(["C-x", "K"], function (ev) {
-    closeWindow(true);
+key.setGlobalKey(["C-x", "C-z"], function (ev) {
+                closeWindow(true);
             }, 'Close the window', false);
 
 key.setGlobalKey(["C-c", "u"], function (ev) {
@@ -130,13 +130,9 @@ key.setGlobalKey(["C-x", "n"], function (ev) {
                 OpenBrowserWindow();
             }, 'Open new window', false);
 
-key.setGlobalKey("C-t", function (ev) {
-    document.getElementById("cmd_newNavigatorTab").doCommand();
-}, "Open the new tab");
-
 key.setGlobalKey('C-M-l', function (ev) {
-    getBrowser().mTabContainer.advanceSelectedTab(1, true);
-}, 'Select next tab', false);
+                getBrowser().mTabContainer.advanceSelectedTab(1, true);
+            }, 'Select next tab', false);
 
 key.setGlobalKey('C-M-h', function (ev) {
                 getBrowser().mTabContainer.advanceSelectedTab(-1, true);
@@ -330,8 +326,8 @@ key.setEditKey('M-p', function (ev) {
             }, 'Focus to the previous text area', false);
 
 key.setViewKey([["C-n"], ["j"]], function (ev) {
-    key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
-}, 'Scroll line down', false);
+                key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
+            }, 'Scroll line down', false);
 
 key.setViewKey([["C-p"], ["k"]], function (ev) {
                 key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
@@ -408,8 +404,8 @@ key.setViewKey(["C-x", "h"], function (ev) {
                 goDoCommand("cmd_selectAll");
             }, 'Select all', true);
 
-key.setViewKey(["f"], function (ev) {
-    command.focusElement(command.elementsRetrieverTextarea, 0);
+key.setViewKey('f', function (ev) {
+                command.focusElement(command.elementsRetrieverTextarea, 0);
             }, 'Focus to the first textarea', true);
 
 key.setViewKey('M-p', function (ev) {
@@ -514,8 +510,8 @@ key.setCaretKey(["C-x", "h"], function (ev) {
                 goDoCommand("cmd_selectAll");
             }, 'Select all', true);
 
-key.setCaretKey(["f"], function (ev) {
-    command.focusElement(command.elementsRetrieverTextarea, 0);
+key.setCaretKey('f', function (ev) {
+                command.focusElement(command.elementsRetrieverTextarea, 0);
             }, 'Focus to the first textarea', true);
 
 key.setCaretKey('M-p', function (ev) {
@@ -526,37 +522,11 @@ key.setCaretKey('M-n', function (ev) {
                 command.walkInputElement(command.elementsRetrieverButton, false, true);
             }, 'Focus to the previous button', false);
 
-// 这样在caret模式中按v即可切换visual模式，进入visual模式后用jkhl即可选择页面文字。
-// see @ http://www.cnblogs.com/bamanzi/archive/2011/04/12/firefox-keysnail-tips.html
-key.setCaretKey('v', function (ev, arg) {
-    content.document.documentElement.ksMarked = !content.document.documentElement.ksMarked;
-}, 'Toggle visual mode');
 
 // {{ caret-mode
-// key.setGlobalKey(['C-c','C-i'], function (ev, arg) {
-//     util.setBoolPref("accessibility.browsewithcaret", !util.isCaretEnabled());
-// }, 'Enter to caret mode', true);
-
-// see @ http://www.cnblogs.com/bamanzi/archive/2011/04/12/firefox-keysnail-tips.html
-util.setBoolPref("accessibility.browsewithcaret", true);
-//this add some visual effect indicating the caret mode
-key.setViewKey(['C-c', 'C-i'], function (ev) {
-    children = document.getElementById("nav-bar").children;
-    for (i = 0; i < children.length; i++) {
-        children[i].style.backgroundColor = "pink";
-    }
-    util.setBoolPref("accessibility.browsewithcaret", true);
-}, 'Start Caret-Browse Mode');
-
-key.setCaretKey(['C-c', 'C-i'], function (ev) {
-    children = document.getElementById("nav-bar").children;
-    for (i = 0; i < children.length; i++) {
-        children[i].style.backgroundColor = "transparent";
-    }
-    util.setBoolPref("accessibility.browsewithcaret", false);
-}, 'Exit Caret-Browse Mode');
-
-
+key.setGlobalKey(['C-c','C-i'], function (ev, arg) {
+    util.setBoolPref("accessibility.browsewithcaret", !util.isCaretEnabled());
+}, 'Enter to caret mode', true);
 // }}
 
 // {{ hok
@@ -574,9 +544,8 @@ hook.setHook('PluginLoaded', function () {
 });
 
 
-// C-c,C-f
-key.setGlobalKey(['C-c', 'C-f'], function (aEvent, aArg) {
-    ext.exec("hok-start-foreground-mode", aArg);
+key.setGlobalKey(['C-c','C-f'], function (aEvent, aArg) {
+        ext.exec("hok-start-foreground-mode", aArg);
 }, 'Hok - Foreground hint mode', true);
 
 key.setGlobalKey(['C-c','C-b'], function (aEvent, aArg) {

@@ -32,5 +32,8 @@
 	path = .emacs.d/private/myPackages/workgroups
 	url = https://github.com/tlh/workgroups.el.git
 [submodule "y"]
-	path = .emacs.d/private/myPackages/awesome-tab
-	url = https://github.com/manateelazycat/awesome-tab.git
+	path = .emacs.d/private/colors/darkburn-theme
+	url = https://github.com/gorauskas/darkburn-theme.git
+[submodule "blimp"]
+	path = .emacs.d/private/myPackages/blimp
+	url = https://github.com/walseb/blimp.git
