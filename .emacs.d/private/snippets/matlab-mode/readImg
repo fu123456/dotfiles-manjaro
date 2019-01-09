@@ -2,5 +2,4 @@
 # name: image read
 # key: img
 # --
-img=im2double(imread(''));
-$0
+$1=im2double(imread('$2'));$0

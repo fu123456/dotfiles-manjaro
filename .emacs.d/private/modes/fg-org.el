@@ -5,6 +5,9 @@
 ;; org-habit config
 (add-to-list 'org-modules 'org-habit)
 
+;; org-protocal
+(require 'org-protocol)
+
 ;;*keys
 ;;** org-mode-map
 (define-key org-mode-map (kbd "C-h") nil)
@@ -124,6 +127,7 @@
 (eval-after-load 'org '(require 'org-pdfview))
 (add-to-list 'org-file-apps '("\\.pdf\\'" . (lambda (file link) (org-pdfview-open link))))
 (add-to-list 'org-file-apps '("\\.pdf::\\([[:digit:]]+\\)\\'" . (lambda (file link) (org-pdfview-open link))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;end;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; org mode, tags setting

@@ -193,8 +193,13 @@ bindsym $mod+Shift+8 move container to workspace $wsmedia
 # assign specific windows to workspaces
 # nautilus
 assign [class="^Firefox$"] → $wsbrowser
+for_window [class = "^Firefox"] layout tabbed focus
 assign [class="^Waterfox$"] → $wsbrowser
-assign [class="^palemoon$"] → $wsbrowser
+for_window [class = "^Waterfox"] layout tabbed focus
+assign [class="^Palemoon$"] → $wsbrowser
+for_window [class = "^Palemoon"] layout tabbed focus
+assign [class="^Google-chrome$"] → $wsbrowser
+for_window [class = "^Google-chrome"] layout tabbed focus
 assign [class="^Gnome-terminal$"] → $wsterm
 assign [class="^terminal$"] → $wsterm
 assign [class="^Terminal$"] → $wsterm
@@ -204,7 +209,6 @@ assign [class="^urxvt$"] → $wsterm
 assign [class="^URxvt$"] → $wsterm
 assign [class="^myterm$"] → $wsterm
 assign [class="^xdg-open$"] → $wsfile
-assign [class="^Google-chrome$"] → $wsbrowser
 assign [class="^Nautilus$"] → $wsfiles
 assign [class="^Impressive$"] → $wsPresentation
 assign [class="^impressive$"] → $wsPresentation
@@ -221,9 +225,15 @@ assign [class="^Anydesk"] → $wsmedia
 assign [class="^Virt-manager"] → $wsmedia
 assign [class="^Zathura$"] $wsdoc
 for_window [class = "^Zathura$"] layout tabbed focus
+# Evince
+assign [class="^Evince"] $wsdoc
+for_window [class = "^Evince"] layout tabbed focus
+# Vmplayer
+assign [class="^Vmplayer"] $wsmedia
+for_window [class = "^Vmplayer"] layout tabbed
 # pcmanfm
 assign [class="^Pcmanfm$"] $wsPresentation
-for_window [class = "^Pcmanfm"] focus
+for_window [class = "^Pcmanfm"] layout tabbed focus
 # xournal
 assign [class="^Xournal"] $wsdoc
 for_window [class = "^Xournal"] #layout tabbed

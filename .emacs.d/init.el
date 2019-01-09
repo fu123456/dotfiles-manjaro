@@ -126,12 +126,15 @@
 (require 'hl-todo)
 ;; }}}
 
+;;设置用户名和邮件地址
+(setq user-full-name    "fugang")
+(setq user-mail-address "xyzgfu@gmail.com")
+
 ;;{{{ load config files
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-package-update.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tramp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-matlab.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-vlf.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-keys.el"))
@@ -167,8 +170,12 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
 (mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
-;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gpg.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hippie-expand.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
 ;;}}}
 
 ;;{{{ open PDF file using others
@@ -205,3 +212,6 @@
 
 (setq buffer-save-without-query t)
 (setq confirm-nonexistent-file-or-buffer nil)
+
+;; other useful setting
+(setq frame-title-format "@%b")

@@ -174,6 +174,7 @@ alias pushdot="cd ~/.dotfiles && ./push.sh"
 
 #ec, ed for emacs
 alias ec="emacsclient -nc"
+alias e="emacsclient -n"
 alias ed="/usr/bin/emacs --daemon"
 
 # vimb

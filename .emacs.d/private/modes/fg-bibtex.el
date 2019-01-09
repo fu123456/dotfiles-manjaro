@@ -28,11 +28,11 @@
 ;; (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
 (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notes")
 (setq bibtex-completion-display-formats
-      '((article       . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} ${journal:40}")
-        (inbook        . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-        (incollection  . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-        (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-        (t             . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${year:4} ${author:36} ${title:*}")))
+      '((article       . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${tags:6} ${year:4} ${author:36} ${title:*}")
+        (inbook        . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${tags:6} ${year:4} ${author:36} ${title:*}")
+        (incollection  . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${tags:6} ${year:4} ${author:36} ${title:*}")
+        (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${tags:6} ${year:4} ${author:36} ${title:*}")
+        (t             . "${=has-pdf=:1}${=has-note=:1} ${=type=:3} ${tags:6} ${year:4} ${author:36} ${title:*}")))
 
 ;; Symbols used for indicating the availability of notes and PDF files
 (setq bibtex-completion-pdf-symbol "⌘")
@@ -57,8 +57,6 @@
         (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
         (default       . bibtex-completion-format-citation-default)))
 
-(setq bibtex-completion-additional-search-fields '(tags))
-
 ;; Predefined searches
 (defun helm-bibtex-my-publications (&optional arg)
   "Search BibTeX entries authored by “Jane Doe”.
@@ -80,3 +78,6 @@ With a prefix ARG, the cache is invalidated and the bibliography reread."
 
 ;; my keybinding setting for helm-bibtex
 (define-key evil-normal-state-map (kbd "<SPC>hb") 'helm-bibtex)
+
+;; helm-bibtex search tags index
+(setq bibtex-completion-additional-search-fields '(tags))

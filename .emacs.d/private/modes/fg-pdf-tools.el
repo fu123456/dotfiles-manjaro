@@ -291,6 +291,19 @@
 (define-key pdf-view-mode-map (kbd "SPC [") 'hydra-tab/body)
 (define-key pdf-view-mode-map (kbd "SPC ]") 'hydra-workgroups/body)
 
+;; save some useful buffers quickly
+(defun fg/save-some-buffers ()
+  "Save my some files: latex file, org file, markdown file, PDf file."
+  (interactive)
+  (save-some-buffers 'no-confirm (lambda ()
+                                   (cond
+                                    ((and buffer-file-name (equal buffer-file-name abbrev-file-name)))
+                                    ((and buffer-file-name (eq major-mode 'latex-mode)))
+                                    ((and buffer-file-name (eq major-mode 'markdown-mode)))
+				                            ((and buffer-file-name (eq major-mode 'pdf-view-mode)))
+                                    ((and buffer-file-name (derived-mode-p 'org-mode)))))))
+(define-key pdf-view-mode-map (kbd "<SPC>fw") 'fg/save-some-buffers)
+
 ;; {{{ pdf-occur
 (evil-set-initial-state 'pdf-occur-buffer-mode 'emacs)
 (defvar pdf-occur-buffer-mode-map
@@ -312,3 +325,7 @@
 (define-key pdf-occur-buffer-mode-map (kbd "h") 'left-char)
 (define-key pdf-occur-buffer-mode-map (kbd "l") 'right-char)
 ;; }}}
+
+;; pdf-view-mode for goldendict
+(require 'goldendict)
+(evil-leader/set-key (kbd "og") 'goldendict-dwim)

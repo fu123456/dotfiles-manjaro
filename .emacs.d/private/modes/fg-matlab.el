@@ -6,7 +6,15 @@
                              (define-key matlab-mode-map (kbd "C-M-i") nil)
                              (define-key matlab-mode-map (kbd "C-j") nil)
                              (define-key matlab-mode-map (kbd "C-h") nil)
+                             (define-key matlab-mode-map (kbd "C-l") nil)
                              (define-key matlab-mode-map (kbd "C-k") nil)
+                             ;; window move
+                             (define-key matlab-mode-map (kbd "C-k") 'windmove-up)
+                             (define-key matlab-mode-map (kbd "C-j") 'windmove-down)
+                             (define-key matlab-mode-map (kbd "C-h") 'windmove-left)
+                             (define-key matlab-mode-map (kbd "C-l") 'windmove-right)
+                             ;; remove key C-M-<return>
+                             (define-key matlab-mode-map (kbd "C-M-<return>") nil)
                              (define-key matlab-mode-map (kbd "<f6>") 'matlab-run-file)
                              (define-key matlab-mode-map (kbd "C-c C-z") 'ora-matlab-switch-to-shell)
                              ))
@@ -52,8 +60,8 @@
     (save-window-excursion
       (switch-to-buffer (concat "*" matlab-shell-buffer-name "*"))
       (matlab-shell-send-string (format "cd %s;\n"
-                                        dir)))
-    (matlab-shell-save-and-go)))
+      dir)))
+                 (matlab-shell-save-and-go)))
 
 
 (setq matlab-fill-code nil)

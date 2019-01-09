@@ -381,5 +381,11 @@
                             ))
 ;; }}}
 
+;; {{{dired-rsync
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/dired-rsync")
+(require 'dired-rsync)
+(define-key dired-mode-map (kbd "C-c C-r") 'dired-rsync)
+;;; }}}
+
 (provide 'fg-dired)
 ;; fg-dired.el ends here

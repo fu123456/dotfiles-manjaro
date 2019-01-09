@@ -32,7 +32,7 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
     K("C-k"): K("C-w"),
     K("M-l"): K("C-TAB"),
     K("M-h"): K("C-Shift-TAB"),
-    K("C-s"): K("C-f"),
+    # K("C-s"): K("C-f"),
     K("C-h"): K("Backspace"),
     K("semicolon"): K("Backspace"),
     K("C-semicolon"): K("semicolon"),
@@ -48,16 +48,7 @@ define_keymap(re.compile("Emacs"), {
     K("C-semicolon"): K("semicolon"),
 }, "Emacs")
 
-define_keymap(re.compile("Gnome-terminal"), {
-    # ; to switch Backspace
-    # C-; to switch ;
-    K("semicolon"): K("Backspace"),
-    K("C-semicolon"): K("semicolon"),
-    K("C-m"): K("Enter"),
-    K("C-g"): K("Esc"),
-}, "Gnome-terminal")
-
-define_keymap(re.compile("URxvt|Vmplayer|FocusProxy"), {
+define_keymap(re.compile("Gnome-terminal|URxvt|Vmplayer|FocusProxy"), {
     # ; to switch Backspace
     # C-; to switch ;
     K("semicolon"): K("Backspace"),
@@ -65,3 +56,15 @@ define_keymap(re.compile("URxvt|Vmplayer|FocusProxy"), {
     K("C-m"): K("Enter"),
     K("C-g"): K("Esc"),
 }, "URxvt and Vmplayer and FocusProxy")
+
+define_keymap(re.compile("Goldendict"), {
+    # ; to switch Backspace
+    # C-; to switch ;
+    K("semicolon"): K("Backspace"),
+    K("C-semicolon"): K("semicolon"),
+    K("C-m"): K("Enter"),
+    K("C-g"): K("Esc"),
+    # Page up/down
+    K("C-k"): with_mark(K("up")),
+    K("C-j"): with_mark(K("down")),
+}, "Goldendict")

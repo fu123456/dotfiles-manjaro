@@ -1,7 +1,7 @@
 ;; {{{ gnupg
 ;; to see @https://truongtx.me/2013/03/02/password-management-with-emacs
-(when (file-executable-p "/usr/local/bin/gpg")
-	(setq epg-gpg-program "/usr/local/bin/gpg"))
+(when (file-executable-p "/usr/local/bin/gpg2")
+	(setq epg-gpg-program "/usr/local/bin/gpg2"))
 ;; }}}
 
 ;; Note

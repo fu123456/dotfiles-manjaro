@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: addpath_genpath
+# key: add_
+# --
+addpath(genpath('$1'));$0

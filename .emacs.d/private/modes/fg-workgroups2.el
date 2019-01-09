@@ -1,15 +1,4 @@
-(require 'workgroups2)
-(workgroups-mode 1)
-
-;; Change workgroups session file
-(setq wg-session-file "~/MEGA/dotfiles-manjaro/.emacs.d/.emacs_workgroups")
-;; Mode Line changes
-;; Display workgroups in Mode Line?
-(setq wg-mode-line-display-on t)          ; Default: (not (featurep 'powerline))
-(setq wg-flag-modified t)                 ; Display modified flags as well
-(setq wg-mode-line-decor-left-brace "["
-      wg-mode-line-decor-right-brace "]"  ; how to surround it
-      wg-mode-line-decor-divider ":")
+;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (setq wg-use-default-session-file nil)
 ;; don't open last workgroup automatically in `wg-open-session',
@@ -47,7 +36,7 @@
        (unless wg-current-session
          ;; code extracted from `wg-open-session'.
          ;; open session but do NOT load any workgroup.
-         (let ((session (read (f-read-text (file-truename wg-session-file)))))
+         (let* ((session (read (f-read-text (file-truename wg-session-file)))))
            (setf (wg-session-file-name session) wg-session-file)
            (wg-reset-internal (wg-unpickel-session-parameters session))))
        ad-do-it
