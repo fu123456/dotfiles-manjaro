@@ -37,3 +37,6 @@
 [submodule "blimp"]
 	path = .emacs.d/private/myPackages/blimp
 	url = https://github.com/walseb/blimp.git
+[submodule "cnfonts"]
+	path = .emacs.d/private/myPackages/cnfonts
+	url = https://github.com/tumashu/cnfonts.git
