@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
-#vim:ts=2:sw=2:expandtab
-
-echo "Installing prerequisites for pacaur..."
-sudo pacman -S base-devel fakeroot jshon expac cower wget
-echo "Installing pacaur..."
-if ! command -v "pacaur" >/dev/null 2>&1; then
-mkdir /tmp/tmp-pacaur
-cd /tmp/tmp-pacaur
-wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur -O PKGBUILD
-makepkg
-sudo pacman --noconfirm -U *.tar.xz
-cd -
-fi
 
 echo "Install sogou Chinese input method..."
 sudo pacman --noconfirm -S \
@@ -25,7 +12,7 @@ sudo pacman --noconfirm -S \
 
 #{{{ softwares I often used
 echo "Installing my tools..."
-pacaur --noconfirm --noedit -S \
+sudo pacman --noconfirm -S \
      unrar \
      unzip \
      mplayer \
@@ -77,7 +64,7 @@ sudo pacman --noconfirm -S \
 
 ##{{{ install python scientific computing environment
 echo "Installing python scientific computing environment "
-pacaur --noconfirm --noedit -S \
+sudo pacman --noconfirm -S \
      python2-pip \
      python-pip
 echo "Installing python scientific computing environment: python2"
@@ -101,7 +88,7 @@ sudo pip3 install \
 ##}}}
 
 echo "Installing other libaray"
-yaourt --noconfirm -S \
+sudo pacman --noconfirm -S \
      ann \
      boost \
      tk # for python
@@ -109,7 +96,7 @@ yaourt --noconfirm -S \
 
 # {{
 echo "Installing java"
-yaourt --noconfirm -S \
+sudo pacman --noconfirm -S \
      jdk # need you input password
 # }}
 

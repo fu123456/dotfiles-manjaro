@@ -127,6 +127,10 @@
 (eval-after-load 'org '(require 'org-pdfview))
 (add-to-list 'org-file-apps '("\\.pdf\\'" . (lambda (file link) (org-pdfview-open link))))
 (add-to-list 'org-file-apps '("\\.pdf::\\([[:digit:]]+\\)\\'" . (lambda (file link) (org-pdfview-open link))))
+(setq org-file-apps
+      '((auto-mode . emacs)
+        ("\\.mp4\\'" . "mplayer \"%s\"")
+        ("\\.mkv" . "mplayer \"%s\"")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;end;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

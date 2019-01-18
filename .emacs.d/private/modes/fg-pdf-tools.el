@@ -199,7 +199,7 @@
   (yas-minor-mode -1)
   (pangu-spacing-mode -1)
   (aggressive-indent-mode -1)
-  (line-number-mode -1)
+  ;; (line-number-mode -1)
   (font-lock-mode -1)
   ;; (column-number-mode -1)
   )
@@ -285,6 +285,7 @@
 ;; buffer
 (define-key pdf-view-mode-map (kbd "SPC b p") 'previous-buffer)
 (define-key pdf-view-mode-map (kbd "SPC b n") 'next-buffer)
+(define-key pdf-view-mode-map (kbd "SPC TAB") 'spacemacs/alternate-buffer)
 ;; quickly open my files
 (define-key pdf-view-mode-map (kbd "SPC a") 'hydra-fgfiles/body)
 ;;;}}}

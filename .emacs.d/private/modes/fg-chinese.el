@@ -1,7 +1,7 @@
 ;;{{{ Chinese input method, pyim
 (require 'pyim)
-(require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
-(pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
+;; (require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
+;; (pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
 (setq default-input-method "pyim")
 (use-package pyim
   :ensure nil
@@ -60,6 +60,20 @@
   :bind
   (("C-c y" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
    ("C-;" . pyim-delete-word-from-personal-buffer)))
+
+(setq pyim-dicts
+      '((:name "dict1" :file "/home/fg/temp/emacs-helper/pyim/pyim-bigdict.pyim")
+        ))
+
+(require 'pyim)
+(defun eh-company-dabbrev--prefix (orig-fun)
+  "取消中文补全"
+  (let ((string (pyim-char-before-to-string 0)))
+    (if (pyim-string-match-p "\\cc" string)
+        nil
+      (funcall orig-fun))))
+(advice-add 'company-dabbrev--prefix :around #'eh-company-dabbrev--prefix)
+
 ;;}}}
 
 ;; ;;{{{ 中英文等宽等高设定
@@ -70,4 +84,18 @@
 ;; (cnfonts-enable)
 ;; ;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
 ;; (cnfonts-set-spacemacs-fallback-fonts)
-;; ;;;}}}
+
+;; ** cnfonts
+(use-package cnfonts
+  :demand t
+  :if (display-graphic-p)
+  :init (setq cnfonts-verbose nil)
+  :config
+  (setq cnfonts-use-face-font-rescale
+        (eq system-type 'gnu/linux))
+  (cnfonts-enable)
+  :bind (("C--" . cnfonts-decrease-fontsize)
+         ("C-=" . cnfonts-increase-fontsize)
+         ("C-+" . cnfonts-next-profile)))
+
+;;;}}}

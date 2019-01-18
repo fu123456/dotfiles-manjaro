@@ -269,6 +269,9 @@ alias copyMonitor='mons -d right' # copy monitor
 alias rightMonitor='mons -e right' # right monitor
 alias onlyMainMonitor='mons -o'
 
+# update font
+alias fontUpdate='sudo mkfontscale && sudo mkfontdir && sudo fc-cache -fv'
+
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |

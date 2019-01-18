@@ -48,7 +48,7 @@ define_keymap(re.compile("Emacs"), {
     K("C-semicolon"): K("semicolon"),
 }, "Emacs")
 
-define_keymap(re.compile("Gnome-terminal|URxvt|Vmplayer|FocusProxy"), {
+define_keymap(re.compile("Gnome-terminal|URxvt|Vmplayer|FocusProxy|Skype"), {
     # ; to switch Backspace
     # C-; to switch ;
     K("semicolon"): K("Backspace"),

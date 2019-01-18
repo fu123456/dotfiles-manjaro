@@ -130,6 +130,9 @@
 (setq user-full-name    "fugang")
 (setq user-mail-address "xyzgfu@gmail.com")
 
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/counsel-keepassxc")
+(require 'counsel-keepassxc)
+(setq counsel-keepassxc-database-file "/home/fg/MEGA/org/keepassxc-database.kdbx")
 ;;{{{ load config files
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-package-update.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
@@ -176,19 +179,8 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hippie-expand.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
-;;}}}
-
-;;{{{ open PDF file using others
-;;below config about helm-bibtex if put fg-bibtex.el file,
-;;it does not work, so put below
-
-;; (setq helm-bibtex-pdf-open-function
-;;       (lambda (fpath)
-;;         (call-process "zathura" nil 0 nil fpath)))
-;; (setq org-ref-open-pdf-function
-;;       (lambda (fpath)
-;;         (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
-
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pass.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-symbol-overlay.el"))
 ;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.
