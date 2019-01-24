@@ -278,7 +278,7 @@ same directory as the org-buffer and insert a link to this file."
 (setq org-latex-pdf-process
       '(
         "xelatex --synctex=1  -interaction nonstopmode -output-directory %o %f"
-        "biber %b"
+        "bibtex %b"
         "xelatex --synctex=1 -interaction nonstopmode -output-directory %o %f"
         "xelatex --synctex=1 -interaction nonstopmode -output-directory %o %f"
         "rm -fr %b.out %b.log auto"))

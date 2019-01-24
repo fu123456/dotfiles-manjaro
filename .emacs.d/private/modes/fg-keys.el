@@ -8,6 +8,7 @@
 (evil-leader/set-key (kbd "[") 'hydra-tab/body)
 (evil-leader/set-key (kbd "op") 'hydra-project/body)
 (global-set-key (kbd "<f8>") 'fg/sudo-edit)
+(evil-leader/set-key (kbd "tt") 'hl-todo-hydra/body)
 (evil-leader/set-key (kbd "a") 'hydra-fgfiles/body)
 (evil-leader/set-key (kbd "]") 'hydra-workgroups/body)
 (global-set-key [f7] 'indent-whole)
@@ -715,6 +716,19 @@ _mp_ magit-push _mc_ magit-commit _md_ magit diff _mla_ magit log _ms_ magit sta
   ("s" wg-save-session  :bind nil :exit t)
   ("r" wg-reload-session :bind nil :exit t)
   ("k" wg-kill-workgroup :bind nil :exit t)
+  ;; quit
+  ("q" nil "cancel"))
+;; }}}
+
+;; hl-todo config
+(defhydra hl-todo-hydra (:color pink :hint nil)
+  "
+              ^Hl-todo^
+_n_:next  _p_:previous _o_:occur
+"
+  ("n" hl-todo-next)
+  ("p" hl-todo-previous)
+  ("o" hl-todo-occur)
   ;; quit
   ("q" nil "cancel"))
 ;; }}}

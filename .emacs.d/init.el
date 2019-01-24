@@ -124,6 +124,7 @@
 ;; {{{ hl-todo
 (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/hl-todo")
 (require 'hl-todo)
+(global-hl-todo-mode 1)
 ;; }}}
 
 ;;设置用户名和邮件地址
@@ -171,7 +172,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-supersave.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-cpp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
 (mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gpg.el"))

@@ -449,7 +449,7 @@ key.setCaretKey([["M-b"], ["W"]], function (ev) {
             }, 'Move caret to the left by word', false);
 
 key.setCaretKey([["C-v"], ["SPC"]], function (ev) {
-                ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
+    ev.target.ksMarked ? goDoCommand("cmd_selectPageNext") : goDoCommand("cmd_movePageDown");
             }, 'Move caret down by page', false);
 
 key.setCaretKey([["M-v"], ["b"]], function (ev) {
@@ -570,3 +570,24 @@ key.setGlobalKey(['C-c', 'C-a'], function (ev, arg) {
   ext.exec("tanything", arg);
 }, 'view all tabs', true);
 // }}
+
+// to see @ http://forums.mozillazine.org/viewtopic.php?f=48&t=1416255
+ext.add("paste-and-go", function() {
+    var url = command.getClipboardText();
+    if (url.indexOf("://") !=-1) {
+        window._content.location = url;
+    } else {
+        BrowserSearch.loadSearch(url, false);
+    }
+}, "Paste the URL or keyword from clipboard and Go");
+// also binding ['C-c', 'p']
+key.setViewKey(['C-y'], function(ev, arg) {
+    ext.exec("paste-and-go");
+}, "Paste and Go", true);
+
+// copy URL
+key.setViewKey(['C-,'], function () {
+    command.setClipboardText(content.location.href);
+}, 'copy URL', true);
+
+//}}

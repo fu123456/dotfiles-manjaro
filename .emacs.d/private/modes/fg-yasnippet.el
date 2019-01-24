@@ -1,7 +1,8 @@
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
 (require 'yasnippet)
-(yas-global-mode 1)
+(add-to-list 'yas-snippet-dirs "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/snippets")
+(yas-global-mode +1)
 (define-key yas-minor-mode-map (kbd "TAB") yas-maybe-expand)
 (define-key yas-minor-mode-map (kbd "<tab>") #'yas-expand)
 

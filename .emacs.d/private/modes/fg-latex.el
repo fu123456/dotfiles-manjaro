@@ -25,6 +25,7 @@
                              (aggressive-indent-mode 1)
                              (smartparens-mode 1)
                              (tex-fold-mode 1)
+                             (hl-todo-mode 1)
                              ))
 
 ;; latex-mode

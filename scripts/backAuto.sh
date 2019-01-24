@@ -1,5 +1,5 @@
 #!/bin/bash
-# see @https://nickjanetakis.com/blog/automatic-offline-file-backups-with-bash-and-rsync
+# see @ https://nickjanetakis.com/blog/automatic-offline-file-backups-with-bash-and-rsync
 # Halt the script on any errors.
 set -e
 

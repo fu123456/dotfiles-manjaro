@@ -13,9 +13,6 @@
 ;; M-x dired-jump-other-window
 (push '(dired-mode :position top) popwin:special-display-config)
 
-;; M-!
-(push "*Shell Command Output*" popwin:special-display-config)
-
 ;; M-x compile
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 
