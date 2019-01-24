@@ -182,6 +182,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pass.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-symbol-overlay.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-evil.el"))
 ;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.

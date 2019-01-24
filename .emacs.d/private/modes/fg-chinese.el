@@ -62,7 +62,7 @@
    ("C-;" . pyim-delete-word-from-personal-buffer)))
 
 (setq pyim-dicts
-      '((:name "dict1" :file "/home/fg/temp/emacs-helper/pyim/pyim-bigdict.pyim")
+      '((:name "dict1" :file "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/pyim-bigdict.pyim.gz")
         ))
 
 (require 'pyim)
