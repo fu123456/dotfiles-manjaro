@@ -93,8 +93,13 @@
 (setq default-tab-width 4)
 
 ;; ;; disable mouse
-;; (require 'disable-mouse)
-;; (global-disable-mouse-mode)
+; (require 'disable-mouse)
+; (global-disable-mouse-mode)
+
+;; close linum-mode
+(global-linum-mode -1)
+(line-number-mode -1)
+(linum-mode -1)
 
 ;; change the title from emacs@host to file name
 (setq-default frame-title-format '("%f [%m]"))
@@ -130,6 +135,10 @@
 ;;设置用户名和邮件地址
 (setq user-full-name    "fugang")
 (setq user-mail-address "xyzgfu@gmail.com")
+
+;; evil-escape config
+(setq-default evil-escape-key-sequence "jk")
+(setq-default evil-escape-delay 0.2)
 
 (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/counsel-keepassxc")
 (require 'counsel-keepassxc)
@@ -173,7 +182,6 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-cpp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
 ;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
-(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gpg.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
@@ -182,7 +190,12 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pass.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-symbol-overlay.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-evil.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-evil.el"))
+(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
+; (mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-emacs-application.el"))
+;;}}}
+
+;; {{{ other config
 ;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.

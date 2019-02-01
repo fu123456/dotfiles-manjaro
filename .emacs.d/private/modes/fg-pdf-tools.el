@@ -199,9 +199,9 @@
   (yas-minor-mode -1)
   (pangu-spacing-mode -1)
   (aggressive-indent-mode -1)
-  ;; (line-number-mode -1)
+  (line-number-mode -1)
   (font-lock-mode -1)
-  ;; (column-number-mode -1)
+  (column-number-mode -1)
   )
 
 ;; Close evil-mode in pdf-tools

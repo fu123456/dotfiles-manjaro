@@ -14,7 +14,7 @@
 ;; Guess programs by file extension
 (require 'dired-x)
 (setq dired-guess-shell-alist-user
-      '(("\\.pdf\\'" "evince" "okular" "mupdf")
+      '(("\\.pdf\\'" "zathura" "evince" "okular" "mupdf")
         ("\\.\\(?:djvu\\|eps\\)\\'" "evince")
         ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "eog")
         ("\\.\\(?:xcf\\)\\'" "gimp")

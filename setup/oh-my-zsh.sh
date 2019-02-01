@@ -41,7 +41,7 @@ lnif ${dir}/zshrc $HOME/.zshrc
 
 # convert bash to zsh
 echo "convert bash to zsh"
-sudo chsh -s ${which zsh}
+chsh -s ${which zsh}
 
 # finally, reboot computer
 # sudo reboot -h now

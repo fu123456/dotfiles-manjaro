@@ -8,7 +8,6 @@
 ;;}}}
 
 ;;
-(evil-escape-mode 1)
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-delay 0.2)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
