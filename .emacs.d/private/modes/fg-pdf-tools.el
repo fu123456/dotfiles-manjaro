@@ -13,12 +13,12 @@
 
 ;;{{{ auto revert buffer
 ;; see @ https://github.com/politza/pdf-tools/issues/25
-(setq auto-revert-interval 0.5)
-(auto-revert-set-timer)
-(setq revert-without-query '(".*"))
-(add-hook 'pdf-view-mode-hook (lambda ()
-                                (auto-revert-mode 1)
-                                ))
+; (setq auto-revert-interval 0.5)
+; (auto-revert-set-timer)
+; (setq revert-without-query '(".*"))
+; (add-hook 'pdf-view-mode-hook (lambda ()
+                                ; (auto-revert-mode 1)
+                                ; ))
 ;;}}}
 
 ;;importing and exporting pdf annotations from/to org files.
@@ -151,6 +151,10 @@
   (insert outputstring)
   ))
 
+;; unbinding j and k
+(define-key pdf-view-mode-map (kbd "j") nil)
+(define-key pdf-view-mode-map (kbd "k") nil)
+
 ;; key setting
 (use-package pdf-tools
   :ensure t
@@ -185,12 +189,13 @@
              ("r"  . pdf-view-reset-slice)
              ("w"  . save-buffer)
              ("r" . revert-buffer)
-             (".." . delete-other-windows)
+             ("." . delete-other-windows)
              )
   (use-package org-pdfview
     :ensure t)
   )
 
+;; Avoid hanging Emacs by closing some minor mode
 (defun fg/pdf-view-mode-hook ()
   (company-mode -1)
   (auto-complete-mode -1)
@@ -202,10 +207,20 @@
   (line-number-mode -1)
   (font-lock-mode -1)
   (column-number-mode -1)
+  (cua-mode -1)
+  ;; (eyebrose-mode -1)
   )
 
+(add-hook 'pdf-view-mode-hook (lambda ()
+                                (vlf-mode 1)
+                                ))
+
 ;; Close evil-mode in pdf-tools
+;; to see @ https://github.com/politza/pdf-tools/issues/201
 (evil-set-initial-state 'pdf-view-mode 'emacs)
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
 
 (add-hook 'pdf-view-mode-hook 'fg/pdf-view-mode-hook)
 
@@ -330,3 +345,186 @@
 ;; pdf-view-mode for goldendict
 (require 'goldendict)
 (evil-leader/set-key (kbd "og") 'goldendict-dwim)
+
+;; {{{ Lag when selecting words/sentences
+;; to see @ https://github.com/politza/pdf-tools/issues/235
+;; and @ https://emacs-china.org/t/topic/5242/65
+(defun pdf-view-mouse-set-region (event &optional allow-extend-p
+                                        rectangle-p)
+  "Select a region of text using the mouse with mouse event EVENT.
+
+Allow for stacking of regions, if ALLOW-EXTEND-P is non-nil.
+
+Create a rectangular region, if RECTANGLE-P is non-nil.
+
+Stores the region in `pdf-view-active-region'."
+  (interactive "@e")
+  (setq pdf-view--have-rectangle-region rectangle-p)
+  (unless (and (eventp event)
+               (mouse-event-p event))
+    (signal 'wrong-type-argument (list 'mouse-event-p event)))
+  (unless (and allow-extend-p
+               (or (null (get this-command 'pdf-view-region-window))
+                   (equal (get this-command 'pdf-view-region-window)
+                          (selected-window))))
+    (pdf-view-deactivate-region))
+  (put this-command 'pdf-view-region-window
+       (selected-window))
+  (let* ((window (selected-window))
+         (pos (event-start event))
+         (begin-inside-image-p t)
+         (begin (if (posn-image pos)
+                    (posn-object-x-y pos)
+                  (setq begin-inside-image-p nil)
+                  (posn-x-y pos)))
+         (abs-begin (posn-x-y pos))
+         pdf-view-continuous
+         region)
+    (when (pdf-util-track-mouse-dragging (event 0.005)
+            (let* ((pos (event-start event))
+                   (end (posn-object-x-y pos))
+                   (end-inside-image-p
+                    (and (eq window (posn-window pos))
+                         (posn-image pos))))
+              (when (or end-inside-image-p
+                        begin-inside-image-p)
+                (cond
+                 ((and end-inside-image-p
+                       (not begin-inside-image-p))
+                  ;; Started selection ouside the image, setup begin.
+                  (let* ((xy (posn-x-y pos))
+                         (dxy (cons (- (car xy) (car begin))
+                                    (- (cdr xy) (cdr begin))))
+                         (size (pdf-view-image-size t)))
+                    (setq begin (cons (max 0 (min (car size)
+                                                  (- (car end) (car dxy))))
+                                      (max 0 (min (cdr size)
+                                                  (- (cdr end) (cdr dxy)))))
+                          ;; Store absolute position for later.
+                          abs-begin (cons (- (car xy)
+                                             (- (car end)
+                                                (car begin)))
+                                          (- (cdr xy)
+                                             (- (cdr end)
+                                                (cdr begin))))
+                          begin-inside-image-p t)))
+                 ((and begin-inside-image-p
+                       (not end-inside-image-p))
+                  ;; Moved outside the image, setup end.
+                  (let* ((xy (posn-x-y pos))
+                         (dxy (cons (- (car xy) (car abs-begin))
+                                    (- (cdr xy) (cdr abs-begin))))
+                         (size (pdf-view-image-size t)))
+                    (setq end (cons (max 0 (min (car size)
+                                                (+ (car begin) (car dxy))))
+                                    (max 0 (min (cdr size)
+                                                (+ (cdr begin) (cdr dxy)))))))))
+                (let ((iregion (if rectangle-p
+                                   (list (min (car begin) (car end))
+                                         (min (cdr begin) (cdr end))
+                                         (max (car begin) (car end))
+                                         (max (cdr begin) (cdr end)))
+                                 (list (car begin) (cdr begin)
+                                       (car end) (cdr end)))))
+                  (setq region
+                        (pdf-util-scale-pixel-to-relative iregion))
+                  (pdf-view-display-region
+                   (cons region pdf-view-active-region)
+                   rectangle-p)
+                  (pdf-util-scroll-to-edges iregion)))))
+
+      (setq pdf-view-active-region
+            (append pdf-view-active-region
+                    (list region)))
+      (pdf-view--push-mark))))
+;; 放弃即时反馈，仅在松开鼠标时最后显示选中的区域
+;; to see @ https://emacs-china.org/t/topic/5242/65
+(defun pdf-view-mouse-set-region (event &optional allow-extend-p
+                                        rectangle-p)
+  "Select a region of text using the mouse with mouse event EVENT.
+
+Allow for stacking of regions, if ALLOW-EXTEND-P is non-nil.
+
+Create a rectangular region, if RECTANGLE-P is non-nil.
+
+Stores the region in `pdf-view-active-region'."
+  (interactive "@e")
+  (setq pdf-view--have-rectangle-region rectangle-p)
+  (unless (and (eventp event)
+               (mouse-event-p event))
+    (signal 'wrong-type-argument (list 'mouse-event-p event)))
+  (unless (and allow-extend-p
+               (or (null (get this-command 'pdf-view-region-window))
+                   (equal (get this-command 'pdf-view-region-window)
+                          (selected-window))))
+    (pdf-view-deactivate-region))
+  (put this-command 'pdf-view-region-window
+       (selected-window))
+  (let* ((window (selected-window))
+         (pos (event-start event))
+         (begin-inside-image-p t)
+         (begin (if (posn-image pos)
+                    (posn-object-x-y pos)
+                  (setq begin-inside-image-p nil)
+                  (posn-x-y pos)))
+         (abs-begin (posn-x-y pos))
+         pdf-view-continuous
+         region)
+    (when (pdf-util-track-mouse-dragging (event 0.005)
+            (let* ((pos (event-start event))
+                   (end (posn-object-x-y pos))
+                   (end-inside-image-p
+                    (and (eq window (posn-window pos))
+                         (posn-image pos))))
+              (when (or end-inside-image-p
+                        begin-inside-image-p)
+                (cond
+                 ((and end-inside-image-p
+                       (not begin-inside-image-p))
+                  ;; Started selection ouside the image, setup begin.
+                  (let* ((xy (posn-x-y pos))
+                         (dxy (cons (- (car xy) (car begin))
+                                    (- (cdr xy) (cdr begin))))
+                         (size (pdf-view-image-size t)))
+                    (setq begin (cons (max 0 (min (car size)
+                                                  (- (car end) (car dxy))))
+                                      (max 0 (min (cdr size)
+                                                  (- (cdr end) (cdr dxy)))))
+                          ;; Store absolute position for later.
+                          abs-begin (cons (- (car xy)
+                                             (- (car end)
+                                                (car begin)))
+                                          (- (cdr xy)
+                                             (- (cdr end)
+                                                (cdr begin))))
+                          begin-inside-image-p t)))
+                 ((and begin-inside-image-p
+                       (not end-inside-image-p))
+                  ;; Moved outside the image, setup end.
+                  (let* ((xy (posn-x-y pos))
+                         (dxy (cons (- (car xy) (car abs-begin))
+                                    (- (cdr xy) (cdr abs-begin))))
+                         (size (pdf-view-image-size t)))
+                    (setq end (cons (max 0 (min (car size)
+                                                (+ (car begin) (car dxy))))
+                                    (max 0 (min (cdr size)
+                                                (+ (cdr begin) (cdr dxy)))))))))
+                (let ((iregion (if rectangle-p
+                                   (list (min (car begin) (car end))
+                                         (min (cdr begin) (cdr end))
+                                         (max (car begin) (car end))
+                                         (max (cdr begin) (cdr end)))
+                                 (list (car begin) (cdr begin)
+                                       (car end) (cdr end)))))
+                  (setq region
+                        (pdf-util-scale-pixel-to-relative iregion))
+
+                  (pdf-util-scroll-to-edges iregion)))))
+      (pdf-view-display-region
+       (cons region pdf-view-active-region)
+       rectangle-p)
+      (setq pdf-view-active-region
+            (append pdf-view-active-region
+                    (list region)))
+      (pdf-view--push-mark))))
+;;}}}
