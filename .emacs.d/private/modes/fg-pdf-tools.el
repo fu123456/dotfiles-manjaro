@@ -11,15 +11,15 @@
 (eval-after-load 'pdf-view
   '(define-key pdf-view-mode-map (kbd "<tab>") 'pdf-annot-add-highlight-markup-annotation))
 
-;;{{{ auto revert buffer
-;; see @ https://github.com/politza/pdf-tools/issues/25
-; (setq auto-revert-interval 0.5)
-; (auto-revert-set-timer)
-; (setq revert-without-query '(".*"))
-; (add-hook 'pdf-view-mode-hook (lambda ()
-                                ; (auto-revert-mode 1)
-                                ; ))
-;;}}}
+;; ;;{{{ auto revert buffer
+;; ;; see @ https://github.com/politza/pdf-tools/issues/25
+;; (setq auto-revert-interval 0.5)
+;; (auto-revert-set-timer)
+;; (setq revert-without-query '(".*"))
+;; (add-hook 'pdf-view-mode-hook (lambda ()
+;;                                 (auto-revert-mode 1)
+;;                                 ))
+;; ;;}}}
 
 ;;importing and exporting pdf annotations from/to org files.
 ;;https://github.com/pinguim06/pdf-tools-org
@@ -151,50 +151,6 @@
   (insert outputstring)
   ))
 
-;; unbinding j and k
-(define-key pdf-view-mode-map (kbd "j") nil)
-(define-key pdf-view-mode-map (kbd "k") nil)
-
-;; key setting
-(use-package pdf-tools
-  :ensure t
-  :config
-  (pdf-tools-install)
-  ;; (setq-default pdf-view-display-size 'fit-page)
-  (bind-keys :map pdf-view-mode-map
-             ("\\" . hydra-pdftools/body)
-             ("C-d" .  pdf-view-scroll-up-or-next-page)
-             ("C-u" . pdf-view-scroll-down-or-previous-page)
-             ("g"  . pdf-view-first-page)
-             ("G"  . pdf-view-last-page)
-             ("l"  . image-forward-hscroll)
-             ("h"  . image-backward-hscroll)
-             ("j"  . pdf-view-next-line-or-next-page)
-             ("C-f"  . pdf-view-next-page)
-             ("J" . pdf-view-next-page)
-             ("k"  . pdf-view-previous-line-or-previous-page)
-             ("C-b"  . pdf-view-previous-page)
-             ("K" . pdf-view-previous-page)
-             ("e"  . pdf-view-goto-page)
-             ("U"  . pdf-view-revert-buffer)
-             ("al" . pdf-annot-list-annotations)
-             ("ad" . pdf-annot-delete)
-             ("aa" . pdf-annot-attachment-dired)
-             ("am" . pdf-annot-add-markup-annotation)
-             ("at" . pdf-annot-add-text-annotation)
-             ("y"  . pdf-view-kill-ring-save)
-             ("i"  . pdf-misc-display-metadata)
-             ("s"  . pdf-occur)
-             ("b"  . pdf-view-set-slice-from-bounding-box)
-             ("r"  . pdf-view-reset-slice)
-             ("w"  . save-buffer)
-             ("r" . revert-buffer)
-             ("." . delete-other-windows)
-             )
-  (use-package org-pdfview
-    :ensure t)
-  )
-
 ;; Avoid hanging Emacs by closing some minor mode
 (defun fg/pdf-view-mode-hook ()
   (company-mode -1)
@@ -209,6 +165,8 @@
   (column-number-mode -1)
   (cua-mode -1)
   ;; (eyebrose-mode -1)
+  (auto-revert-mode -1)
+  (symbol-overlay-mode -1)
   )
 
 (add-hook 'pdf-view-mode-hook (lambda ()
@@ -320,27 +278,28 @@
                                     ((and buffer-file-name (derived-mode-p 'org-mode)))))))
 (define-key pdf-view-mode-map (kbd "<SPC>fw") 'fg/save-some-buffers)
 
-;; {{{ pdf-occur
-(evil-set-initial-state 'pdf-occur-buffer-mode 'emacs)
-(defvar pdf-occur-buffer-mode-map
-  (let ((kmap (make-sparse-keymap)))
-    (set-keymap-parent kmap tablist-mode-map)
-    (define-key kmap (kbd "RET") 'pdf-occur-goto-occurrence)
-    (define-key kmap (kbd "C-o") 'pdf-occur-view-occurrence)
-    (define-key kmap (kbd "SPC") 'pdf-occur-view-occurrence)
-    (define-key kmap (kbd "C-c C-f") 'next-error-follow-minor-mode)
-    (define-key kmap (kbd "g") 'pdf-occur-revert-buffer-with-args)
-    (define-key kmap (kbd "K") 'pdf-occur-abort-search)
-    (define-key kmap (kbd "D") 'pdf-occur-tablist-do-delete)
-    (define-key kmap (kbd "x") 'pdf-occur-tablist-do-flagged-delete)
-    (define-key kmap (kbd "A") 'pdf-occur-tablist-gather-documents)
-    kmap)
-  "The keymap used for `pdf-occur-buffer-mode'.")
-(define-key pdf-occur-buffer-mode-map (kbd "j") 'next-line)
-(define-key pdf-occur-buffer-mode-map (kbd "k") 'previous-line)
-(define-key pdf-occur-buffer-mode-map (kbd "h") 'left-char)
-(define-key pdf-occur-buffer-mode-map (kbd "l") 'right-char)
-;; }}}
+;; 已经使用 evil-collection-pdf 来代替了
+;; ;; {{{ pdf-occur
+;; (evil-set-initial-state 'pdf-occur-buffer-mode 'emacs)
+;; (defvar pdf-occur-buffer-mode-map
+;;   (let ((kmap (make-sparse-keymap)))
+;;     (set-keymap-parent kmap tablist-mode-map)
+;;     (define-key kmap (kbd "RET") 'pdf-occur-goto-occurrence)
+;;     (define-key kmap (kbd "C-o") 'pdf-occur-view-occurrence)
+;;     (define-key kmap (kbd "SPC") 'pdf-occur-view-occurrence)
+;;     (define-key kmap (kbd "C-c C-f") 'next-error-follow-minor-mode)
+;;     (define-key kmap (kbd "g") 'pdf-occur-revert-buffer-with-args)
+;;     (define-key kmap (kbd "K") 'pdf-occur-abort-search)
+;;     (define-key kmap (kbd "D") 'pdf-occur-tablist-do-delete)
+;;     (define-key kmap (kbd "x") 'pdf-occur-tablist-do-flagged-delete)
+;;     (define-key kmap (kbd "A") 'pdf-occur-tablist-gather-documents)
+;;     kmap)
+;;   "The keymap used for `pdf-occur-buffer-mode'.")
+;; (define-key pdf-occur-buffer-mode-map (kbd "j") 'next-line)
+;; (define-key pdf-occur-buffer-mode-map (kbd "k") 'previous-line)
+;; (define-key pdf-occur-buffer-mode-map (kbd "h") 'left-char)
+;; (define-key pdf-occur-buffer-mode-map (kbd "l") 'right-char)
+;; ;; }}}
 
 ;; pdf-view-mode for goldendict
 (require 'goldendict)

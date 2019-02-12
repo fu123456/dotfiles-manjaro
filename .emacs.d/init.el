@@ -173,18 +173,17 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ibuffer.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-occur.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-key-chord.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-key-chord.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-quickrun.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gtags.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-visual-regexp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-expand-region.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-supersave.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-supersave.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-cpp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
-;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-fixmee.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gpg.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hippie-expand.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
@@ -192,10 +191,8 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-symbol-overlay.el"))
 ;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-evil.el"))
 (mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
-; (mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-emacs-application.el"))
-;;}}}
-
-;; {{{ other config
+(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-evil-collection.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 ;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.

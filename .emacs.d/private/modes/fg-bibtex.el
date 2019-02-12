@@ -20,10 +20,10 @@
    "Zathura (PDF)" 'bibtex-completion-open-pdf-external
    helm-source-bibtex 0)
   )
-  ;; }}}
+;; }}}
 
-  (setq bibtex-completion-bibliography
-        '("~/MEGA/bibtex-pdfs/bib/references.bib"))
+(setq bibtex-completion-bibliography
+      '("~/MEGA/bibtex-pdfs/bib/references.bib"))
 (setq bibtex-completion-library-path '("/home/fg/MEGA/bibtex-pdfs/"))
 ;; (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notesbib.org")
 (setq bibtex-completion-notes-path "~/MEGA/bibtex-pdfs/notes")
@@ -68,14 +68,13 @@ With a prefix ARG, the cache is invalidated and the bibliography reread."
   (helm :sources (list helm-source-bibtex helm-source-fallback-options)
         :full-frame helm-bibtex-full-frame
         :buffer "*helm bibtex*"
-        :input "Jane Doe"
+        :input "Gang Fu"
         :candidate-number-limit 500))
 
 (advice-add 'bibtex-completion-candidates
             :filter-return 'reverse)
 
 (setq bibtex-completion-find-additional-pdfs t)
-
 ;; my keybinding setting for helm-bibtex
 (define-key evil-normal-state-map (kbd "<SPC>hb") 'helm-bibtex)
 

@@ -369,7 +369,7 @@ function ppgrep() {
     ps aux | eval $PERCOL | awk '{ print $2 }'
 }
 
-function ppkill() {
+function pk() {
     if [[ $1 =~ "^-" ]]; then
         QUERY=""            # options only
     else
