@@ -140,13 +140,13 @@
 ;; 存盘前删除行末多余的空格/空行
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; 使用emacs截图插入org-mode文件，并将图片保存在以org文件名
-;;开头的“_imgs"的文件夹下，绑定的键位C-c C-s
+;; {{{ org screenshot config
+;; to see @ https://emacs-china.org/t/org-mode/79
+;; to see @ https://blog.csdn.net/u011729865/article/details/52628417
 (defun my-org-screenshot ()
-  "Take a screenshot into a time stamped unique-named file in the
-same directory as the org-buffer and insert a link to this file."
+  "Take a screenshot into a unique-named file in the current buffer file
+: directory and insert a link to this file."
   (interactive)
-  (org-display-inline-images)
   (setq filename
         (concat
          (make-temp-name
@@ -155,22 +155,13 @@ same directory as the org-buffer and insert a link to this file."
                   (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
   (unless (file-exists-p (file-name-directory filename))
     (make-directory (file-name-directory filename)))
-                                        ; take screenshot
-  (if (eq system-type 'darwin)
-      (progn
-        (call-process-shell-command "screencapture" nil nil nil nil " -s " (concat
-                                                                            "\"" filename "\"" ))
-        (call-process-shell-command "convert" nil nil nil nil (concat "\"" filename "\" -resize  \"50%\"" ) (concat "\"" filename "\"" ))
-        ))
-  (if (eq system-type 'gnu/linux)
-      (call-process "import" nil nil nil filename))
-                                        ; insert into file if correctly taken
-  (if (file-exists-p filename)
-      (insert (concat "[[file:" filename "]]")))
+  (call-process-shell-command "scrot" nil nil nil nil "-s" (concat
+                                                            "\"" filename "\"" ))
+  (insert (concat "[[" filename "]]"))
   (org-display-inline-images)
   )
-
 (global-set-key (kbd "C-c s c") 'my-org-screenshot)
+;; }}}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
