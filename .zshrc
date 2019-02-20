@@ -272,6 +272,9 @@ alias onlyMainMonitor='mons -o'
 # update font
 alias fontUpdate='sudo mkfontscale && sudo mkfontdir && sudo fc-cache -fv'
 
+# Look the size of subdirectory in a directory
+alias dsize='du -h --max-depth=1 ./'
+
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -618,3 +621,11 @@ export PATH=/usr/local/lib/python2.7/dist-packages/torch:$PATH
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
 
+# remove duplicate lines of .zsh_history file
+# to see @ https://github.com/zsh-users/zsh-history-substring-search/issues/19
+function dedupHistory() {
+    cp ~/.zsh_history{,-old}
+    tmpFile=`mktemp`
+    awk -F ";" '!seen[$2]++' ~/.zsh_history > $tmpFile
+    mv $tmpFile ~/.zsh_history
+}
