@@ -20,7 +20,7 @@
                              ))
 
 ;; matlab mode parens highlight,
-(defvar default-fill-column 78)
+(defvar default-fill-column 100)
 (remove-hook 'matlab-mode-hook 'highlight-numbers-mode)
 (remove-hook 'prog-mode-hook 'highlight-numbers-mode)
 (turn-on-auto-fill)
@@ -35,7 +35,6 @@
             (rainbow-delimiters-mode 1)
             (smartparens-mode 1)
             (auto-complete-mode 1)
-            (yas-minor-mode 1)
             ;; (ggtags-mode 1)
             ;; (org-toggle-latex-fragment)
             (if (eq window-system 'x)

@@ -296,3 +296,4 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
 (defvar latex-math-preview-latex-template-header
   "\\documentclass{article}\n \\usepackage{amsmath}\n \\usepackage{multirow}\n \\usepackage{float}\n \\usepackage{algorithm}\n \\usepackage{algorithmic}\n"
   )
+;;}}}

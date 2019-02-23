@@ -1,7 +1,6 @@
 ;;; code
 (define-key dired-mode-map [tab] 'dired-subtree-toggle)
 (define-key dired-mode-map [backtab] 'dired-subtree-cycle)
-(define-key dired-mode-map (kbd "C-c C-f") 'find-name-dired)
 
 ;; load other useful packages
 (add-to-list 'load-path "~/.emacs.d/private/OtherUsefulElFiles")
@@ -112,8 +111,6 @@
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
 
-;; Auto-refresh dired on file change
-(add-hook 'dired-mode-hook 'auto-revert-mode)
 ;; Auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -149,8 +146,6 @@
 (require 'dired+)
 (define-key dired-mode-map (kbd "C-,") 'diredp-copy-abs-filenames-as-kill)
 (define-key dired-mode-map (kbd "C-y") 'diredp-yank-files)
-;; does not open a directory on other window
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;;------------------------------
 ;; Create new file via "N" key with full path creation if subdirectories missing (foo/bar/filename.txt as example). "+" key create only directory.
@@ -392,19 +387,6 @@
 (require 'dired-rsync)
 (define-key dired-mode-map (kbd "C-c C-r") 'dired-rsync)
 ;;; }}}
-
-;; close evil-mode for dired-mode
-(evil-set-initial-state 'pdf-view-mode 'emacs)
-
-;; When moving to parent directory by `^´, Dired by default creates a new buffer for each movement up.
-;; The following rebinds `^´ to use the same buffer.
-;; to see @  https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map (kbd "^")
-              (lambda () (interactive) (find-alternate-file "..")))
-                                        ; was dired-up-directory
-            ))
 
 (provide 'fg-dired)
 ;; fg-dired.el ends here

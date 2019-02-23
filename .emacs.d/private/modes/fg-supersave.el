@@ -1,5 +1,4 @@
 (add-to-list 'load-path "/home/fg/.emacs.d/private/myPackages/super-save")
-
 ;; {{{
 ;; see @https://github.com/bbatsov/super-save
 (use-package super-save
