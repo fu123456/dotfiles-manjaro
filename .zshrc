@@ -275,6 +275,9 @@ alias fontUpdate='sudo mkfontscale && sudo mkfontdir && sudo fc-cache -fv'
 # Look the size of subdirectory in a directory
 alias dsize='du -h --max-depth=1 ./'
 
+# rsync, keep soft dir and file links
+alias ry="rsync -avKl"
+
 #  ___ _  _ ___
 # | __| \| |   \
 # | _|| .` | |) |
@@ -325,6 +328,9 @@ PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:${PATH}
 # ANN
 PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/include/ANN:${PATH}
 PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/lib:${PATH}
+
+# firefox
+PATH=/home/fg/Install/firefox:${PATH}
 
 #perl
 # export PERL5LIB=/home/perl_modules/lib/perl5/:/home/perl_modules/lib/perl5/site_perl:
@@ -616,7 +622,6 @@ unset __conda_setup
 
 export PATH=/usr/local/lib/python2.7/dist-packages/torch:$PATH
 
-
 # emacs
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
@@ -627,5 +632,6 @@ function dedupHistory() {
     cp ~/.zsh_history{,-old}
     tmpFile=`mktemp`
     awk -F ";" '!seen[$2]++' ~/.zsh_history > $tmpFile
-    mv $tmpFile ~/.zsh_history
+    # mv $tmpFile ~/.zsh_history
+    mv $tmpFile ~/MEGA/dotfiles-manjaro/.zsh_history
 }

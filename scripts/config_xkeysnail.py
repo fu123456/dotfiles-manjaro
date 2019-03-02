@@ -68,3 +68,15 @@ define_keymap(re.compile("Goldendict"), {
     K("C-k"): with_mark(K("up")),
     K("C-j"): with_mark(K("down")),
 }, "Goldendict")
+
+define_keymap(lambda wm_class: wm_class not in ("Emacs", "URxvt"), {
+    # Newline
+    K("C-m"): K("enter"),
+    # Search
+    K("C-s"): K("F3"),
+    # Cancel
+    K("C-g"): [K("esc"), set_mark(False)],
+    # convert ; to backspace
+    K("semicolon"): K("Backspace"),
+    K("C-semicolon"): K("semicolon"),
+}, "Fugang keys")

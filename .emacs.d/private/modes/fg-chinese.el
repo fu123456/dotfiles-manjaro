@@ -86,7 +86,8 @@
   (setq cnfonts-use-face-font-rescale
         (eq system-type 'gnu/linux))
   (cnfonts-enable)
-  :bind (("C--" . cnfonts-decrease-fontsize)
-         ("C-=" . cnfonts-increase-fontsize)
-         ("C-+" . cnfonts-next-profile)))
-;;; }}}
+  ;; :bind (("C--" . cnfonts-decrease-fontsize)
+  ;;        ("C-=" . cnfonts-increase-fontsize)
+  ;;        ("C-+" . cnfonts-next-profile))
+  )
+                                        ;;; }}}

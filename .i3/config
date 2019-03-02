@@ -225,6 +225,8 @@ assign [class="^Anydesk"] → $wsmedia
 assign [class="^Virt-manager"] → $wsmedia
 assign [class="^Zathura$"] $wsdoc
 for_window [class = "^Zathura$"] layout tabbed focus
+assign [class="^llpp$"] $wsdoc
+for_window [class = "^llpp$"] layout tabbed focus
 # Evince
 assign [class="^Evince"] $wsdoc
 for_window [class = "^Evince"] layout tabbed focus

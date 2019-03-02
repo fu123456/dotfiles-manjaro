@@ -134,9 +134,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;end;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; org mode, tags setting
-;; (setq org-tag-alist '(("@singleimage" . ?s) ("@multiimages" . ?m) ("@withdepthcues" . ?w) ("@video" . ?v)))
-
 ;; 存盘前删除行末多余的空格/空行
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -157,7 +154,7 @@
     (make-directory (file-name-directory filename)))
   (call-process-shell-command "scrot" nil nil nil nil "-s" (concat
                                                             "\"" filename "\"" ))
-  (insert (concat "[[" filename "]]"))
+  (insert (concat "[[file:" filename "]]"))
   (org-display-inline-images)
   )
 (global-set-key (kbd "C-c s c") 'my-org-screenshot)

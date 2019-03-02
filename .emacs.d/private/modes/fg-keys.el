@@ -17,6 +17,8 @@
   (global-unset-key key))
 ;; other keybinding
 (evil-leader/set-key (kbd "ii") 'ibuffer)
+;; toggle menu bar
+(evil-leader/set-key (kbd "<SPC>of") 'toggle-menu-bar-mode-from-frame)
 
 (defhydra hydra-zoom (global-map "<f10>")
   "zoom"
@@ -260,9 +262,6 @@ _U_: sublevels      ^ ^             ^ ^
 (defun open-init-file-spacemacs()
   (interactive)
   (find-file "~/.spacemacs"))
-(defun reload-init-file()
-  (interactive)
-  (load-file "~/.emacs.d/init.el"))
 (defun open-bookmark-file()
   (interactive)
   (find-file "/home/fg/MEGA/org/bookmark.org"))
@@ -281,13 +280,13 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (find-file "~/MEGA/org/gtd.org")
   )
+(defun open-password-file()
+  (interactive)
+  (find-file "~/MEGA/org/password.org.gpg")
+  )
 (defun open-paper-file()
   (interactive)
   (find-file "~/MEGA/org/paper.org")
-  )
-(defun open-orgconfig-file()
-  (interactive)
-  (find-file "~/.emacs.d/private/modes/fg-org.el")
   )
 (defun open-code-file ()
   (interactive)
@@ -306,25 +305,25 @@ _U_: sublevels      ^ ^             ^ ^
 (defhydra hydra-fgfiles (:color pink
                                 :hint nil)
   "
-^Configuration^         ^Org^                ^Code^               ^LatexWritting^
+^Configuration^        ^Org^                ^Code^               ^LatexWritting^
 ^^^^^^^^----------------------------------------------------------------------------------
-_i_: init               _n_: bookmark      _c_: codes            _B_:bibtexOrg
-_r_: reload init        _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
-_s_: spacemacs          _g_: gtd           ^ ^                   _l_:mathSymbol
-_o_: orgconfig          _p_: paper         ^ ^
+_i_: init              _n_: bookmark      _c_: codes            _B_:bibtexOrg
+_s_: spacemacs         _f_: refnotes      _I_: surfInternet     _b_:bibtexBib
+^ ^                    _g_: gtd           ^ ^                   _l_:mathSymbol
+^ ^                    _a_: article       ^ ^
+^ ^                    _p_: pass
   "
   ;; config files
   ("i" open-init-file)
   ("s" open-init-file-spacemacs)
-  ("r" reload-init-file)
-  ("o" open-orgconfig-file)
   ;; org files
   ("n" open-bookmark-file)
   ("f" open-refnotes-file)
   ("b" open-bibtex-file)
   ("g" open-gtd-file)
   ("B" open-bibtex-org-file)
-  ("p" open-paper-file)
+  ("a" open-paper-file)
+  ("p" open-password-file)
   ;; other
   ("c" open-code-file)
   ("I" open-interent-file)
@@ -406,10 +405,10 @@ _o_: orgconfig          _p_: paper         ^ ^
   "
 Movement^^        ^Split^         ^Switch^		^Resize^      ^Layout^
 -----------------------------------------------------------------------
-_h_ ←       	_v_ertical    	_b_uffer		_Q_ X←            _u_ undo
-_j_ ↓        	_x_ horizontal	_f_ind files	_w_ X↓          _r_ redo
-_k_ ↑        	_z_ undo      	_a_ce 1		_e_ X↑
-_l_ →        	_Z_ reset      	_s_wap		_R_ X→
+_h_ ←       	_v_ertical    	_b_uffer		_H_ X←            _u_ undo
+_j_ ↓        	_x_ horizontal	_f_ind files	_J_ X↓          _r_ redo
+_k_ ↑        	_z_ undo      	_a_ce 1		_K_ X↑
+_l_ →        	_Z_ reset      	_s_wap		_L_ X→
 _F_ollow		_D_lt Other   	_S_ave		max_i_mize
 _q_ cancel	_o_nly this   	_d_elete
 "
@@ -419,10 +418,10 @@ _q_ cancel	_o_nly this   	_d_elete
   ("j" windmove-down )
   ("k" windmove-up )
   ("l" windmove-right )
-  ("Q" hydra-move-splitter-left)
-  ("w" hydra-move-splitter-down)
-  ("e" hydra-move-splitter-up)
-  ("R" hydra-move-splitter-right)
+  ("H" hydra-move-splitter-left)
+  ("J" hydra-move-splitter-down)
+  ("K" hydra-move-splitter-up)
+  ("L" hydra-move-splitter-right)
   ("b" helm-mini)
   ("f" helm-find-files)
   ("F" follow-mode)
@@ -515,38 +514,66 @@ _q_ cancel	_o_nly this   	_d_elete
                               :post (deactivate-mark))
   "
 ^ ^                      ^Cursor^                     ^Match^
-                   ^Make^        ^Skip^         ^Make^       ^Skip^
+       ^Make^        ^Skip^         ^Make^       ^Skip^
 ^^^^^^^^-----------------------------------------------------------------
-_grm_: make all    _M-n_: next   _grN_: next    _C-n_: next  _grn_: next
-_gru_: undo all    _M-p_: prev   _grP_: prev    _C-p_: prev  _grp_: prev
-_grs_: pause       _grj_: nline
-_grr_: resume      _grk_: pline
-_grh_: here
-_grf_: first
-_grl_: last
+[_m_]: make all    [_n_]: next   [_N_]: next    [_C-n_]: next  [_M-n_]: next
+[_u_]: undo all    [_p_]: prev   [_P_]: prev    [_C-p_]: prev  [_M-p_]: prev
+[_s_]: pause       [_j_]: nline
+[_r_]: resume      [_k_]: pline
+[_h_]: here
+[_f_]: first
+[_l_]: last
 "
-  ("grm"  evil-mc-make-all-cursors)
-  ("gru"  evil-mc-undo-all-cursors)
-  ("grs"  evil-mc-pause-cursors)
-  ("grr"  evil-mc-resume-cursors)
-  ("grf"  evil-mc-make-and-goto-first-cursor)
-  ("grl"  evil-mc-make-and-goto-last-cursor)
-  ("grh"  evil-mc-make-cursor-here)
-  ("grj"  evil-mc-make-cursor-move-next-line)
-  ("grk"  evil-mc-make-cursor-move-prev-line)
-  ("M-n"  evil-mc-make-and-goto-next-cursor)
-  ("grN"  evil-mc-skip-and-goto-next-cursor)
-  ("M-p"  evil-mc-make-and-goto-prev-cursor)
-  ("grP"  evil-mc-skip-and-goto-prev-cursor)
+  ("m"  evil-mc-make-all-cursors)
+  ("u"  evil-mc-undo-all-cursors)
+  ("s"  evil-mc-pause-cursors)
+  ("r"  evil-mc-resume-cursors)
+  ("f"  evil-mc-make-and-goto-first-cursor)
+  ("l"  evil-mc-make-and-goto-last-cursor)
+  ("h"  evil-mc-make-cursor-here)
+  ("j"  evil-mc-make-cursor-move-next-line)
+  ("k"  evil-mc-make-cursor-move-prev-line)
+  ("n"  evil-mc-make-and-goto-next-cursor)
+  ("N"  evil-mc-skip-and-goto-next-cursor)
+  ("p"  evil-mc-make-and-goto-prev-cursor)
+  ("P"  evil-mc-skip-and-goto-prev-cursor)
   ("C-n"  evil-mc-make-and-goto-next-match)
-  ("grn"  evil-mc-skip-and-goto-next-match)
+  ("M-n"  evil-mc-skip-and-goto-next-match)
   ("C-t"  evil-mc-skip-and-goto-next-match)
   ("C-p"  evil-mc-make-and-goto-prev-match)
-  ("grp"  evil-mc-skip-and-goto-prev-match)
+  ("M-p"  evil-mc-skip-and-goto-prev-match)
   ("." hydra-repeat)
   ;; quit
   ("q" nil "cancel"))
 (evil-leader/set-key (kbd "ec") 'hydra-mc/body)
+
+;; mc/num-cursors is not autoloaded
+(require 'multiple-cursors)
+
+(defhydra hydra-multiple-cursors (:hint nil)
+  "
+ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cursor%s(if (> (mc/num-cursors) 1) \"s\" \"\")
+------------------------------------------------------------------
+ [_p_]   Next     [_n_]   Next     [_l_] Edit lines  [_0_] Insert numbers
+ [_P_]   Skip     [_N_]   Skip     [_a_] Mark all    [_A_] Insert letters
+ [_M-p_] Unmark   [_M-n_] Unmark   [_s_] Search
+ [Click] Cursor at point       [_q_] Quit"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("s" mc/mark-all-in-region-regexp :exit t)
+  ("0" mc/insert-numbers :exit t)
+  ("A" mc/insert-letters :exit t)
+  ("<mouse-1>" mc/add-cursor-on-click)
+  ;; Help with click recognition in this hydra
+  ("<down-mouse-1>" ignore)
+  ("<drag-mouse-1>" ignore)
+  ("q" nil))
 
 (defun fg/sudo-edit (&optional arg)
   "Edit currently visited file as root.
@@ -731,4 +758,14 @@ _n_:next  _p_:previous _o_:occur
   ("o" hl-todo-occur)
   ;; quit
   ("q" nil "cancel"))
+;; }}}
+
+;; {{{ llpp, copy and paste
+;; to see @ https://github.com/moosotc/llpp/issues/91
+(set-selection-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(defun fg/insert-primary-selection ()
+  (interactive)
+  (insert (gui-get-selection 'PRIMARY 'UTF8_STRING)))
+(evil-leader/set-key (kbd "ol") 'fg/insert-primary-selection)
 ;; }}}

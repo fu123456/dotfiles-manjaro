@@ -252,6 +252,7 @@ _U_: sublevels      ^ ^             ^ ^
 (define-key LaTeX-mode-map (kbd "<f6>") 'fg/compile-chinese-latex-file)
 (define-key LaTeX-mode-map (kbd "<f3>") nil)
 (define-key LaTeX-mode-map (kbd "<f3>") 'fg/xelatex-file)
+(define-key LaTeX-mode-map (kbd "C-c C-g") 'pdf-sync-forward-search)
 ;; }}}
 
 
@@ -296,4 +297,39 @@ used to fill a paragraph to `my-LaTeX-auto-fill-function'."
 (defvar latex-math-preview-latex-template-header
   "\\documentclass{article}\n \\usepackage{amsmath}\n \\usepackage{multirow}\n \\usepackage{float}\n \\usepackage{algorithm}\n \\usepackage{algorithmic}\n"
   )
-;;}}}
+
+;; {{{
+;; to see @ https://github.com/mhayashi1120/Emacs-langtool
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/Emacs-langtool")
+(setq langtool-java-classpath
+      "/usr/share/languagetool:/usr/share/java/languagetool/*")
+(require 'langtool)
+;; (setq langtool-bin "/usr/bin/languagetool") ;; comment this line, otherwise, java error
+(setq langtool-java-user-arguments '("-Dfile.encoding=UTF-8"))
+(add-hook 'Latex-mode-hook
+          (lambda () (set (make-local-variable 'langtool-java-user-arguments)
+                          '("-Dfile.encoding=UTF-8"))))
+;; (setq langtool-java-bin "/usr/bin/java") ;; comment this line, otherwise, java error
+(setq langtool-default-language "en-US")
+;; (setq langtool-disabled-rules '("WHITESPACE_RULE"
+;;                                 "EN_UNPAIRED_BRACKETS"
+;;                                 "COMMA_PARENTHESIS_WHITESPACE"
+;;                                 "EN_QUOTES"))
+;; keybindings
+(global-set-key "\C-x4w" 'langtool-check)
+(global-set-key "\C-x4W" 'langtool-check-done)
+(global-set-key "\C-x4l" 'langtool-switch-default-language)
+(global-set-key "\C-x44" 'langtool-show-message-at-point)
+(global-set-key "\C-x4c" 'langtool-correct-buffer)
+;; Show LanguageTool report automatically by popup
+(defun langtool-autoshow-detail-popup (overlays)
+  (when (require 'popup nil t)
+    ;; Do not interrupt current popup
+    (unless (or popup-instances
+                ;; suppress popup after type `C-g` .
+                (memq last-command '(keyboard-quit)))
+      (let ((msg (langtool-details-error-message overlays)))
+        (popup-tip msg)))))
+(setq langtool-autoshow-message-function
+      'langtool-autoshow-detail-popup)
+;; }}}
