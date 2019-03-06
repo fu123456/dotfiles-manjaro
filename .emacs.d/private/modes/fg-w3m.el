@@ -20,7 +20,7 @@
       (message "Copy \"%s\" to clipboard." link))))
 
 ;; to see @  https://github.com/venmos/w3m-layer/blob/master/READMECN.org
-(setq w3m-home-page "https://duckduckgo.com/")
+(setq w3m-home-page "https://baidu.com/")
 ;; W3M Home Page
 (setq w3m-default-display-inline-images t)
 (setq w3m-default-toggle-inline-images t)

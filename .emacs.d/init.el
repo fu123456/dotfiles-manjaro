@@ -194,7 +194,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-interleave.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org-noter.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-w3m.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/ag.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ag.el"))
 ;;}}}
 
 (add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.
