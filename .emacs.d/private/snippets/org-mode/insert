@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: javaenum
+# key: javaenum
+# type: command
+# --
+(let ((yas-good-grace nil)
+(count (read-number "Number of elements: ")))
+(yas-expand-snippet
+(concat "public enum ${1:name} {\n"
+"\t"
+(mapconcat
+#'identity
+(mapcar (lambda (num)
+(format "${%d:ele%d}" (1+ num) num))
+(number-sequence 1 count nil))
+", ")
+"\n"
+"}\n")))

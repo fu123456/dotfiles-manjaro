@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: convert a matrix to Log domain
+# key: toLog_
+# --
+epsilon=max(${1:Input matrix}(:))/1000;
+$1_log=log($1+epsilon);

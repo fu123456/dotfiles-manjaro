@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: norm matrix for two dimension
+# key: norm2_
+# --
+${1:var}=($1-min(min($1)))./(max(max($1))-min(min($1)));$0

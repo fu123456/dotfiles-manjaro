@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: file dir, name, and extension
-# key:fileparts
+# key:fileparts_
 # --
 fullFileName='${1:Input data}';
 [folder,baseFileName,extension]=fileparts(fullFileName);

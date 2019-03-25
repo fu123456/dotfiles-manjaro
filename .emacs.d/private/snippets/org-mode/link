@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : link
+#key : [[
+#contributor : Fu Gang
+# --
+[[$1][$2]] $0

@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: subplotWithColumnAndRow
+# key: sp_
+# type: command
+# --
+(let ((yas-good-grace nil)
+(count (read-number "Number of elements: ")))
+(yas-expand-snippet
+(concat ""
+(mapconcat
+#'identity
+(mapcar (lambda (num)
+(format "subplot($1);imshow();title('');" (1+ num) num))
+(number-sequence 1 count nil))
+"\n")
+)))

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Chaosuan Matlab sbatch file
+# key:sb_
+# --
+#!/bin/bash
+cd ${1:Input your code directory}
+/home/software/MATLAB/R2017b/bin/matlab -nodisplay -nodesktop -r "run ${2:input your main m file}" $0

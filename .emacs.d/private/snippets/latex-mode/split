@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: split math environment
+# key: spl_
+# --
+\begin{split}
+$0
+\end{split}
