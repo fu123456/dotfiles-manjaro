@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: subs
-# key: subs
-# --
-\subs{$1}
-\label{$2}
-
-$0

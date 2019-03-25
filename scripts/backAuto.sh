@@ -8,7 +8,7 @@ set -e
 # your files. If you're on WSL, all of your drives can be found in /mnt but if
 # follow my above blog post on setting up WSL, you can have them get mounted
 # directly to /e or /f rather than /mnt/e or /mnt/f.
-target_path="/run/media/fg/47AEAB1644C9F709/PHD_all"
+target_path="/run/media/fg/7CA91F8557736F51/PHD_all"
 
 # Create the target path if it doesn't exist. This command is smart enough to
 # not do anything if it already exists, which is important for later because
@@ -34,7 +34,6 @@ exclude_paths=(
     "_site"
     ".debris"
     ".:*"
-    "**/.**"
 )
 
 # rsync allows you to exclude certain paths. We're just looping over all of the
@@ -55,7 +54,6 @@ done
 #  -a is archive mode so it keeps your original created and modified properties.
 #  -v is verbose mode to get a bit of extra output (useful for debugging).
 #  -R is relative mode. It ensures the included paths get created on the target.
-# -l, --links    copy symlinks as symlinks
 #  --dry-run ensures nothing gets written to the target (for testing purposes).
 # an example: rsync -avR --dry-run ${exclude_flags} ${include_args} ${target_path}
 # rsync -avRKl --delete --progress ${exclude_flags} ${include_args} ${target_path}

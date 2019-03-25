@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: clear
-# key: clear
+# key: clear_
 # --
 clear all;
 close all;

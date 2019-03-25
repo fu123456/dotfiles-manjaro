@@ -1,28 +1,41 @@
 # -*- mode: snippet -*-
-# name: batch tacking image
-# key: batch_image
+#name : batch_image
+#key : batch_
+#contributor : fugang
 # --
-# input your data dir
-dataDir=
-# obtain dir name
-cd \${dataDir}
-cd ..
-outputDir=`pwd`
-dataDirName=`echo \${dataDir} | awk -F '/' '{print \$NF}'`
-batchDir=${outputDir}/\${dataDirName}_FuGangBatchResult
-echo ${batchDir}
-rsync -av --exclude=".*" \${dataDir}/* \${batchDir}
-# temp files to cope
-image=\`find ${batchDir} -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | awk -F ":" '{print \$1}'\`;
+#!/bin/bash
+# function: batch image tackling
+
+dataDir='${1:input your directory}' # change, e.g., /home/fg/temp is right, /home/fg/temp/ is wrong
+batchDir=\${dataDir}_batchResultsFuGang
+if [ ! -d \${batchDir} ];then
+    mkdir \${batchDir}
+else
+    echo "The directory exist."
+    # echo "remove old files ... ..."
+    # rm -rf \${batchDir}/*
+fi
+image=\`find \${dataDir} -name '*.png' -exec file {} \; | grep -o -P '^.+: \w+ image' | awk -F ":" '{print \$1}'\` # change
 for img in \${image}; do
-# some useful variables
-file_full_name=`basename \${img}`
-dir_name=`dirname \${img}`
-file_name=\${file_full_name%.*}
-file_suffix_name=\${file_full_name##*.}
-# your batch commands
-convert -resize 640x480! \${img} \${dir_name}/\${file_name}_crop.png
+    # some variables
+    file_full_name=\`basename \${img}\`
+    dir_name=\`dirname \${img}\`
+    relative_dir=\`realpath --relative-to=\${dataDir} \${img}\`
+    relative_dir=\`echo \${relative_dir} | awk -F '/' '{for(i=1;i<=NF-1;i++) printf \$i" "; print ""}' | sed -e "s/ /\//g"\`
+    file_name=\${file_full_name%.*}
+    file_extension=\${file_full_name##*.}
+    echo "Mkdir a directory in target directory ... ..."
+    mkdir -p \${batchDir}/\${relative_dir}
+    echo "Cp file to target directory ... ..."
+    cp \${img} \${batchDir}/\${relative_dir}
+
+    ## your command to tack image: \${batchDir}/\${relative_dir}\${file_full_name}
+    ## here an example, crop image and contact two image
+    # convert \${dir_name}/\${file_full_name} -crop 100x100+1+1 \${batchDir}/\${relative_dir}\${file_name}_crop1.png
+    # convert \${dir_name}/\${file_full_name} -crop 100x100+1+1 \${batchDir}/\${relative_dir}\${file_name}_crop2.png
+    # width1=\`identify \${batchDir}/\${relative_dir}\${file_name}_crop1.png | awk -F ' ' '{print \$3}'| awk -F 'x' '{print \$1}'\`
+    # height1=\`identify \${batchDir}/\${relative_dir}\${file_name}_crop2.png | awk -F ' ' '{print \$3}'| awk -F 'x' '{print \$2}'\`
+    # convert \${batchDir}/\${relative_dir}\${file_name}_crop1.png -splice 2x0+\${width1}+\${height1} \${batchDir}/\${relative_dir}\${file_name}_crop2.png +append \${batchDir}/\${relative_dir}\${file_name}-crop-connection.png
+    $2
 done
-# copy finished files to your destination directory
-mkdir -p \${batchDir}
-rsync -av --exclude=".*" \${dataDir}/* \${batchDir}
+$0

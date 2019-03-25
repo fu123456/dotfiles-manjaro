@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: long_comment
-# key: cc
+# key: cc_
 # type: command
 # --
 (yas-expand-snippet

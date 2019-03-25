@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: subsection
-# key: subs
-# --
-\subsection{${1:name}}
-\label{subsec:${2:label}}
-
-$0

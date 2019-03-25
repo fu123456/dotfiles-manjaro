@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: gradient operator along x and y
-# key: gradXY
+# key: gradXY_
 # --
 uvx=ones(h,w);
 uvy=uvx;

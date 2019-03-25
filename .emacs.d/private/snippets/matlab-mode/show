@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: image show
-# key: show
+# key: show_
 # --
 figure($1);imshow($2);title('$3');
 $0

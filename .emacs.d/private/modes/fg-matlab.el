@@ -61,9 +61,8 @@
     (save-window-excursion
       (switch-to-buffer (concat "*" matlab-shell-buffer-name "*"))
       (matlab-shell-send-string (format "cd %s;\n"
-      dir)))
-                 (matlab-shell-save-and-go)))
-
+                                        dir)))
+    (matlab-shell-save-and-go)))
 
 (setq matlab-fill-code nil)
 

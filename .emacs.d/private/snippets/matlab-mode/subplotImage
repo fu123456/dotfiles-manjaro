@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: image subplot
-# key: subplot
+# key: subplot_
 # --
 subplot(2,2,1);imshow();title('');
 subplot(2,2,2);imshow();title('');
