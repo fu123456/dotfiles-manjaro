@@ -230,7 +230,8 @@ _U_: sublevels      ^ ^             ^ ^
   (interactive)
   (save-buffer)
   (shell-command
-   (format "pdflatex -synctex=1 -interaction=nonstopmode  %s"
+   ;; (format "pdflatex -synctex=1 -interaction=nonstopmode  %s"
+   (format "fg_pdflatex.sh %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 (defun fg/xelatex-file ()

@@ -34,6 +34,7 @@ exclude_paths=(
     "_site"
     ".debris"
     ".:*"
+    ".:w*"
 )
 
 # rsync allows you to exclude certain paths. We're just looping over all of the

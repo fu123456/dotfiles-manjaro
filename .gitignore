@@ -9,9 +9,9 @@
 
 .vim/colors/eclm_wombat.vim
 
-.emacs.d/private/OtherUsefulElFiles
-.emacs.d/private/myPackages
-.emacs.d/private/latex-math-preview
+.emacs.d/private/OtherUsefulElFiles/*
+.emacs.d/private/myPackages/*
+.emacs.d/private/latex-math-preview/*
 
 !.config/*
 !.config/dunst

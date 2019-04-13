@@ -6,7 +6,7 @@ zip="zip"
 
 if test -z "$2"
 then
-    if [ $1 = $clean ]; 
+    if [ $1 = $clean ];
     then
         echo "Cleaning please wait ..."
         rm -f *~
@@ -95,6 +95,9 @@ elif [ $1 = $compile ]; then
     echo "-------------------------------------------------------------------"
     echo "pdflatex again again..."
     pdflatex -synctex=1 -interaction=nonstopmode $filename.tex
+    echo "-------------------------------------------------------------------"
+    echo "convert ps file to Adobe PDF file..."
+    ps2pdf ${filename}.pdf ${filename}_ps2pdf.pdf
     #############end##################################################
     echo "-------------------------------------------------------------------"
     echo "Success!"

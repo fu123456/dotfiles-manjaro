@@ -167,7 +167,7 @@
   ;; (eyebrose-mode -1)
   (auto-revert-mode -1)
   (symbol-overlay-mode -1)
-  (folding-mode -1)
+  ;; (folding-mode -1)
   )
 
 ;; (add-hook 'pdf-view-mode-hook (lambda ()
@@ -301,6 +301,8 @@
 ;; (define-key pdf-occur-buffer-mode-map (kbd "h") 'left-char)
 ;; (define-key pdf-occur-buffer-mode-map (kbd "l") 'right-char)
 ;; ;; }}}
+
+(define-key pdf-view-mode-map (kbd "C-c C-g") 'pdf-sync-forward-search)
 
 ;; pdf-view-mode for goldendict
 (require 'goldendict)
