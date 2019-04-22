@@ -51,4 +51,15 @@
   (define-key w3m-mode-map (kbd "C-c w F") 'wicked/w3m-open-link-or-image-in-firefox))
 
 
+(setq w3m-search-default-engine "baidu")
+(eval-after-load "w3m-search" '(progn
+                                 (add-to-list 'w3m-search-engine-alist '("baidu"
+                                                                         "http://www.baidu.com/baidu?wd=%s" utf-8))
+                                 (add-to-list 'w3m-search-engine-alist '("wz"
+                                                                         "http://zh.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
+                                 (add-to-list 'w3m-search-engine-alist '("q"
+                                                                         "http://www.google.com/search?hl=en&q=%s+site:stackoverflow.com" utf-8))
+                                 (add-to-list 'w3m-search-engine-alist '("s"
+                                                                         "http://code.google.com/codesearch?q=%s" utf-8))))
+
 ;; }}}

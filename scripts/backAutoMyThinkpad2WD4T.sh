@@ -24,6 +24,7 @@ include_paths=(
     "${HOME}/PHD"
     "${HOME}/.emacs.d"
     "${HOME}/.spacemacs"
+    "${HOME}/.??*"
 )
 
 # A list of folder names and files to exclude. There's no point backing up
@@ -33,8 +34,8 @@ exclude_paths=(
     ".cache"
     "_site"
     ".debris"
-    ".:*"
-    ".:w*"
+    ".??:*"
+    ".??:w*"
 )
 
 # rsync allows you to exclude certain paths. We're just looping over all of the
@@ -55,6 +56,7 @@ done
 #  -a is archive mode so it keeps your original created and modified properties.
 #  -v is verbose mode to get a bit of extra output (useful for debugging).
 #  -R is relative mode. It ensures the included paths get created on the target.
+#  -q It suppresses non-error messages
 #  --dry-run ensures nothing gets written to the target (for testing purposes).
 # an example: rsync -avR --dry-run ${exclude_flags} ${include_args} ${target_path}
 # rsync -avRKl --delete --progress ${exclude_flags} ${include_args} ${target_path}

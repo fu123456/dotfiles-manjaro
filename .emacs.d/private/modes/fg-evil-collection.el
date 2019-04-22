@@ -1,1 +1,6 @@
-(evil-collection-init)
+(evil-collection-init 'w3m)
+(evil-collection-init 'ag)
+(evil-collection-init 'dired)
+(evil-collection-init 'eww)
+(evil-collection-init 'wdired)
+(evil-collection-init 'occur)

@@ -87,7 +87,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ebdb goldendict pdf-tools matlab-mode
+   dotspacemacs-additional-packages '(ebdb goldendict
+                                           pdf-tools
+                                           matlab-mode
                                            evil-collection
                                            (magic-latex-buffer :location (recipe :fetcher github :repo "zk-phi/magic-latex-buffer"))
                                            (auto-package-update :location (recipe :fetcher github :repo "rranelli/auto-package-update.el"))

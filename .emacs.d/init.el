@@ -218,5 +218,3 @@
 
 ;; other useful setting
 (setq frame-title-format "@%b")
-
-;; temp config

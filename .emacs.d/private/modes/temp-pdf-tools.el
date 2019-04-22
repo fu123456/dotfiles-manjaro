@@ -37,6 +37,10 @@
   ;; (folding-mode -1)
   )
 
+(add-hook 'pdf-view-mode-hook (lambda ()
+                                (vlf-mode 1)
+                                ))
+
 ;; Close evil-mode in pdf-tools
 ;; to see @ https://github.com/politza/pdf-tools/issues/201
 (evil-set-initial-state 'pdf-view-mode 'emacs)
@@ -125,8 +129,26 @@
 ;;;}}}
 (define-key pdf-view-mode-map (kbd "SPC [") 'hydra-tab/body)
 (define-key pdf-view-mode-map (kbd "SPC ]") 'hydra-workgroups/body)
+
+;; save some useful buffers quickly
+(defun fg/save-some-buffers ()
+  "Save my some files: latex file, org file, markdown file, PDf file."
+  (interactive)
+  (save-some-buffers 'no-confirm (lambda ()
+                                   (cond
+                                    ((and buffer-file-name (equal buffer-file-name abbrev-file-name)))
+                                    ((and buffer-file-name (eq major-mode 'latex-mode)))
+                                    ((and buffer-file-name (eq major-mode 'markdown-mode)))
+				                            ((and buffer-file-name (eq major-mode 'pdf-view-mode)))
+                                    ((and buffer-file-name (derived-mode-p 'org-mode)))))))
+(define-key pdf-view-mode-map (kbd "<SPC>fw") 'fg/save-some-buffers)
+
 ;; some useful keybinding
 (define-key pdf-view-mode-map (kbd "C-c C-g") 'pdf-sync-forward-search)
+;; (define-key pdf-view-mode-map "j" 'pdf-view-next-line-or-next-page)
+;; (define-key pdf-view-mode-map "k" 'pdf-view-previous-line-or-previous-page)
+;; (define-key pdf-view-mode-map (kbd "C-j") 'pdf-view-next-page-command)
+;; (define-key pdf-view-mode-map (kbd "C-k") 'pdf-view-previous-page-command)
 
 ;; more fine-grained zooming
 (setq pdf-view-resize-factor 1.1)
@@ -134,6 +156,5 @@
 ;; pdf-view-mode for goldendict
 (require 'goldendict)
 (evil-leader/set-key (kbd "og") 'goldendict-dwim)
-
 
 (provide 'fg-pdf-tools)
