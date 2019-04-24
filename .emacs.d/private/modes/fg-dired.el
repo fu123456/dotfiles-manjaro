@@ -305,18 +305,18 @@
 (define-key dired-mode-map "=" 'mkm/ediff-marked-pair)
 
 ;; ;;--------------------------------------------------------------------------------
-;; (defun dired-dotfiles-toggle ()
-;;   "Show/hide dot-files"
-;;   (interactive)
-;;   (when (equal major-mode 'dired-mode)
-;;     (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
-;; 	      (progn
-;; 	        (set (make-local-variable 'dired-dotfiles-show-p) nil)
-;; 	        (message "h")
-;; 	        (dired-mark-files-regexp "^\\\.")
-;; 	        (dired-do-kill-lines))
-;; 	    (progn (revert-buffer) ; otherwise just revert to re-show
-;; 	           (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+(defun dired-dotfiles-toggle ()
+  "Show/hide dot-files"
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
+	      (progn
+	        (set (make-local-variable 'dired-dotfiles-show-p) nil)
+	        (message "h")
+	        (dired-mark-files-regexp "^\\\.")
+	        (dired-do-kill-lines))
+	    (progn (revert-buffer) ; otherwise just revert to re-show
+	           (set (make-local-variable 'dired-dotfiles-show-p) t)))))
 
 ;; {{{ open directory with Pcmanfm
 ;; to see @ http://jixiuf.github.io/blog/emacs%E7%9A%84%E6%8F%92%E4%BB%B6openwith.el/
