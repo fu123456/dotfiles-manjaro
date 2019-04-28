@@ -1,7 +1,7 @@
 (require 'tramp)
 (defun remote-fugang ()
   (interactive)
-  (dired "/ssh:fugang@202.114.96.180:/home/fugang/data"))
+  (dired "/ssh:fugang@202.114.96.180:/home/fugang/"))
 
 (add-to-list 'backup-directory-alist
              (cons tramp-file-name-regexp nil))

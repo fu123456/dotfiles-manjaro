@@ -1,12 +1,12 @@
 ;;; code
 (define-key dired-mode-map [tab] 'dired-subtree-toggle)
 (define-key dired-mode-map [backtab] 'dired-subtree-cycle)
-(define-key dired-mode-map (kbd "C-c C-f") 'find-name-dired)
 
 ;; load other useful packages
 (add-to-list 'load-path "~/.emacs.d/private/OtherUsefulElFiles")
-;;; Start a process from dired
-;;; please refer to  https://oremacs.com/2015/01/04/dired-nohup/
+
+;; {{{ Start a process from dired
+;; please refer to  https://oremacs.com/2015/01/04/dired-nohup/
 ;; Ignore running processes when closing Emacs
 (define-advice save-buffers-kill-emacs (:around (orig-fun &rest r) no-query-kill-emacs)
   (cl-letf (((symbol-function 'process-list) 'ignore))
@@ -54,7 +54,8 @@
           (format "%s %s" cmd list-switch)
         cmd)
       (mapconcat #'expand-file-name file-list "\" \"")))))
-;; (define-key dired-mode-map (kbd "C-c r") 'dired-start-process)
+(define-key dired-mode-map (kbd "C-!") 'dired-start-process)
+;; }}}
 
 ;; Other setting
 ;; https://www.reddit.com/r/emacs/comments/4agkye/how_do_you_customize_dired/
@@ -118,20 +119,10 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
-;; включаем omit-mode по-умолчанию, т.е. скрываем по-умолчанию файлы .bashrc и т.д.
-;; отключается в меню или по C-x M-o
-;; http://www.emacswiki.org/emacs/DiredOmitMode
-;;(setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$") ;;default
-
 (require 'dired-x)
 (setq-default dired-omit-files-p t) ; Buffer-local variable
 (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.[^.].+$")
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode)))
-
-;; (require 'dired-details)
-;; (dired-details-install)
-;; ;;(setq dired-details-hidden-string " [\u25bc] ")
-;; (setq dired-details-hidden-string "[…] ")
 
 ;; Allow to switch from current user to sudo when browsind `dired' buffers.
 ;; To activate and swit with "C-c C-s" just put in your .emacs:
@@ -151,45 +142,6 @@
 (define-key dired-mode-map (kbd "C-y") 'diredp-yank-files)
 ;; does not open a directory on other window
 (put 'dired-find-alternate-file 'disabled nil)
-
-;;------------------------------
-;; Create new file via "N" key with full path creation if subdirectories missing (foo/bar/filename.txt as example). "+" key create only directory.
-
-(eval-after-load 'dired
-  '(progn
-     (defun my-dired-create-file (file)
-       "Create a file called FILE. If FILE already exists, signal an error."
-       (interactive
-        (list (read-file-name "Create file: " (dired-current-directory))))
-       (let* ((expanded (expand-file-name file))
-              (try expanded)
-              (dir (directory-file-name (file-name-directory expanded)))
-              new)
-         (if (file-exists-p expanded)
-             (error "Cannot create file %s: file exists" expanded))
-         ;; Find the topmost nonexistent parent dir (variable `new')
-         (while (and try (not (file-exists-p try)) (not (equal new try)))
-           (setq new try
-                 try (directory-file-name (file-name-directory try))))
-         (when (not (file-exists-p dir))
-           (make-directory dir t))
-         (write-region "" nil expanded t)
-         (when new
-           (dired-add-file new)
-           (dired-move-to-filename))))
-     (define-key dired-mode-map (kbd "N") 'my-dired-create-file)))
-
-;;
-(defun shell-instead-dired ()
-  (interactive)
-  (let ((dired-buffer (current-buffer)))
-    (shell (concat default-directory "-shell"))
-    ;; (kill-buffer dired-buffer) ;; remove this line if you don't want to kill the dired buffer
-    ;; (delete-other-windows)
-    ))
-
-(define-key dired-mode-map (kbd "<M-return>") 'shell-instead-dired)
-
 
 ;;----------------------------------------
 ;; http://stackoverflow.com/questions/10226836/how-to-tar-and-compress-marked-files-in-emacs
@@ -216,17 +168,17 @@
 ;;    the source-files are concatenated."
 (setq dired-to-archive-copy-alist
       '(("\\.sh\\(ar\\|[0-9]\\)*$" nil "shar %s > %s")
-    ("\\.jar$" ("jar" "uvf") ("jar" "cvf"))
-    ("\\.tar$" ("tar" "-uf") ("tar" "-cf"))
-    ("\\.tgz$\\|\\.tar\\.g?[zZ]$" ("tar" "-uf %s" "|" "gzip > %s") ("tar" "-czvf"))
-    ("\\.ear$" ("zip" "-qr") ("zip" "-qr"))
-;   ("\\.rar$" ("rar" "a")   ("rar" "a"))
-    ("\\.war$" ("zip" "-qr") ("zip" "-qr"))
-    ("\\.zip$" ("zip" "-qr") ("zip" "-qr"))
-    ("\\.wmz$" ("zip" "-qr") ("zip" "-qr")) ;; for media player skins
-    ("\\.arc$" ("arc" "a") nil)
-    ("\\.zoo$" ("zoo" "aP") nil)
-    ))
+        ("\\.jar$" ("jar" "uvf") ("jar" "cvf"))
+        ("\\.tar$" ("tar" "-uf") ("tar" "-cf"))
+        ("\\.tgz$\\|\\.tar\\.g?[zZ]$" ("tar" "-uf %s" "|" "gzip > %s") ("tar" "-czvf"))
+        ("\\.ear$" ("zip" "-qr") ("zip" "-qr"))
+                                        ;   ("\\.rar$" ("rar" "a")   ("rar" "a"))
+        ("\\.war$" ("zip" "-qr") ("zip" "-qr"))
+        ("\\.zip$" ("zip" "-qr") ("zip" "-qr"))
+        ("\\.wmz$" ("zip" "-qr") ("zip" "-qr")) ;; for media player skins
+        ("\\.arc$" ("arc" "a") nil)
+        ("\\.zoo$" ("zoo" "aP") nil)
+        ))
 
 ;; use pkzip with manipulating zip files (t) from within dired (use zip
 ;; and unzip otherwise)
@@ -243,80 +195,21 @@
 
 (setq dired-extract-alist
       `(
-    ("\\.u\\(ue\\|aa\\)$" . dired-uud)
-    ("\\.jar$" . "jar -xvf %s")
-    ("\\.tar$" . ,(concat "tar -xf %s -C " MY_TRYOUT_DIR))
-    ("\\.tgz$\\|\\.tar\\.g?[zZ]$" . ,(concat "tar -xzf %s -C " MY_TRYOUT_DIR))
-    ("\\.arc$" . "arc x %s ")
-    ("\\.bz2$" . ,(concat "bunzip2 -q %s"))
-    ("\\.rar$" . ,(concat "unrar x %s " MY_TRYOUT_DIR "\\"))
-    ("\\.zip$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
-    ("\\.ear$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
-    ("\\.war$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
-    ("\\.zoo$" . "zoo x. %s ")
-    ("\\.lzh$" . "lha x %s ")
-    ("\\.7z$"  . "7z e %s ")
-    ("\\.g?[zZ]$" . "gzip -d %s")   ; There is only one file
-    ))
-
-
-; ----------------------------------------
-;; dired ediff selected files by = key
-; ----------------------------------------
-;; http://stackoverflow.com/questions/18121808/emacs-ediff-marked-files-in-different-dired-buffers
-;; works for files marked in the same dired buffer and also for files in different buffers. In
-;; addition to working on 2 marked files potentially across dired buffers, it handles the case when
-;; there are 0 or 1 marked files. 0 marked files will use the file under the cursor as file A, and
-;; prompt for a file to compare with. 1 marked files will use the marked file as file A, and prompt
-;; for a file to compare with. The file under the point is used as the default in the prompt. I
-;; bound this to =
-
-;;ediff-split-window-function ;; http://www.gnu.org/software/emacs/manual/html_node/ediff/Miscellaneous.html
-
-(defun mkm/ediff-marked-pair ()
-   "Run ediff-files on a pair of files marked in dired buffer"
-   (interactive)
-   (let* ((marked-files (dired-get-marked-files nil nil))
-          (other-win (get-window-with-predicate
-                      (lambda (window)
-                        (with-current-buffer (window-buffer window)
-                          (and (not (eq window (selected-window)))
-                               (eq major-mode 'dired-mode))))))
-          (other-marked-files (and other-win
-                                   (with-current-buffer (window-buffer other-win)
-                                     (dired-get-marked-files nil)))))
-     (cond ((= (length marked-files) 2)
-            (ediff-files (nth 0 marked-files)
-                         (nth 1 marked-files)))
-           ((and (= (length marked-files) 1)
-                 (= (length other-marked-files) 1))
-            (ediff-files (nth 0 marked-files)
-                         (nth 0 other-marked-files)))
-           ((= (length marked-files) 1)
-            (let ((single-file (nth 0 marked-files)))
-              (ediff-files single-file
-                           (read-file-name
-                            (format "Diff %s with: " single-file)
-                            nil (m (if (string= single-file (dired-get-filename))
-                                       nil
-                                     (dired-get-filename))) t))))
-           (t (error "mark no more than 2 files")))))
-
-(define-key dired-mode-map "=" 'mkm/ediff-marked-pair)
-
-;; ;;--------------------------------------------------------------------------------
-(defun dired-dotfiles-toggle ()
-  "Show/hide dot-files"
-  (interactive)
-  (when (equal major-mode 'dired-mode)
-    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
-	      (progn
-	        (set (make-local-variable 'dired-dotfiles-show-p) nil)
-	        (message "h")
-	        (dired-mark-files-regexp "^\\\.")
-	        (dired-do-kill-lines))
-	    (progn (revert-buffer) ; otherwise just revert to re-show
-	           (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+        ("\\.u\\(ue\\|aa\\)$" . dired-uud)
+        ("\\.jar$" . "jar -xvf %s")
+        ("\\.tar$" . ,(concat "tar -xf %s -C " MY_TRYOUT_DIR))
+        ("\\.tgz$\\|\\.tar\\.g?[zZ]$" . ,(concat "tar -xzf %s -C " MY_TRYOUT_DIR))
+        ("\\.arc$" . "arc x %s ")
+        ("\\.bz2$" . ,(concat "bunzip2 -q %s"))
+        ("\\.rar$" . ,(concat "unrar x %s " MY_TRYOUT_DIR "\\"))
+        ("\\.zip$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
+        ("\\.ear$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
+        ("\\.war$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
+        ("\\.zoo$" . "zoo x. %s ")
+        ("\\.lzh$" . "lha x %s ")
+        ("\\.7z$"  . "7z e %s ")
+        ("\\.g?[zZ]$" . "gzip -d %s")   ; There is only one file
+        ))
 
 ;; {{{ open directory with Pcmanfm
 ;; to see @ http://jixiuf.github.io/blog/emacs%E7%9A%84%E6%8F%92%E4%BB%B6openwith.el/
@@ -326,41 +219,6 @@
 (eval-after-load 'dired
   '(define-key dired-mode-map (quote [C-M-return]) 'open-directory-with-pcmanfm))
 (global-set-key (quote [C-M-return]) (quote open-directory-with-pcmanfm))
-;; }}}
-
-;; {{{ using rsync in dired-mode
-;; to see @ https://oremacs.com/2016/02/24/dired-rsync/
-;;;###autoload
-(defun ora-dired-rsync (dest)
-  (interactive
-   (list
-    (expand-file-name
-     (read-file-name
-      "Rsync to:"
-      (dired-dwim-target-directory)))))
-  ;; store all selected files into "files" list
-  (let ((files (dired-get-marked-files
-                nil current-prefix-arg))
-        ;; the rsync command
-        (tmtxt/rsync-command
-         "rsync -arvz --progress "))
-    ;; add all selected file names as arguments
-    ;; to the rsync command
-    (dolist (file files)
-      (setq tmtxt/rsync-command
-            (concat tmtxt/rsync-command
-                    (shell-quote-argument file)
-                    " ")))
-    ;; append the destination
-    (setq tmtxt/rsync-command
-          (concat tmtxt/rsync-command
-                  (shell-quote-argument dest)))
-    ;; run the async shell command
-    (async-shell-command tmtxt/rsync-command "*rsync*")
-    ;; finally, switch to that window
-    (other-window 1)))
-
-(define-key dired-mode-map "Y" 'ora-dired-rsync)
 ;; }}}
 
 ;; {{{rsync config
@@ -387,15 +245,6 @@
                             ))
 ;; }}}
 
-;; {{{dired-rsync
-(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/dired-rsync")
-(require 'dired-rsync)
-(define-key dired-mode-map (kbd "C-c C-r") 'dired-rsync)
-;;; }}}
-
-;; close evil-mode for dired-mode
-(evil-set-initial-state 'pdf-view-mode 'emacs)
-
 (require 'dired-single)
 ;; keybinding
 (define-key dired-mode-map [remap dired-find-file] #'dired-single-buffer)
@@ -403,6 +252,9 @@
 (define-key dired-mode-map [remap dired-mouse-find-file-other-window] #'dired-single-buffer-mouse)
 (define-key dired-mode-map [remap dired-up-directory] #'dired-single-up-directory)
 ;; (define-key dired-mode-map (kbd "^") 'dired-single-up-directory)
+
+(setq dired-omit-size-limit nil) ;dired忽略的上限
+(setq large-file-warning-threshold nil)
 
 (provide 'fg-dired)
 ;; fg-dired.el ends here

@@ -132,20 +132,11 @@
 (global-hl-todo-mode 1)
 ;; }}}
 
-;;设置用户名和邮件地址
-(setq user-full-name    "fugang")
-(setq user-mail-address "xyzgfu@gmail.com")
-
-;; evil-escape config
-(setq-default evil-escape-key-sequence "jk")
-(setq-default evil-escape-delay 0.2)
-
 (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/counsel-keepassxc")
 (require 'counsel-keepassxc)
 (setq counsel-keepassxc-database-file "/home/fg/MEGA/org/keepassxc-database.kdbx")
 ;;{{{ load config files
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-package-update.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-popwin.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-tramp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-matlab.el"))
@@ -163,7 +154,7 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-git.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-apperance.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-search-engine.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gnus.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gnus.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ediff.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ebdb.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-secret.el"))
@@ -192,10 +183,8 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org-noter.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-w3m.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ag.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-mu4e.el"))
 ;;}}}
-
-(add-hook 'dired-load-hook '(lambda () (require 'dired-x))) ; Load Dired X when Dired is loaded.
-(setq dired-omit-mode t) ; Turn on Omit mode.
 
 ;; cua-mode setting
 (setq cua-enable-cua-keys nil) ;; only for rectangles

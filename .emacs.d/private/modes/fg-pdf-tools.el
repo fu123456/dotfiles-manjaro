@@ -135,5 +135,13 @@
 (require 'goldendict)
 (evil-leader/set-key (kbd "og") 'goldendict-dwim)
 
+;; ;; Support for opening last known pdf position in pdf-view-mode provided by pdf-tools.
+;; (add-to-list 'load-path "/home/fg/.emacs.d/private/myPackages/pdf-view-restore")
+;; (require 'pdf-view-restore)
+;; (use-package pdf-view-restore
+;;   :after pdf-tools
+;;   :config
+;;   (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode))
+;; (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore")
 
 (provide 'fg-pdf-tools)
