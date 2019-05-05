@@ -330,7 +330,7 @@ PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/include/ANN:${PATH}
 PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/lib:${PATH}
 
 # firefox
-PATH=/home/fg/Install/firefox:${PATH}
+# PATH=/home/fg/Install/firefox:${PATH}
 
 #perl
 # export PERL5LIB=/home/perl_modules/lib/perl5/:/home/perl_modules/lib/perl5/site_perl:

@@ -29,7 +29,7 @@
                              ))
 
 ;; latex-mode
-;; (add-to-list 'ac-modes 'latex-mode)
+(add-to-list 'ac-modes 'latex-mode)
 (defun ac-latex-mode-setup()
   (setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
 (add-hook 'latex-mode-hook 'ac-latex-mode-setup)

@@ -1,12 +1,10 @@
-;; -*- coding: utf-8; lexical-binding: t; -*-
-
 (setq wg-use-default-session-file nil)
 ;; don't open last workgroup automatically in `wg-open-session',
 ;; I only want to check available workgroups! Nothing more.
 (setq wg-load-last-workgroup nil)
 (setq wg-open-this-wg nil)
 
-                                        ;(workgroups-mode 1) ; put this one at the bottom of .emacs
+(workgroups-mode 1) ; put this one at the bottom of .emacs
 ;; by default, the sessions are saved in "~/.emacs_workgroups"
 (defun my-wg-switch-workgroup ()
   (interactive)

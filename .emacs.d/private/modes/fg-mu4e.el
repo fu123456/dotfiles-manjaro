@@ -2,7 +2,7 @@
 (require 'mu4e)
 
 ;; default
-(setq mu4e-maildir "~/Maildir")
+(setq mu4e-maildir "~/Maildir/Yahoo")
 (setq mu4e-drafts-folder "/[yahoo].Drafts")
 (setq mu4e-sent-folder   "/[yahoo].Sent Mail")
 (setq mu4e-trash-folder  "/[yahoo].Trash")
@@ -36,3 +36,8 @@
       smtpmail-auth-credentials "~/.authinfo")
 (setq mu4e-update-interval 60)
 (setq mu4e-view-show-images t)
+
+;; mu4e-alert
+(require 'mu4e-alert)
+(mu4e-alert-set-default-style 'libnotify)
+(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)

@@ -29,14 +29,14 @@
 (add-hook 'matlab-mode-hook
           (lambda ()
             (abbrev-mode 1)
-            ;;(setq font-lock-maximum-decoration 1)
+            ;; (setq font-lock-maximum-decoration 1) ;; latex
             (auto-fill-mode 1)
             ;; (mlint-minor-mode 1)
             (rainbow-delimiters-mode 1)
             (smartparens-mode 1)
             (auto-complete-mode 1)
             (yas-minor-mode 1)
-            ;; (ggtags-mode 1)
+            (ggtags-mode 1)
             ;; (org-toggle-latex-fragment)
             (if (eq window-system 'x)
                 (font-lock-mode 1))

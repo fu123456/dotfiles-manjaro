@@ -93,8 +93,8 @@
 (setq default-tab-width 4)
 
 ;; ;; disable mouse
-; (require 'disable-mouse)
-; (global-disable-mouse-mode)
+;; (require 'disable-mouse)
+;; (global-disable-mouse-mode)
 
 ;; close linum-mode
 (global-linum-mode -1)
@@ -120,7 +120,7 @@
 ;;{{{ global-mode, turn on these global mode
 ;; (yas-global-mode 1)
 (global-company-mode 1)
-;; (global-auto-complete-mode nil)
+(global-auto-complete-mode 1)
 ;; see @ https://github.com/Malabarba/aggressive-indent-mode
 (global-aggressive-indent-mode 1)
 (global-auto-revert-mode)
@@ -171,7 +171,6 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-sh.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-blimp.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gpg.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-workgroups2.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-hippie-expand.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pass.el"))
@@ -198,12 +197,14 @@
 ;; avoid package initialized warning messages
 ;; (unless package--initialized (package-initialize t))
 
-
-;; Change workgroups session file
-(setq wg-session-file "~/MEGA/dotfiles-manjaro/.emacs.d/.emacs_workgroups")
-
 (setq buffer-save-without-query t)
 (setq confirm-nonexistent-file-or-buffer nil)
 
 ;; other useful setting
 (setq frame-title-format "@%b")
+
+;; temp config
+(use-package proxy-mode
+  :ensure t)
+(setq url-gateway-local-host-regexp
+      (concat "\\`" (regexp-opt '("localhost" "127.0.0.1")) "\\'"))

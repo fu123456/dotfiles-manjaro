@@ -9,7 +9,8 @@
   (define-key w3m-mode-map (kbd "C-c C-u o") 'w3m-view-url-with-external-browser)
   (define-key w3m-mode-map (kbd "C-f") 'evil-scroll-page-down)
   (define-key w3m-mode-map (kbd "C-b") 'evil-scroll-page-up)
-  (define-key w3m-mode-map (kbd "SPC") 'evil-evilified-state))
+  (define-key w3m-mode-map (kbd "SPC") 'evil-evilified-state)
+  )
 
 (defun v/w3m-copy-link ()
   (interactive)
@@ -62,4 +63,13 @@
                                  (add-to-list 'w3m-search-engine-alist '("s"
                                                                          "http://code.google.com/codesearch?q=%s" utf-8))))
 
+;; }}}
+
+;; {{{ mouse for w3m
+(add-hook 'w3m-mode-hook
+          (lambda ()
+            (setq w3m-new-session-in-background t)
+            (setq-local mouse-1-click-follows-link nil)
+            (local-set-key [mouse-1] #'w3m-mouse-view-this-url)
+            (local-set-key [mouse-2] #'w3m-mouse-view-this-url-new-session)))
 ;; }}}

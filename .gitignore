@@ -7,7 +7,7 @@
 *.pyc
 .zsh_history
 
-.vim/colors/eclm_wombat.vim
+.vim/*
 
 !.config/*
 !.config/dunst
@@ -35,3 +35,7 @@
 !.emacs.d/private/modes/*
 
 .emacs.d/private/*
+
+.emacs.d/pyim-bigdict.pyim.gz
+
+scripts/ss-qt5.json
