@@ -280,33 +280,6 @@
 
 (add-hook 'org-mode-hook 'auto-complete-mode)
 
-;; by chenbin
-;; How to take screen shot for business people efficiently in Emacs
-;; 在org文件中自动插入screen shot image
-(defun insert-file-link-from-clipboard ()
-  "Make sure the full path of file exist in clipboard. This command will convert
-The full path into relative path and insert it as a local file link in org-mode"
-  (interactive)
-  (let (str)
-    (with-temp-buffer
-      (shell-command
-       (cond
-        ((eq system-type 'cygwin) "getclip")
-        ((eq system-type 'darwin) "pbpaste")
-        (t "xsel -ob"))
-       1)
-      (setq str (buffer-string)))
-
-    ;; convert to relative path (relative to current buffer) if possible
-    (let ((m (string-match (file-name-directory (buffer-file-name)) str) ))
-      (when m
-        (if (= 0 m )
-            (setq str (substring str (length (file-name-directory (buffer-file-name)))))
-          ))
-      (insert (format "[[file:%s]]" str)))
-    ))
-(define-key org-mode-map (kbd "C-k") 'insert-file-link-from-clipboard)
-
 ;;{{{ org -> docx
 ;; org v7 bundled with Emacs 24.3
 (setq org-export-odt-preferred-output-format "doc")
