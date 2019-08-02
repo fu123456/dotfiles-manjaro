@@ -44,13 +44,6 @@
   ;; 开启拼音搜索功能
   (pyim-isearch-mode 1)
 
-  ;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
-  ;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
-  ;; 手动安装 posframe 包。
-  (add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/posframe")
-  (require 'posframe)
-  (setq pyim-page-tooltip 'posframe)
-
   ;; 选词框显示5个候选词
   (setq pyim-page-length 5)
 
@@ -74,7 +67,29 @@
       (funcall orig-fun))))
 (advice-add 'company-dabbrev--prefix :around #'eh-company-dabbrev--prefix)
 
+;; pyim using rime input method
+(use-package liberime
+  :load-path "/home/fg/Install/liberime-master/liberime-master/build/liberime.so"
+  :config
+  ;; 注意事项:
+  ;; 1. 文件路径需要用 `expand-file-name' 函数处理。
+  ;; 2. `librime-start' 的第一个参数说明 "rime 共享数据文件夹"
+  ;;     的位置，不同的平台其位置也各不相同，可以参考：
+  ;;     https://github.com/rime/home/wiki/RimeWithSchemata
+  (liberime-start (expand-file-name "/usr/share/rime-data")
+                  (expand-file-name "~/.emacs.d/pyim/rime/"))
+  (liberime-select-schema "luna_pinyin_simp")
+  (setq pyim-default-scheme 'rime-quanpin))
 ;;}}}
+
+;; {{{ using posframe
+;; 使用 pupup-el 来绘制选词框, 如果用 emacs26, 建议设置
+;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
+;; 手动安装 posframe 包。
+(add-to-list 'load-path "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/myPackages/posframe")
+(require 'posframe)
+(setq pyim-page-tooltip 'posframe)
+;; }}}
 
 
 ;; {{{ cnfonts
