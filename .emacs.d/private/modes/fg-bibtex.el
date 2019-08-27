@@ -48,7 +48,7 @@
     (message "No PDF(s) found.")))
 
 ;; Browser used for opening URLs and DOIs
-(setq bibtex-completion-browser-function 'browser-url-chromium)
+;; (setq bibtex-completion-browser-function 'browser-url-chromium)
 
 ;; Format of citations
 (setq bibtex-completion-format-citation-functions
@@ -80,3 +80,8 @@ With a prefix ARG, the cache is invalidated and the bibliography reread."
 
 ;; helm-bibtex search tags index
 (setq bibtex-completion-additional-search-fields '(tags))
+
+;; {{{ gscholar-bibtex
+;; to see @ https://github.com/cute-jumper/gscholar-bibtex
+(require 'gscholar-bibtex)
+;; }}}

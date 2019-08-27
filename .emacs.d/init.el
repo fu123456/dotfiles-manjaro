@@ -101,6 +101,9 @@
 (line-number-mode -1)
 (linum-mode -1)
 
+;; visual-line mode
+;; (global-visual-line-mode 1)
+
 ;; change the title from emacs@host to file name
 (setq-default frame-title-format '("%f [%m]"))
 ;; revert buffer, time interval, save
@@ -109,7 +112,7 @@
 ;;禁止生成备份文件
 (setq make-backup-files nil)
 ;; close auto save function
-(setq auto-save-default nil)
+;; (setq auto-save-default nil)
 
 ;;{{{
 ;; start server with emacs
@@ -175,14 +178,20 @@
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-kill-ring.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-pass.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-symbol-overlay.el"))
-(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-yasnippet.el"))
-(mapc 'load (file-expand-wildcards "/home/fg/MEGA/dotfiles-manjaro/.emacs.d/private/modes/fg-evil-collection.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-yasnippet.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-evil-collection.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-bibtex.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-interleave.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-org-noter.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-w3m.el"))
 (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-ag.el"))
-(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-mu4e.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-mu4e.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-google-translate.el"))
+;; (mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/init-auto-save.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-snails.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-gcmh.el"))
+(mapc 'load (file-expand-wildcards "~/.emacs.d/private/modes/fg-proxy.el"))
+
 ;;}}}
 
 ;; cua-mode setting
@@ -203,8 +212,4 @@
 ;; other useful setting
 (setq frame-title-format "@%b")
 
-;; temp config
-(use-package proxy-mode
-  :ensure t)
-(setq url-gateway-local-host-regexp
-      (concat "\\`" (regexp-opt '("localhost" "127.0.0.1")) "\\'"))
+(setq-default with-editor-emacsclient-executable "emacsclient")

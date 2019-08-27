@@ -45,6 +45,33 @@
 
 ;; (add-to-list 'display-buffer-alist '("\\.pdf\\(<[^>]+>\\)?$" . (display-buffer-pop-up-window-pdf-split-horizontally)))
 
+;; pdf-tools keybindings
+;; to see @ https://github.com/abo-abo/hydra/wiki/PDF-Tools
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq mouse-drag-copy-region t)
+  (bind-keys :map pdf-view-mode-map
+             ("\\" . hydra-pdftools/body)
+             ("<s-spc>" .  pdf-view-scroll-down-or-next-page)
+             ("l"  . image-forward-hscroll)
+             ("h"  . image-backward-hscroll)
+             ("e"  . pdf-view-goto-page)
+             ("d"  . pdf-view-next-page-command)
+             ("u"  . pdf-view-previous-page-command)
+             ;; quit
+             ("q" . quit-window)
+             ("Q" . kill-this-buffer)
+             ("ZQ" . kill-this-buffer)
+             ("ZZ" . quit-window)
+             ("]]" . pdf-view-next-page-command)
+             ("[[" . pdf-view-previous-page-command)
+             )
+  (use-package org-pdfview
+    :ensure t))
+
 ;; pdf-tool setting using hydra
 (defhydra hydra-pdftools (:color blue :hint nil)
   "
@@ -127,6 +154,8 @@
 (define-key pdf-view-mode-map (kbd "SPC ]") 'hydra-workgroups/body)
 ;; some useful keybinding
 (define-key pdf-view-mode-map (kbd "C-c C-g") 'pdf-sync-forward-search)
+;; execture
+(define-key pdf-view-mode-map (kbd "M-!") 'execute-program)
 
 ;; more fine-grained zooming
 (setq pdf-view-resize-factor 1.1)

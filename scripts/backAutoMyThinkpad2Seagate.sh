@@ -5,4 +5,5 @@ rsync -avR --progress --delete /home/fg/Install /run/media/fg/Seagate\ Backup\ P
 rsync -avR --progress --delete /home/fg/PHD /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all
 rsync -avR --progress --delete /home/fg/.emacs.d /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all
 rsync -avR --progress --delete /home/fg/.spacemacs /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all
-rsync -avR --progress --delete /home/fg/.??* /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all
+rsync -avR --progress --delete --exclude ".cache/google-chrome/*" /home/fg/.??*  /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all
+# rsync -avR --progress --delete /home/fg/.??* /run/media/fg/Seagate\ Backup\ Plus\ Drive/PHD_all

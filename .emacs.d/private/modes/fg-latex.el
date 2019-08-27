@@ -84,7 +84,7 @@
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
 (define-key cdlatex-mode-map ";" 'cdlatex-tab)
 
-(add-hook 'LaTeX-mode-hook 'turn-on-flyspell) ; with flyspell Latex(latex) mode
+(add-hook 'LaTeX-mode-hook 'turn-off-flyspell) ; with flyspell Latex(latex) mode
 (add-hook 'plain-TeX-mode-hook 'LaTeX-mode) ; plainlatex automatically convert to Latex mode
 
 
@@ -207,7 +207,7 @@ _U_: sublevels      ^ ^             ^ ^
   "run a command on the current file and revert the buffer"
   (interactive)
   (save-buffer) ;; save a current file
-  (shell-command
+  (async-shell-command
    (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-latex compile %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t)
@@ -215,21 +215,21 @@ _U_: sublevels      ^ ^             ^ ^
 (defun fg/compile-chinese-latex-file ()
   (interactive)
   (save-buffer)
-  (shell-command
+  (async-shell-command
    (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-chinese-latex compile %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 ;; clean latex stuff
 (defun fg/clean-latex-file ()
   (interactive)
-  (shell-command
+  (async-shell-command
    (format "/home/fg/MEGA/dotfiles-manjaro/scripts/compile-latex clean %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))
 (defun fg/pdflatex-file ()
   (interactive)
   (save-buffer)
-  (shell-command
+  (async-shell-command
    ;; (format "pdflatex -synctex=1 -interaction=nonstopmode  %s"
    (format "fg_pdflatex.sh %s"
            (shell-quote-argument (buffer-file-name))))
@@ -237,7 +237,7 @@ _U_: sublevels      ^ ^             ^ ^
 (defun fg/xelatex-file ()
   (interactive)
   (save-buffer)
-  (shell-command
+  (async-shell-command
    (format "xelatex -synctex=1 -interaction=nonstopmode  %s"
            (shell-quote-argument (buffer-file-name))))
   (revert-buffer t t t))

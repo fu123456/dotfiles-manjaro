@@ -21,7 +21,8 @@
       (message "Copy \"%s\" to clipboard." link))))
 
 ;; to see @  https://github.com/venmos/w3m-layer/blob/master/READMECN.org
-(setq w3m-home-page "https://baidu.com/")
+;; (setq w3m-home-page "https://baidu.com/")
+(setq w3m-home-page "https://duckduckgo.com/")
 ;; W3M Home Page
 (setq w3m-default-display-inline-images t)
 (setq w3m-default-toggle-inline-images t)
@@ -52,10 +53,12 @@
   (define-key w3m-mode-map (kbd "C-c w F") 'wicked/w3m-open-link-or-image-in-firefox))
 
 
-(setq w3m-search-default-engine "baidu")
+(setq w3m-search-default-engine "duckduckgo")
 (eval-after-load "w3m-search" '(progn
                                  (add-to-list 'w3m-search-engine-alist '("baidu"
                                                                          "http://www.baidu.com/baidu?wd=%s" utf-8))
+                                 (add-to-list 'w3m-search-engine-alist '("duckduckgo"
+                                                                         "http://duckduckgo.com/?q=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("wz"
                                                                          "http://zh.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("q"
@@ -66,10 +69,10 @@
 ;; }}}
 
 ;; {{{ mouse for w3m
-(add-hook 'w3m-mode-hook
-          (lambda ()
-            (setq w3m-new-session-in-background t)
-            (setq-local mouse-1-click-follows-link nil)
-            (local-set-key [mouse-1] #'w3m-mouse-view-this-url)
-            (local-set-key [mouse-2] #'w3m-mouse-view-this-url-new-session)))
+;; (add-hook 'w3m-mode-hook
+;;           (lambda ()
+;;             (setq w3m-new-session-in-background t)
+;;             (setq-local mouse-1-click-follows-link nil)
+;;             (local-set-key [mouse-1] #'w3m-mouse-view-this-url)
+;;             (local-set-key [mouse-2] #'w3m-mouse-view-this-url-new-session)))
 ;; }}}

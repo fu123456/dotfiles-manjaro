@@ -54,4 +54,4 @@ done
 #  --dry-run ensures nothing gets written to the target (for testing purposes).
 # an example: rsync -avR --dry-run ${exclude_flags} ${include_args} ${target_path}
 # rsync -avRKl --delete --progress ${exclude_flags} ${include_args} ${target_path}
-rsync -avR --delete --progress ${exclude_flags} ${include_args} ${target_path}
+sudo rsync -avR --delete --progress ${exclude_flags} ${include_args} ${target_path}

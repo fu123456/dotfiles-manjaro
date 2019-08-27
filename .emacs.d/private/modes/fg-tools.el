@@ -411,9 +411,53 @@ Version 2018-08-02"
     (put 'xah-convert-fullwidth-chars 'state $stateAfter)))
 ;; }}}
 
+;; {{{
+;; to see @ www.wilkesley.org/~ian/xah/emacs/modernization_fill-paragraph.html
+(defun xah-fill-or-unfill ()
+  "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
+When there is a text selection, act on the the selection, else, act on a text block separated by blank lines.
+URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
+Version 2016-07-13"
+  (interactive)
+  ;; This command symbol has a property “'compact-p”, the possible values are t and nil. This property is used to easily determine whether to compact or uncompact, when this command is called again
+  (let ( (-compact-p
+          (if (eq last-command this-command)
+              (get this-command 'compact-p)
+            (> (- (line-end-position) (line-beginning-position)) fill-column)))
+         (deactivate-mark nil)
+         (-blanks-regex "\n[ \t]*\n")
+         -p1 -p2
+         )
+    (if (use-region-p)
+        (progn (setq -p1 (region-beginning))
+               (setq -p2 (region-end)))
+      (save-excursion
+        (if (re-search-backward -blanks-regex nil "NOERROR")
+            (progn (re-search-forward -blanks-regex)
+                   (setq -p1 (point)))
+          (setq -p1 (point)))
+        (if (re-search-forward -blanks-regex nil "NOERROR")
+            (progn (re-search-backward -blanks-regex)
+                   (setq -p2 (point)))
+          (setq -p2 (point)))))
+    (if -compact-p
+        (fill-region -p1 -p2)
+      (let ((fill-column most-positive-fixnum ))
+        (fill-region -p1 -p2)))
+    (put this-command 'compact-p (not -compact-p))))
 
+;; Handy key definition
+(define-key global-map "\C-\M-Q" 'xah-fill-or-unfill)
+;; }}}
 
+;; execture
+(add-to-list 'load-path "/home/fg/.emacs.d/private/execute")
+(require 'execute)
 
+;; auto copy
+;; to see @ https://emacs.stackexchange.com/questions/17170/how-to-auto-copy-when-a-region-is-selected
+;; also see @ https://emacs-china.org/t/emacs/10314/3
+(setq mouse-drag-copy-region t)
 
 (provide 'fg-tools)
 ;;; fg-tools.el ends here

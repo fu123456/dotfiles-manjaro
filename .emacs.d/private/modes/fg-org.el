@@ -152,8 +152,9 @@
                   (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
   (unless (file-exists-p (file-name-directory filename))
     (make-directory (file-name-directory filename)))
-  (call-process-shell-command "scrot" nil nil nil nil "-s" (concat
-                                                            "\"" filename "\"" ))
+  ;; (call-process-shell-command "deepin-screenshot -d 3" nil nil nil nil "-s" (concat
+  (call-process-shell-command "deepin-screenshot" nil nil nil nil "-s" (concat
+                                                                             "\"" filename "\"" ))
   (insert (concat "[[file:" filename "]]"))
   (org-display-inline-images)
   )

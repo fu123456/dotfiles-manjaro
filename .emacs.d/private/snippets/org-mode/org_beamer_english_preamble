@@ -2,11 +2,12 @@
 # name: org-beamer English preamble
 # key: obe
 # --
+
 #+BEGIN_PREFACE
-#+TITLE: ${1:input your title}
+#+TITLE: ${1:title}
 #+AUTHOR: ${2:author}
-#+BEAMER_HEADER: \date{\\today}
-#+BEAMER_HEADER: \institute[WHU]{${3:your institute}}
+#+BEAMER_HEADER: \date{\today}
+#+BEAMER_HEADER: \institute[]{${3:insititute}}
 #+OPTIONS: H:2 num:t toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS: TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
@@ -18,14 +19,17 @@
 #+LaTeX_CLASS_OPTIONS: [10pt,mathserif]
 #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
 #+BEAMER_FRAME_LEVEL: 2
-#+LaTeX_HEADER: \usepackage{graphicx,amsmath,amssymb,tikz,psfrag}
+# #+LaTeX_HEADER: \usepackage{graphicx,amsmath,amssymb,euler,tikz,psfrag}
+#+LaTeX_HEADER: \usepackage{graphicx,euler,tikz,psfrag}
 #+LaTex_HEADER: \mode<presentation>
 #+LaTex_HEADER: {
 #+LaTex_HEADER: \usetheme{default}
 #+LaTex_HEADER: }
 #+LaTex_HEADER: \setbeamertemplate{navigation symbols}{}
-#+LaTex_HEADER: \usecolortheme[rgb={0.13,0.28,0.59}]{structure}
-#+LaTex_HEADER: \setbeamertemplate{itemize subitem}{--}
+#+LaTex_HEADER: \usecolortheme[rgb={0,0,0}]{structure}
+#+LaTex_HEADER: \setbeamertemplate{itemize subitem}{\bullet}
+#+LaTex_HEADER: \setbeamertemplate{itemize subsubitem}{\bullet}
+#+LaTex_HEADER: \setbeamertemplate{itemize item}{\bullet}
 #+LaTex_HEADER: \setbeamertemplate{frametitle} {
 #+LaTex_HEADER: 	\begin{center}
 #+LaTex_HEADER: 	  {\large\bf \insertframetitle}

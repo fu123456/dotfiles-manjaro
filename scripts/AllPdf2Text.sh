@@ -8,9 +8,8 @@ if [ ! -f "${target_dir}" ]; then
     echo "mkdir the target directory ..."
     mkdir -p ${target_dir}
 else
-    Input you other command line
+    echo "the target directory exist !!!"
 fi
-
 
 for f in ${data_dir}/*.pdf; do
     filename=`basename ${f}`

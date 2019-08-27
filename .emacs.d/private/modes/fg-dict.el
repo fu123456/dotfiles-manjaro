@@ -24,4 +24,8 @@
 
 ;; Enable Chinese word segmentation support (支持中文分词)
 (setq youdao-dictionary-use-chinese-word-segmentation t)
+
 ;; }}}
+
+;; mw-thesaurus
+(global-set-key (kbd "C-{") 'mw-thesaurus-lookup-at-point)

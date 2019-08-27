@@ -19,6 +19,10 @@
 (evil-leader/set-key (kbd "ii") 'ibuffer)
 ;; toggle menu bar
 (evil-leader/set-key (kbd "<SPC>of") 'toggle-menu-bar-mode-from-frame)
+;; counsel-linux-app
+(define-key evil-normal-state-map (kbd "<SPC>ho") 'counsel-linux-app)
+;; proced
+(define-key evil-normal-state-map (kbd "<SPC>hq") 'proced)
 
 (defhydra hydra-zoom (global-map "<f10>")
   "zoom"

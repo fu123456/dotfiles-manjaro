@@ -299,21 +299,16 @@ prompt_context() {
 ## my apps output config
 
 #{{{texlive
-# # texlive 2016 environment setting
-# PATH=/usr/local/texlive/2016/bin/x86_64-linux/:${PATH}
-# MANPATH=/urs/local/texlive/2016/texmf-dist/doc/man/:${MANPATH}
-# INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:${INFOPATH}
-# PACKAGEPATH=/usr/local/texlive/2016/texmf-dist/:${PACKAGEPATH}
-# # texlive 2017 environment setting
-# PATH=/usr/local/texlive/2017/bin/x86_64-linux/:${PATH}
-# MANPATH=/urs/local/texlive/2017/texmf-dist/doc/man/:${MANPATH}
-# INFOPATH=/usr/local/texlive/2017/texmf-dist/doc/info/:${INFOPATH}
-# PACKAGEPATH=/usr/local/texlive/2017/texmf-dist/:${PACKAGEPATH}
 # texlive 2018 environment setting
 PATH=/usr/local/texlive/2018/bin/x86_64-linux:${PATH}
 MANPATH=/urs/local/texlive/2018/texmf-dist/doc/man:${MANPATH}
 INFOPATH=/usr/local/texlive/2018/texmf-dist/doc/info:${INFOPATH}
 PACKAGEPATH=/usr/local/texlive/2018/texmf-dist:${PACKAGEPATH}
+# texlive 2019 environment setting
+PATH=/usr/local/texlive/2019/bin/x86_64-linux:${PATH}
+MANPATH=/urs/local/texlive/2019/texmf-dist/doc/man:${MANPATH}
+INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:${INFOPATH}
+PACKAGEPATH=/usr/local/texlive/2019/texmf-dist:${PACKAGEPATH}
 #}}}
 
 ##{{{ matlab
@@ -321,13 +316,17 @@ PACKAGEPATH=/usr/local/texlive/2018/texmf-dist:${PACKAGEPATH}
 PATH=/usr/local/MATLAB/R2017a/bin:${PATH}
 PATH=/usr/local/MATLAB/R2017a/bin/glnxa64:${PATH}
 # Matlab R2014b
-PATH=/usr/local/MATLAB/R2014b/bin:${PATH}
-PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:${PATH}
+# PATH=/usr/local/MATLAB/R2014b/bin:${PATH}
+# PATH=/usr/local/MATLAB/R2014b/bin/glnxa64:${PATH}
 ##}}}
 
 # ANN
 PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/include/ANN:${PATH}
 PATH=/home/fg/Install/ann_1.1.2/ann_1.1.2/lib:${PATH}
+
+# about opencv
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
 
 # firefox
 # PATH=/home/fg/Install/firefox:${PATH}
@@ -629,9 +628,8 @@ export EDITOR=emacsclient
 # remove duplicate lines of .zsh_history file
 # to see @ https://github.com/zsh-users/zsh-history-substring-search/issues/19
 function dedupHistory() {
-    cp ~/.zsh_history{,-old}
+    cp ~/MEGA/dotfiles-manjaro/.zsh_history{,-old}
     tmpFile=`mktemp`
-    awk -F ";" '!seen[$2]++' ~/.zsh_history > $tmpFile
-    # mv $tmpFile ~/.zsh_history
+    awk -F ";" '!seen[$2]++' ~/MEGA/dotfiles-manjaro/.zsh_history > $tmpFile
     mv $tmpFile ~/MEGA/dotfiles-manjaro/.zsh_history
 }

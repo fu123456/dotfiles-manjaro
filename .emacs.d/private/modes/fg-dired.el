@@ -252,6 +252,7 @@
 (define-key dired-mode-map [remap dired-mouse-find-file-other-window] #'dired-single-buffer-mouse)
 (define-key dired-mode-map [remap dired-up-directory] #'dired-single-up-directory)
 ;; (define-key dired-mode-map (kbd "^") 'dired-single-up-directory)
+(define-key dired-mode-map (kbd "<mouse-3>") 'dired-single-up-directory)
 
 (setq dired-omit-size-limit nil) ;dired忽略的上限
 (setq large-file-warning-threshold nil)

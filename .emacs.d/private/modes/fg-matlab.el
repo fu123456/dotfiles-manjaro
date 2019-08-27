@@ -17,6 +17,9 @@
                              (define-key matlab-mode-map (kbd "C-M-<return>") nil)
                              (define-key matlab-mode-map (kbd "<f6>") 'matlab-run-file)
                              (define-key matlab-mode-map (kbd "C-c C-z") 'ora-matlab-switch-to-shell)
+                             ;; remove key M-]
+                             (define-key matlab-mode-map (kbd "M-]") nil)
+                             (define-key matlab-mode-map (kbd "M-]") 'symbol-overlay-remove-all)
                              ))
 
 ;; matlab mode parens highlight,

@@ -84,3 +84,10 @@ xset r rate 200 60
 # Start Emacs
 exec dbus-launch --exit-with-session emacs
 #}}}
+
+# {{{ Stop screen turn off after several minutes in i3wm
+# to see @ https://www.reddit.com/r/i3wm/comments/399nr3/how_to_stop_screen_turn_off_after_several_minutes/
+xset s off
+xset -dpms
+xset s noblank
+# }}}

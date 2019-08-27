@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(ocaml
+     yaml
      lua
      javascript
      php
@@ -82,6 +83,11 @@ values."
      (chinese :variables
               chinese-enable-youdao-dict t)
      ;;}}}
+     ;; elfeed
+     (elfeed :variables
+             rmh-elfeed-org-files (list "~/MEGA/org/elfeed.org")
+             url-queue-timeout 30
+             )
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -116,7 +122,12 @@ values."
                                            ag
                                            fd-dired
                                            mu4e-alert
+                                           google-translate
+                                           notmuch
+                                           mw-thesaurus
+                                           gcmh
                                            proxy-mode
+                                           gscholar-bibtex
                                            )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -394,7 +405,6 @@ you should place your code here."
                     (cons (decode-char 'ucs #x4e00)
                           (decode-char 'ucs #x9fff))
                     "-*-文泉驿等宽微米黑-*-*-*-*-16-*-*-*-*-*-*-*")
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -425,14 +435,13 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/" t))))
-   '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
+   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
    '(canlock-password "a0ad8d2016bcdc914c276ef507fa8001d5fc90e9")
-   '(matlab-shell-command-switches (quote ("-nodesktop -nosplash")))
+   '(matlab-shell-command-switches '("-nodesktop -nosplash"))
    '(package-selected-packages
-     (quote
-      (proxy-mode diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent ace-window avy)))
-   '(vlf-application (quote dont-ask)))
+     '(proxy-mode gscholar-bibtex diff-hl phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode fold-dwim folding ivy-posframe posframe goldendict wanderlust semi flim apel seq ebdb bbdb evil-collection evil-org orca engine-mode let-alist yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic command-log-mode mmm-mode markdown-toc markdown-mode gh-md vlf vimrc-mode dactyl-mode less-css-mode ranger flyspell-correct-ivy flyspell-correct auto-dictionary sass-mode company-web web-mode tagedit slim-mode scss-mode pug-mode haml-mode emmet-mode web-completion-data julia-repl flycheck-julia flycheck julia-shell deft cnfonts auctex-latexmk pyim pyim-basedict find-by-pinyin-dired ace-pinyin pinyinlib evil-commentary disable-mouse smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor graphviz-dot-mode pangu-spacing org-ref key-chord parsebib biblio biblio-core magic-latex-buffer cdlatex company-auctex auctex org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode xemacs-theme org-pdfview pdf-tools tablist dumb-jump ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core popup google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree ivy hydra evil-unimpaired f s dash async aggressive-indent ace-window avy))
+   '(vlf-application 'dont-ask))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

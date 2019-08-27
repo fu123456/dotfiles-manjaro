@@ -8,6 +8,10 @@
 (yas-global-mode +1)
 (define-key yas-minor-mode-map (kbd "C-TAB") yas-maybe-expand)
 (define-key yas-minor-mode-map (kbd "<C-tab>") #'yas-expand)
+;; add a dirs for snippets
+(setq yas-snippet-dirs
+      '("~/.emacs.d/private/snippets"                 ;; personal snippets
+        ))
 
 ;;; auto complete mod
 ;;; should be loaded after yasnippet so that they can work together
